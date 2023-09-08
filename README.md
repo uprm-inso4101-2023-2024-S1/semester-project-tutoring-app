@@ -1,1 +1,1 @@
-# semester-project-tutoring-app
+# Tutoring App
