@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
 
 //Sample Data for First Mockup Version
@@ -25,6 +27,9 @@ const sampleScheduleData = [
   "CIIC4020 - Angel Morales 4:00PM",
   "INGE3035 - Pedro Valle",
 ];
+
+
+
 
 export default function App() {
   return (
@@ -132,9 +137,33 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
+  const [collapsed, setCollapsed] = React.useState(true);
+
+  const toggleExpand = () => {
+    setCollapsed(!collapsed);
+  };
+  const sampleAvalibles = [
+    "Alejandro Ramirez 10:00AM",
+    "Emmanuel Velez 1:00PM",
+    "Angel Morales 4:00PM",
+    "Pedro Valle 10:00PM",
+    "Alejandro Ramirez 10:00AM",
+  ];
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
+
+      <Button
+        title="CIIC4010"
+        onPress={toggleExpand}
+      />
+      <Collapsible collapsed = {collapsed}>
+        <View style={styles.profile}>
+          <TextList textList={sampleAvalibles} />
+        </View>
+      </Collapsible>
+
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
