@@ -13,6 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
+import DepartmentCard from "./components/molecules/DepartmentComponent";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -48,7 +49,7 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -82,6 +83,41 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     margin: 3,
+  },
+  card: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 2,
+      height: 5,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 3.00,
+    elevation: 5,
+    padding: 15,
+    margin: 15,
+  },
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  cardDescription: {
+    textAlign: "center",
+    fontSize: 14,
+    color: "#999",
+    marginBottom: 10
+  },
+  cardBody: {
+    margin: 8,
+  },
+  courses: {
+    marginTop: 3,
   },
 });
 
@@ -154,19 +190,10 @@ function ActivityScreen({ route }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
 
-      <Button
-        title="CIIC4010"
-        onPress={toggleExpand}
+      <DepartmentCard departmentName="Engineering Department" courseData={{ 
+        courseCode: "CIIC4010", 
+        tutors: sampleAvalibles }}
       />
-      <Collapsible collapsed = {collapsed}>
-        <View style={styles.profile}>
-          <TextList textList={sampleAvalibles} />
-        </View>
-      </Collapsible>
-
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
     </View>
   );
 }
