@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Button } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { styles } from "../../App";
+import { styles, TextList } from "../../App";
 
 
 const DepartmentComponent = ({ departmentName, courseData }) => {
@@ -25,19 +25,6 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
         <Button title={"Course Component Placeholder"} onPress={toggleExpand} />
 
       </View>
-    </View>
-  );
-};
-
-// For list of tutors and schedules
-const TextList = ({ textList }) => {
-  return (
-    <View>
-      {textList.map((text, index) => (
-        <View style={styles.textbox} key={index}>
-          <Text style={styles.text}>{text}</Text>
-        </View>
-      ))}
     </View>
   );
 };

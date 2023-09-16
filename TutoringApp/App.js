@@ -218,7 +218,7 @@ const MyList = () => {
     />
   );
 };
-const TextList = ({ textList }) => {
+export const TextList = ({ textList }) => {
   return (
     <View>
       {textList.map((text, index) => (
