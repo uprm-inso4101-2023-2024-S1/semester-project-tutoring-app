@@ -4,7 +4,7 @@ import Collapsible from "react-native-collapsible";
 import { styles } from "../../App";
 
 
-const DepartmentCard = ({ departmentName, courseData }) => {
+const DepartmentComponent = ({ departmentName, courseData }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleExpand = () => {
@@ -47,4 +47,4 @@ const TextList = ({ textList }) => {
   );
 };
 
-export default DepartmentCard;
+export default DepartmentComponent;

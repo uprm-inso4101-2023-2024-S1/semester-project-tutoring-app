@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
-import DepartmentCard from "./components/molecules/DepartmentComponent";
+import DepartmentComponent from "./components/molecules/DepartmentComponent";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -190,7 +190,7 @@ function ActivityScreen({ route }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
 
-      <DepartmentCard departmentName="Engineering Department" courseData={{ 
+      <DepartmentComponent departmentName="Engineering Department" courseData={{ 
         courseCode: "CIIC4010", 
         tutors: sampleAvalibles }}
       />
