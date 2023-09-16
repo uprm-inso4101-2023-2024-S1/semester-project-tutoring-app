@@ -189,11 +189,6 @@ function ActivityScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
-
-      <DepartmentComponent departmentName="Engineering Department" courseData={{ 
-        courseCode: "CIIC4010", 
-        tutors: sampleAvalibles }}
-      />
     </View>
   );
 }
