@@ -20,14 +20,9 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
         <Text style={styles.cardDescription}>Select a course to see its available tutors and schedules.</Text>
       </View>
       <View style={styles.courses}>
-
-        {/* Replace next 6 lines with course component */}
-        <Button title={courseData.courseCode} onPress={toggleExpand} />
-        <Collapsible collapsed={collapsed}>
-          <View style={styles.cardBody}>
-            <TextList textList={courseData.tutors} />
-          </View>
-        </Collapsible>
+        
+        {/* Include Course Component here */}
+        <Button title={"Course Component Placeholder"} onPress={toggleExpand} />
 
       </View>
     </View>
