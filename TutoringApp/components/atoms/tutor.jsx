@@ -2,8 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 function getRatingEmoji(rating) {
-  const boundedRate = rating < 0 ? 0 : rating > 5 ? 5 : rating;
   const maxRating = "⭐⭐⭐⭐⭐";
+  let boundedRate;
+  if (rating < 0) {
+    boundedRate = 0;
+  } else if (rating > maxRating.length) {
+    boundedRate = maxRating.length;
+  } else {
+    boundedRate = rating;
+  }
   return maxRating.substring(0, boundedRate);
 }
 
