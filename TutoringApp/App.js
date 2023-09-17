@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Course from "./component";
 import {
   Image,
   StyleSheet,
@@ -137,32 +138,14 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
-  const [collapsed, setCollapsed] = React.useState(true);
-
-  const toggleExpand = () => {
-    setCollapsed(!collapsed);
-  };
-  const sampleAvalibles = [
-    "Alejandro Ramirez 10:00AM",
-    "Emmanuel Velez 1:00PM",
-    "Angel Morales 4:00PM",
-    "Pedro Valle 10:00PM",
-    "Alejandro Ramirez 10:00AM",
-  ];
+  
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
 
-      <Button
-        title="CIIC4010"
-        onPress={toggleExpand}
-      />
-      <Collapsible collapsed = {collapsed}>
-        <View style={styles.profile}>
-          <TextList textList={sampleAvalibles} />
-        </View>
-      </Collapsible>
+      <Course listTutors={sampleScheduleData}>
+      </Course>
 
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
