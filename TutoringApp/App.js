@@ -159,7 +159,7 @@ function SearchScreen({ route }) {
 
       <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
       </Course>
-      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
+      <Course CourseName="CIIC4020" Tutor={sampleScheduleData}>
       </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
       </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
       </Course>
