@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import Course from "./component";
+import Course from "./Course_component";
 import {
   Image,
   StyleSheet,
@@ -157,12 +157,10 @@ function SearchScreen({ route }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Search!</Text>
 
-      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
-      </Course>
-      <Course CourseName="CIIC4020" Tutor={sampleScheduleData}>
-      </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
-      </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
-      </Course>
+      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}/>
+      <Course CourseName="CIIC4020" Tutor={sampleScheduleData}/>
+      <Course CourseName="CIIC4030" Tutor={sampleScheduleData}/>
+      
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
