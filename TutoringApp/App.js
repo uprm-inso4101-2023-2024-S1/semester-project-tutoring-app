@@ -156,8 +156,12 @@ function SearchScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Search!</Text>
-      
+
       <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
+      </Course>
+      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
+      </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
+      </Course><Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
       </Course>
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}

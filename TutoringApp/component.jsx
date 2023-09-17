@@ -9,7 +9,7 @@ import { View } from 'react-native';
 
 
 const Course = ({CourseName,Tutor}) => {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = () => setExpanded(!expanded);
 
