@@ -15,6 +15,7 @@ import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
 
+
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
 const sampleCourseData = [
@@ -144,9 +145,8 @@ function ActivityScreen({ route }) {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
 
-      <Course listTutors={sampleScheduleData}>
+      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}>
       </Course>
-
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>

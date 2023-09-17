@@ -1,47 +1,37 @@
 import * as React from 'react';
 import Button from 'react-native-paper';
 import Collapsible from 'react-native-collapsible';
+import { List } from 'react-native-paper';
 
 
 
 import { View } from 'react-native';
 
 
-const Course = (listTutors) => {
-    const [collapsed, setCollapsed] = React.useState(true);
+const Course = ({CourseName,Tutor}) => {
+  const [expanded, setExpanded] = React.useState(true);
 
-    const toggleExpand = () => {
-      setCollapsed(!collapsed);
-    };
-    const sampleAvalibles = listTutors;
+  const handlePress = () => setExpanded(!expanded);
 
-    const TextList = ({ textList }) => {
-        return (
-          <View>
-            {textList.map((text, index) => (
-              <View style={styles.textbox}>
-                <Text key={index} style={styles.text}>
-                  {text}
-                </Text>
-              </View>
-            ))}
-          </View>
-        );
-      };
+  const title = CourseName
+
+  const Data = Tutor
 
   return (
-    <>
-    <Button
-        title="CIIC4010"
-        onPress={toggleExpand}
-      />
-      <Collapsible collapsed = {collapsed}>
-        <View>
-          <TextList textList={sampleAvalibles} />
-        </View>
-    </Collapsible>
-    </>
-    
+    <List.Section>
+      <List.Accordion
+        title={title}
+        left={props => <List.Icon {...props} icon="folder" />}
+        expanded={expanded}
+        onPress={handlePress}>
+        {Data.map((text, index) => (
+          <>
+          <List.Item title={text}/>
+          </>
+        ))}
+        
+      </List.Accordion>
+    </List.Section>
   );
 };
 export default Course;
