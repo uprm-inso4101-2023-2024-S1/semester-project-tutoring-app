@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Course from "./Course_component";
 import {
   Image,
   StyleSheet,
@@ -10,7 +11,10 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
+import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
+
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -22,9 +26,12 @@ const sampleCourseData = [
 const sampleScheduleData = [
   "CIIC3015 - Alejandro Ramirez 10:00AM",
   "INGE3016 - Emmanuel Velez 1:00PM",
-  "CIIC4020 - Angel Morales 4:00PM",
+  " Angel Morales 4:00PM",
   "INGE3035 - Pedro Valle",
 ];
+
+
+
 
 export default function App() {
   return (
@@ -132,9 +139,13 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
+  
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
+
+      
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
@@ -145,6 +156,11 @@ function SearchScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Search!</Text>
+
+      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}/>
+      <Course CourseName="CIIC4020" Tutor={sampleScheduleData}/>
+      <Course CourseName="CIIC4030" Tutor={sampleScheduleData}/>
+      
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
