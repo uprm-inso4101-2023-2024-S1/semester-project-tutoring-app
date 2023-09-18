@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Surface, SearchBar, Text, Card } from "react-native-paper";
+import { Surface, Searchbar, Text, Card } from "react-native-paper";
 
 const MySearchBar = () => {
   const [searchText, setSearchText] = useState("");
@@ -17,7 +17,7 @@ const MySearchBar = () => {
 
   return (
     <Surface>
-      <SearchBar
+      <Searchbar
         placeholder="Search..."
         onChangeText={(text) => setSearchText(text)}
         value={searchText}

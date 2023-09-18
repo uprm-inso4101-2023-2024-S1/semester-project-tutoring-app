@@ -3,11 +3,17 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../molecules/DepartmentComponent";
-import { sampleScheduleData } from "../../App";
 
 const searchResults = [
   { name: "Tutor 1", course: "CIIC3015", rating: 4 },
   { name: "Tutor 2", course: "CIIC4010", rating: 5 },
+];
+
+const sampleScheduleData = [
+  "CIIC3015 - Alejandro Ramirez 10:00AM",
+  "INGE3016 - Emmanuel Velez 1:00PM",
+  " Angel Morales 4:00PM",
+  "INGE3035 - Pedro Valle",
 ];
 
 const Services = () => {
