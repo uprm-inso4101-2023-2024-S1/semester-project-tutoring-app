@@ -14,7 +14,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
-
+import DepartmentComponent from "./components/molecules/DepartmentComponent";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -50,7 +50,7 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -144,11 +144,6 @@ function ActivityScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
-
-      
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
     </View>
   );
 }
@@ -183,7 +178,7 @@ const MyList = () => {
     />
   );
 };
-const TextList = ({ textList }) => {
+export const TextList = ({ textList }) => {
   return (
     <View>
       {textList.map((text, index) => (
