@@ -21,11 +21,12 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
       </Card.Content>
       <Card.Actions>
         <ReactPaperButton onPress={toggleExpand} style={styles.button}>
-          Course Component Placeholder
+          {collapsed ? "Expand Courses" : "Collapse Courses"}
         </ReactPaperButton>
-        {/* Include Course Component here */}
+        {!collapsed && (
+          <Course courseData={courseData} /> 
+        )}
       </Card.Actions>
-      
     </Card>
   );
 };

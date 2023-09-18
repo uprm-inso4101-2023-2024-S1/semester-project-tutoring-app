@@ -24,12 +24,14 @@ const Course = ({CourseName,Tutor}) => {
         left={props => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
         onPress={handlePress}>
-        {Data.map((text, index) => (
-          <>
-          <List.Item title={text}/>
-          </>
+        {courseData.tutors.map((tutor, index) => (
+          <Tutor
+            key={index}
+            name={tutor.name}
+            course={tutor.course}
+            rating={tutor.rating}
+          />
         ))}
-        
       </List.Accordion>
     </List.Section>
   );

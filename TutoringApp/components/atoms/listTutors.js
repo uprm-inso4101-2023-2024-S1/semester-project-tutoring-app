@@ -1,0 +1,22 @@
+export const allTutors = [
+    { name: "Tom N. Jerry", course: "CIIC 3015", rating: 4.5 },
+    { name: "Tony Soprano", course: "INGE4020", rating: 5 },
+    { name: "Michael Jackson", course: "MATE3031", rating: 4.6 },
+    { name: "Miles Morales", course: "CIPO3011", rating: 3 },
+    { name: "Severus Snape", course: "INGL3133", rating: 2 },
+    { name: "Walter Disney", course: "CIIC 3015", rating: 4.5 },
+    { name: "Joseph Joestar", course: "INGE4020", rating: 5 },
+    { name: "Chef Boyardee", course: "MATE3031", rating: 4.6 },
+    { name: "Rene Perez", course: "CIPO3011", rating: 3 },
+    { name: "Lin Manuel Miranda", course: "INGL3133", rating: 2 },
+    { name: "Joaquin Phoenix", course: "CIIC 3015", rating: 4.5 },
+    { name: "Steven Spielberg", course: "INGE4020", rating: 5 },
+    { name: "Frank Ocean", course: "MATE3031", rating: 4.6 },
+    { name: "Kendrick Lamar", course: "CIPO3011", rating: 3 },
+    { name: "Kanye West", course: "INGL3133", rating: 2 },
+    { name: "Usain Bolt", course: "CIIC 3015", rating: 4.5 },
+    { name: "Revolver Ocelot", course: "INGE4020", rating: 5 },
+    { name: "Albert Wesker", course: "MATE3031", rating: 4.6 },
+    { name: "Elvis Presley", course: "CIPO3011", rating: 3 },
+    { name: "Peter Pan", course: "INGL3133", rating: 2 }
+  ]; export default allTutors;

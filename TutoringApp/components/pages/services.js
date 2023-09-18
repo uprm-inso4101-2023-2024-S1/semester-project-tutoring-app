@@ -3,28 +3,8 @@ import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
-
-const departments = ["CIIC", "INGE", "ELEC"];
-
-const searchResultsData = [
-  { name: "Alejandro Ramirez", course: "CIIC3015", rating: 4.5 },
-  { name: "Emmanuel Velez", course: "INGE3016", rating: 5 },
-];
-
-const sampleScheduleData = [
-  "CIIC3015 - Alejandro Ramirez 10:00AM",
-  "INGE3016 - Emmanuel Velez 1:00PM",
-  "Angel Morales 4:00PM",
-  "INGE3035 - Pedro Valle",
-];
-
-const allTutors = [
-  { name: "Usain Bolt", course: "CIIC 3015", rating: 4.5 },
-  { name: "Freddy Rodriguez", course: "INGE4020", rating: 5 },
-  { name: "Miguel Ortiz", course: "MATE3031", rating: 4.6 },
-  { name: "Juan Pacheco", course: "CIPO3011", rating: 3 },
-  { name: "Tony Estevez", course: "INGL3133", rating: 2 }
-];
+import allTutors from "../atoms/listTutors";
+import allDepartments from "../atoms/listDepartments";
 
 const Services = () => {
 
@@ -45,9 +25,13 @@ const Services = () => {
         )}
         keyExtractor={(item, index) => index.toString()}
       />
+      
 
-      <DepartmentComponent departmentName="CIIC" courseData={sampleScheduleData} />
-      <DepartmentComponent departmentName="INGE" courseData={sampleScheduleData} />
+      <DepartmentComponent
+          key={allDepartments.id} // Ensure you have a unique key for each DepartmentComponent
+          departmentName={allDepartments.name}
+          courseData={allDepartments.courses}
+        />
     </ScrollView>
   );
 };
