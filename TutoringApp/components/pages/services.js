@@ -3,7 +3,8 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
-import { tutors } from "../atoms/tutor_list";
+
+const departments = ["CIIC", "INGE", "ELEC"];
 
 const searchResults = [
   { name: "Alejandro Ramirez", course: "CIIC3015", rating: 4.5 },

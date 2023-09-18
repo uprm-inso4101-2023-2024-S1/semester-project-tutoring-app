@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Surface, Searchbar, Text, Card } from "react-native-paper";
-import { tutors } from "../atoms/tutor_list";
 
 const MySearchBar = () => {
   const [searchText, setSearchText] = useState("");
