@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Button } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { styles, TextList } from "../../App";
+import { Card, Title, Paragraph, Button as ReactPaperButton } from 'react-native-paper';
 
 
 const DepartmentComponent = ({ departmentName, courseData }) => {
@@ -12,20 +13,18 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
   };
 
   return (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
-        <Text style={styles.cardTitle}>{departmentName}</Text>
-      </View>
-      <View style={styles.cardDescription}>
-        <Text style={styles.cardDescription}>Select a course to see its available tutors and schedules.</Text>
-      </View>
-      <View style={styles.courses}>
-        
+    <Card style={styles.card}>
+      <Card.Content>
+        <Title>{departmentName}</Title>
+        <Paragraph>Select a course to see its available tutors and schedules.</Paragraph>
+      </Card.Content>
+      <Card.Actions>
+        <ReactPaperButton onPress={toggleExpand} style={styles.button}>
+          Course Component Placeholder
+        </ReactPaperButton>
         {/* Include Course Component here */}
-        <Button title={"Course Component Placeholder"} onPress={toggleExpand} />
-
-      </View>
-    </View>
+      </Card.Actions>
+    </Card>
   );
 };
 

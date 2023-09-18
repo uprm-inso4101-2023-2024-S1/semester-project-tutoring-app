@@ -84,41 +84,6 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 3,
   },
-  card: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 2,
-      height: 5,
-    },
-    shadowOpacity: 0.30,
-    shadowRadius: 3.00,
-    elevation: 5,
-    padding: 15,
-    margin: 15,
-  },
-  cardHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 12,
-  },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  cardDescription: {
-    textAlign: "center",
-    fontSize: 14,
-    color: "#999",
-    marginBottom: 10
-  },
-  cardBody: {
-    margin: 8,
-  },
-  courses: {
-    marginTop: 3,
-  },
 });
 
 function HomeScreen({ navigation }) {
