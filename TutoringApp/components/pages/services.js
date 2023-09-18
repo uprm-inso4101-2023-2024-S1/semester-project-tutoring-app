@@ -1,9 +1,9 @@
-import React from "react";
+//import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import MySearchBar from "./my-search-bar";
-import Tutor from "./tutor";
-import DepartmentComponent from "./DepartmentComponent";
-import { sampleScheduleData } from "./App";
+import MySearchBar from "../atoms/my-search-bar";
+import Tutor from "../atoms/tutor";
+import DepartmentComponent from "../molecules/DepartmentComponent";
+import { sampleScheduleData } from "../../App";
 
 const searchResults = [
   { name: "Tutor 1", course: "CIIC3015", rating: 4 },
@@ -29,11 +29,40 @@ const Services = () => {
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: "#fff",
+    justifyContent: "center",
+  },
+  profile: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    padding: 16,
+  },
+  row: {
+    flexDirection: "row", // Arrange child components horizontally
+    alignItems: "center", // Align items vertically at the center
+    padding: 16,
+  },
+  item: {
+    backgroundColor: "lightgray",
+    padding: 10,
+    marginVertical: 5,
+  },
+  textbox: {
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+    margin: 5,
+  },
+  button: {
+    backgroundColor: "lightblue",
+    padding: 10,
+    borderRadius: 5,
+    margin: 3,
   },
 });
 

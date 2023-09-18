@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import Services from "./services";
+import Services from "./components/pages/services";
 import Course from "./Course_component";
 import {
   Image,
