@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Surface, Searchbar, Text, Card } from "react-native-paper";
-import { tutors } from "../atoms/tutor_list";
 import Tutor from "../atoms/tutor";
 
-const MySearchBar = () => {
+const MySearchBar = ({ allTutors }) => {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = () => {
     try {
-      const filteredTutors = tutors.filter((tutor) =>
+      const filteredTutors = allTutors.filter((tutor) =>
         tutor.name.toLowerCase().includes(searchText.toLowerCase())
       );
       setSearchResults(filteredTutors);
@@ -22,18 +21,21 @@ const MySearchBar = () => {
     <Surface>
       <Searchbar
         placeholder="Search..."
-        onChangeText={(text) => setSearchText(text)}
+        onChangeText={(text) => {
+          setSearchText(text);
+          handleSearch();
+        }}
         value={searchText}
-        onEndEditing={handleSearch}
       />
-      {searchResults.map((result, index) => (
-        <Tutor
-          key={index}
-          name={result.name}
-          course={result.course}
-          rating={result.rating}
-        />
-      ))}
+      {searchText !== "" &&
+        searchResults.map((result, index) => (
+          <Tutor
+            key={index}
+            name={result.name}
+            course={result.course}
+            rating={result.rating}
+          />
+        ))}
     </Surface>
   );
 };

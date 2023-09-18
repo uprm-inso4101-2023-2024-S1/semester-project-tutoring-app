@@ -3,7 +3,6 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
-import { tutors } from "../atoms/tutor_list";
 
 const departments = ["CIIC", "INGE", "ELEC"];
 
@@ -19,6 +18,14 @@ const sampleScheduleData = [
   "INGE3035 - Pedro Valle",
 ];
 
+const allTutors = [
+  { name: "Usain Bolt", course: "CIIC 3015", rating: 4.5 },
+  { name: "Freddy Rodriguez", course: "INGE4020", rating: 5 },
+  { name: "Miguel Ortiz", course: "MATE3031", rating: 4.6 },
+  { name: "Juan Pacheco", course: "CIPO3011", rating: 3 },
+  { name: "Tony Estevez", course: "INGL3133", rating: 2 }
+];
+
 const Services = () => {
 
   const [searchResults, setSearchResults] = useState([]); 
@@ -29,7 +36,7 @@ const Services = () => {
 
   return (
     <View style={styles.container}>
-      <MySearchBar onSearch={updateSearchResults} />
+      <MySearchBar allTutors={allTutors} />
 
       <FlatList
         data={searchResults}
