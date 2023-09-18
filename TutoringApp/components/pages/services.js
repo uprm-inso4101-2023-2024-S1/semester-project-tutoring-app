@@ -8,11 +8,7 @@ import allDepartments from "../atoms/listDepartments";
 
 const Services = () => {
 
-  const [searchResults, setSearchResults] = useState([]); 
-
-  const updateSearchResults = (results) => {
-    setSearchResults(results);
-  };
+  const [searchResults] = useState([]); 
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
