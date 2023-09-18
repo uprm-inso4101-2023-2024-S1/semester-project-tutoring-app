@@ -15,7 +15,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
-import DepartmentComponent from "./components/molecules/DepartmentComponent";
+import DepartmentComponent from "../TutoringApp/components/atoms/DepartmentComponent";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
