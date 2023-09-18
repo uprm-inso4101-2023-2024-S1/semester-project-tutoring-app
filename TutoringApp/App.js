@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Services from "./components/pages/services";
-import Course from "./Course_component";
+import Course from "../TutoringApp/components/atoms/Course_component";
 import {
   Image,
   StyleSheet,
