@@ -28,7 +28,7 @@ const Services = () => {
       
 
       <DepartmentComponent
-          key={allDepartments.id} // Ensure you have a unique key for each DepartmentComponent
+          key={allDepartments.id}
           departmentName={allDepartments.name}
           courseData={allDepartments.courses}
         />
@@ -56,8 +56,8 @@ export const styles = StyleSheet.create({
     zIndex: 1,
   },
   row: {
-    flexDirection: "row", // Arrange child components horizontally
-    alignItems: "center", // Align items vertically at the center
+    flexDirection: "row", 
+    alignItems: "center", 
     padding: 16,
   },
   item: {
