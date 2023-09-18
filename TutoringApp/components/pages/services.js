@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
@@ -35,7 +35,7 @@ const Services = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <MySearchBar allTutors={allTutors} />
 
       <FlatList
@@ -48,7 +48,7 @@ const Services = () => {
 
       <DepartmentComponent departmentName="CIIC" courseData={sampleScheduleData} />
       <DepartmentComponent departmentName="INGE" courseData={sampleScheduleData} />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -63,6 +63,13 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     padding: 16,
+  },
+  overlapContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
   },
   row: {
     flexDirection: "row", // Arrange child components horizontally
