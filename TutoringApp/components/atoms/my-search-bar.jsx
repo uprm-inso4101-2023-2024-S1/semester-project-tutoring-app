@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import { SearchBar } from "react-native-elements";
+import { Surface, SearchBar, Text, Card } from "react-native-paper";
 
 const MySearchBar = () => {
   const [searchText, setSearchText] = useState("");
@@ -9,25 +8,29 @@ const MySearchBar = () => {
   const handleSearch = () => {
     try {
       // TODO
-      const data = [] 
-      setSearchResults(data)
+      const data = [];
+      setSearchResults(data);
     } catch (error) {
       console.error("An error occurred during the search", error);
     }
   };
 
   return (
-    <View>
+    <Surface>
       <SearchBar
         placeholder="Search..."
         onChangeText={(text) => setSearchText(text)}
         value={searchText}
         onEndEditing={handleSearch}
       />
-      {searchResults.map((result) => (
-        <View>{result}</View>
+      {searchResults.map((result, index) => (
+        <Card key={index}>
+          <Card.Content>
+            <Text>{result}</Text>
+          </Card.Content>
+        </Card>
       ))}
-    </View>
+    </Surface>
   );
 };
 
