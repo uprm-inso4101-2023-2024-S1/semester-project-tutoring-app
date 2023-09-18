@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
+import { tutors } from "../atoms/tutor_list";
 
 const departments = ["CIIC", "INGE", "ELEC"];
 
-const searchResults = [
+const searchResultsData = [
   { name: "Alejandro Ramirez", course: "CIIC3015", rating: 4.5 },
   { name: "Emmanuel Velez", course: "INGE3016", rating: 5 },
 ];
@@ -19,9 +20,16 @@ const sampleScheduleData = [
 ];
 
 const Services = () => {
+
+  const [searchResults, setSearchResults] = useState([]); 
+
+  const updateSearchResults = (results) => {
+    setSearchResults(results);
+  };
+
   return (
     <View style={styles.container}>
-      <MySearchBar />
+      <MySearchBar onSearch={updateSearchResults} />
 
       <FlatList
         data={searchResults}

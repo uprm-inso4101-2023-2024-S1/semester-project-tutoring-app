@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Surface, Searchbar, Text, Card } from "react-native-paper";
+import { tutors } from "../atoms/tutor_list";
+import Tutor from "../atoms/tutor";
 
 const MySearchBar = () => {
   const [searchText, setSearchText] = useState("");
@@ -27,9 +29,9 @@ const MySearchBar = () => {
       {searchResults.map((result, index) => (
         <Tutor
           key={index}
-          name={tutor.name}
-          course={tutor.course}
-          rating={tutor.rating}
+          name={result.name}
+          course={result.course}
+          rating={result.rating}
         />
       ))}
     </Surface>
