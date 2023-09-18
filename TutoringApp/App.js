@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Services from "./services";
 import Course from "./Course_component";
 import {
   Image,
@@ -41,7 +42,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Search" component={SearchScreen} />
+          <Tab.Screen name="Search" component={Services} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
