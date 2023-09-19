@@ -14,23 +14,19 @@ const Course = ({CourseName,Tutors}) => {
 
   const handlePress = () => setExpanded(!expanded);
 
-  const title = CourseName
-
-  const Data = Tutors
 
   return (
     <List.Section>
       <List.Accordion
-        title={title}
+        title={CourseName}
         left={props => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
         onPress={handlePress}>
-        {Data.map((test, index) => (
+        {Tutors.map((test, index) => (
           <Tutor
-            key={index}
-            name={test}
-            course={test}
-            rating="1"
+            name={test.name}
+            course={test.id}
+            rating={test.rating}
           />
         ))}
       </List.Accordion>

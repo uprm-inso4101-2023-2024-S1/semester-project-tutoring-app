@@ -25,5 +25,4 @@ const Tutor = ({ name, course, rating }) => (
     </Card.Actions>
   </Card>
 );
-
 export default Tutor;
