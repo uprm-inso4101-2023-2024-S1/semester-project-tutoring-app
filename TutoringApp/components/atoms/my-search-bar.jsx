@@ -4,20 +4,24 @@ import DepartmentComponent from "./DepartmentComponent";
 
 
 const MySearchBar = ({ allTutors }) => {
-  const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  let [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState(allTutors);
 
   const handleSearch = () => {
     try {
       const filteredTutors = allTutors.filter((tutor) =>
         tutor.name.toLowerCase().includes(searchText.toLowerCase())
       );
+      
       setSearchResults(filteredTutors);
+        
+      
+      
     } catch (error) {
       console.error("An error occurred during the search", error);
     }
   };
-
+  
   return (
     <Surface>
       <Searchbar
@@ -28,8 +32,8 @@ const MySearchBar = ({ allTutors }) => {
         }}
         value={searchText}
       />
-      {searchText !== "" &&
-        searchResults.map((result, index) => (
+      
+      {searchResults.map((result, index) => (
           <DepartmentComponent departmentName={result.name} courseData={result.courseData}/>
         ))}
     </Surface>
