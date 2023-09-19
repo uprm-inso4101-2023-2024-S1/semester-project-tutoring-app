@@ -65,4 +65,26 @@ export const allDepartments = [
         }
       ],
     },
+    {
+      id: 3,
+      name: "Hola",
+      courseData: [
+        {
+          id: 3016,
+          name: "Engineering Class 1",
+          tutors: [
+            { id: 205, name: "Tom Jerry", rating: 5  },
+            { id: 206, name: "Pipo Pepa", rating: "4"  },
+          ],
+        },
+        {
+          id: 3017,
+          name: "Engineering Class 2",
+          tutors: [
+            { id: 207, name: "Tito Bobby", rating: "3"  },
+            { id: 208, name: "Ismael Rivera", rating: "2"  },
+          ],
+        }
+      ],
+    },
   ]; export default allDepartments;

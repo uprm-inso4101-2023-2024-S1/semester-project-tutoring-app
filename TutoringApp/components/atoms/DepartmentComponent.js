@@ -21,7 +21,7 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
       </Card.Content>
       <Card.Actions>
       {courseData.map((data, index) => (
-          <Course CourseName={data.name} Tutors={data.tutors}/> 
+          <Course key={index} CourseName={data.name} Tutors={data.tutors}/> 
         ))}
         
       </Card.Actions>

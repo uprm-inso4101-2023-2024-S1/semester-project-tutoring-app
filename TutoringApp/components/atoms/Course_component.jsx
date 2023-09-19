@@ -24,6 +24,7 @@ const Course = ({CourseName,Tutors}) => {
         onPress={handlePress}>
         {Tutors.map((test, index) => (
           <Tutor
+            key={index}
             name={test.name}
             course={test.id}
             rating={test.rating}

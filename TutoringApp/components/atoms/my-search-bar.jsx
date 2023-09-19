@@ -21,6 +21,8 @@ const MySearchBar = ({ allTutors }) => {
       console.error("An error occurred during the search", error);
     }
   };
+
+
   
   return (
     <Surface>
@@ -34,7 +36,7 @@ const MySearchBar = ({ allTutors }) => {
       />
       
       {searchResults.map((result, index) => (
-          <DepartmentComponent departmentName={result.name} courseData={result.courseData}/>
+          <DepartmentComponent key={index} departmentName={result.name} courseData={result.courseData}/>
         ))}
     </Surface>
   );
