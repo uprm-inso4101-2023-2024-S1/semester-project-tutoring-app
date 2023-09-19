@@ -3,7 +3,8 @@ import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
 import Tutor from "../atoms/tutor";
 import DepartmentComponent from "../atoms/DepartmentComponent";
-import allTutors from "../atoms/listTutors";
+
+
 import allDepartments from "../atoms/listDepartments";
 
 const Services = () => {
@@ -12,7 +13,7 @@ const Services = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <MySearchBar allTutors={allTutors} />
+      <MySearchBar allTutors={allDepartments} />
 
       <FlatList
         data={searchResults}
@@ -22,13 +23,6 @@ const Services = () => {
         keyExtractor={(item, index) => index.toString()}
       />
       
-      {allDepartments.map((object, index)=>(
-        <DepartmentComponent
-          key={index}
-          departmentName={object.name}
-          courseData={allDepartments.courses}
-        />
-      ))}
         
     </ScrollView>
   );

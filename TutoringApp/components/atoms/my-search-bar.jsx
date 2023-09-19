@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Surface, Searchbar, Text, Card } from "react-native-paper";
-import Tutor from "../atoms/tutor";
+import DepartmentComponent from "./DepartmentComponent";
+
 
 const MySearchBar = ({ allTutors }) => {
   const [searchText, setSearchText] = useState("");
@@ -29,12 +30,7 @@ const MySearchBar = ({ allTutors }) => {
       />
       {searchText !== "" &&
         searchResults.map((result, index) => (
-          <Tutor
-            key={index}
-            name={result.name}
-            course={result.course}
-            rating={result.rating}
-          />
+          <DepartmentComponent departmentName={result.name} courseData={result.courseData}/>
         ))}
     </Surface>
   );
