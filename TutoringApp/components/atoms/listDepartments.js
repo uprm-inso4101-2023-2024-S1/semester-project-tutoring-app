@@ -1,5 +1,6 @@
 export const allDepartments = [
     {
+      id: 1,
       name: "CIIC",
       courseData: [
         {
@@ -21,6 +22,7 @@ export const allDepartments = [
       ],
     },
     {
+      id: 2,
       name: "ICOM",
       courseData: [
         {
@@ -42,6 +44,7 @@ export const allDepartments = [
       ],
     },
     {
+      id: 3,
       name: "INGE",
       courseData: [
         {

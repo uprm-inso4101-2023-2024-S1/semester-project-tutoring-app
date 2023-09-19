@@ -22,12 +22,14 @@ const Services = () => {
         keyExtractor={(item, index) => index.toString()}
       />
       
-
-      <DepartmentComponent
-          key={allDepartments.id}
-          departmentName={allDepartments.name}
+      {allDepartments.map((object, index)=>(
+        <DepartmentComponent
+          key={index}
+          departmentName={object.name}
           courseData={allDepartments.courses}
         />
+      ))}
+        
     </ScrollView>
   );
 };

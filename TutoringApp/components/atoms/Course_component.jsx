@@ -2,20 +2,21 @@ import * as React from 'react';
 import Button from 'react-native-paper';
 import Collapsible from 'react-native-collapsible';
 import { List } from 'react-native-paper';
+import Tutor from './tutor';
 
 
 
 import { View } from 'react-native';
 
 
-const Course = ({CourseName,Tutor}) => {
+const Course = ({CourseName,Tutors}) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = () => setExpanded(!expanded);
 
   const title = CourseName
 
-  const Data = Tutor
+  const Data = Tutors
 
   return (
     <List.Section>
@@ -24,12 +25,12 @@ const Course = ({CourseName,Tutor}) => {
         left={props => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
         onPress={handlePress}>
-        {courseData.tutors.map((tutor, index) => (
+        {Data.map((test, index) => (
           <Tutor
             key={index}
-            name={tutor.name}
-            course={tutor.course}
-            rating={tutor.rating}
+            name={test}
+            course={test}
+            rating="1"
           />
         ))}
       </List.Accordion>

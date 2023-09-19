@@ -13,6 +13,13 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
     setCollapsed(!collapsed);
   };
 
+  const sampleScheduleData = [
+    "CIIC3015 - Alejandro Ramirez 10:00AM",
+    "INGE3016 - Emmanuel Velez 1:00PM",
+    " Angel Morales 4:00PM",
+    "INGE3035 - Pedro Valle",
+  ];
+
   return (
     <Card style={styles.card}>
       <Card.Content>
@@ -20,12 +27,7 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
         <Paragraph>Select a course to see its available tutors and schedules.</Paragraph>
       </Card.Content>
       <Card.Actions>
-        <ReactPaperButton onPress={toggleExpand} style={styles.button}>
-          {collapsed ? "Expand Courses" : "Collapse Courses"}
-        </ReactPaperButton>
-        {!collapsed && (
-          <Course courseData={courseData} /> 
-        )}
+        <Course CourseName={courseData} Tutors={sampleScheduleData}/> 
       </Card.Actions>
     </Card>
   );
