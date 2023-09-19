@@ -7,7 +7,7 @@ export const allDepartments = [
           id: 3015,
           name: "Programming Class 1",
           tutors: [
-            { id: 201, name: "Miles Morales", rating: "4" },
+            { id: 201, name: "Miles Morales", rating: "1" },
             { id: 202, name: "Peter Parker", rating: "4"  },
           ],
         },
@@ -15,7 +15,7 @@ export const allDepartments = [
           id: 3016,
           name: "Programming Class 2",
           tutors: [
-            { id: 203, name: "Steve Gates", rating: "4"  },
+            { id: 203, name: "Steve Gates", rating: "3"  },
             { id: 204, name: "Bill Jobs", rating: "4"  },
           ],
         },
@@ -37,8 +37,8 @@ export const allDepartments = [
           id: 4026,
           name: "Computer Engineering 2",
           tutors: [
-            { id: 207, name: "Star Fox", rating: "4"  },
-            { id: 208, name: "Godot", rating: "4"  },
+            { id: 207, name: "Star Fox", rating: "2"  },
+            { id: 208, name: "Godot", rating: "1"  },
           ],
         },
       ],
@@ -51,7 +51,7 @@ export const allDepartments = [
           id: 3016,
           name: "Engineering Class 1",
           tutors: [
-            { id: 205, name: "Tom Jerry", rating: "4"  },
+            { id: 205, name: "Tom Jerry", rating: "5"  },
             { id: 206, name: "Pipo Pepa", rating: "4"  },
           ],
         },
@@ -59,8 +59,8 @@ export const allDepartments = [
           id: 3017,
           name: "Engineering Class 2",
           tutors: [
-            { id: 207, name: "Tito Bobby", rating: "4"  },
-            { id: 208, name: "Ismael Rivera", rating: "4"  },
+            { id: 207, name: "Tito Bobby", rating: "3"  },
+            { id: 208, name: "Ismael Rivera", rating: "2"  },
           ],
         }
       ],

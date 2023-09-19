@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 import MySearchBar from "../atoms/my-search-bar";
-import Tutor from "../atoms/tutor";
-import DepartmentComponent from "../atoms/DepartmentComponent";
+
 
 
 import allDepartments from "../atoms/listDepartments";
 
 const Services = () => {
 
-  const [searchResults] = useState([]); 
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
