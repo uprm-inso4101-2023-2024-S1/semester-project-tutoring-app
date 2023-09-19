@@ -15,13 +15,13 @@ const Services = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <MySearchBar allTutors={allDepartments} />
 
-      <FlatList
+      {/* <FlatList
         data={searchResults}
         renderItem={({ item }) => (
           <Tutor name={item.name} course={item.course} rating={item.rating} />
         )}
         keyExtractor={(item, index) => index.toString()}
-      />
+      /> */}
       
         
     </ScrollView>
