@@ -3,7 +3,7 @@ import { View, Text, Button } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { styles, TextList } from "../../App";
 import { Card, Title, Paragraph, Button as ReactPaperButton } from 'react-native-paper';
-import Course from "../atoms/Course_component";
+import Course from "./Course_component";
 
 
 const DepartmentComponent = ({ departmentName, courseData }) => {
