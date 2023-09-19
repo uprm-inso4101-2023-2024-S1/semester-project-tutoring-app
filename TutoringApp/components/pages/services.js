@@ -10,13 +10,9 @@ const Services = () => {
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <>
       <MySearchBar allTutors={allDepartments} />
-
-      <FlatList/>
-      
-        
-    </ScrollView>
+    </>
   );
 };
 

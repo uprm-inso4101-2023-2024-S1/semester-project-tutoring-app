@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Services from "./components/pages/services";
-import Course from "../TutoringApp/components/atoms/Course_component";
+
 import {
   Image,
   StyleSheet,
@@ -9,13 +9,16 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  ScrollView,
+  SafeAreaView
+  
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
-import DepartmentComponent from "../TutoringApp/components/atoms/DepartmentComponent";
+
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -42,7 +45,7 @@ export default function App() {
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Search" component={Services} />
+          <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
@@ -150,17 +153,18 @@ function ActivityScreen({ route }) {
 }
 function SearchScreen({ route }) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search!</Text>
-
-      <Course CourseName="CIIC4010" Tutor={sampleScheduleData}/>
-      <Course CourseName="CIIC4020" Tutor={sampleScheduleData}/>
-      <Course CourseName="CIIC4030" Tutor={sampleScheduleData}/>
-      
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={{ flex: 1}}>
+      {
+        Services()
+      }
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
-    </View>
+    </ScrollView>
+
+    </SafeAreaView>
+    
   );
 }
 const renderItem = ({ item }) => {
