@@ -18,13 +18,10 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
       <Card.Content>
         <Title>{departmentName}</Title>
         <Paragraph>Select a course to see its available tutors and schedules.</Paragraph>
-      </Card.Content>
-      <Card.Actions>
-      {courseData.map((data, index) => (
+        {courseData.map((data, index) => (
           <Course key={index} CourseName={data.name} Tutors={data.tutors}/> 
         ))}
-        
-      </Card.Actions>
+      </Card.Content>
     </Card>
   );
 };
