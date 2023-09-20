@@ -1,43 +1,54 @@
 import React, { useState } from "react";
-import { Surface, Searchbar, Text, Card } from "react-native-paper";
+import { Surface, Searchbar } from "react-native-paper";
 import DepartmentComponent from "./DepartmentComponent";
 
-
-const MySearchBar = ({ allTutors }) => {
+const MySearchBar = ({ contentList }) => {
   let [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState(allTutors);
+  let [searchResults, setSearchResults] = useState(contentList);
 
-  const handleSearch = () => {
+  const handleSearch = (text) => {
     try {
-      const filteredTutors = allTutors.filter((tutor) =>
-        tutor.name.toLowerCase().includes(searchText.toLowerCase())
-      );
-      
-      setSearchResults(filteredTutors);
-        
-      
-      
+      const currText = text.trim().toLowerCase();
+      if (currText.length !== 0) {
+        const data = contentList.filter((result) => {
+          const deparmentMatch = result.name?.toLowerCase().includes(currText);
+          const courseOrTutorMatch = result.courseData?.some(
+            (course) =>
+              course.name?.toLowerCase().includes(currText.toLowerCase()) ||
+              course.tutors?.some((tutor) =>
+                tutor.name?.toLowerCase().includes(currText.toLowerCase())
+              )
+          );
+
+          return deparmentMatch || courseOrTutorMatch;
+        });
+        setSearchResults(data);
+      } else {
+        setSearchResults(contentList);
+      }
     } catch (error) {
       console.error("An error occurred during the search", error);
     }
   };
 
-
-  
   return (
     <Surface>
       <Searchbar
         placeholder="Search..."
         onChangeText={(text) => {
           setSearchText(text);
-          handleSearch();
+          handleSearch(text);
         }}
         value={searchText}
       />
-      
+
       {searchResults.map((result, index) => (
-          <DepartmentComponent key={index} departmentName={result.name} courseData={result.courseData}/>
-        ))}
+        <DepartmentComponent
+          key={index}
+          departmentName={result.name}
+          courseData={result.courseData}
+        />
+      ))}
     </Surface>
   );
 };

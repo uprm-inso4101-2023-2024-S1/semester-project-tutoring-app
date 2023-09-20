@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-
 import MySearchBar from "../atoms/my-search-bar";
 
-
-
-import allDepartments from "../atoms/listDepartments";
+import DeparmentList from "../atoms/deparment-list";
 
 const Services = () => {
-
-
-  return (
-    <>
-      <MySearchBar allTutors={allDepartments} />
-    </>
-  );
+  return <MySearchBar contentList={DeparmentList} />;
 };
 export default Services;
