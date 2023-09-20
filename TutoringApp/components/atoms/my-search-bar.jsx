@@ -1,35 +1,43 @@
 import React, { useState } from "react";
-import { Surface, SearchBar, Text, Card } from "react-native-paper";
+import { Surface, Searchbar, Text, Card } from "react-native-paper";
+import DepartmentComponent from "./DepartmentComponent";
 
-const MySearchBar = () => {
-  const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+
+const MySearchBar = ({ allTutors }) => {
+  let [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState(allTutors);
 
   const handleSearch = () => {
     try {
-      // TODO
-      const data = [];
-      setSearchResults(data);
+      const filteredTutors = allTutors.filter((tutor) =>
+        tutor.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      
+      setSearchResults(filteredTutors);
+        
+      
+      
     } catch (error) {
       console.error("An error occurred during the search", error);
     }
   };
 
+
+  
   return (
     <Surface>
-      <SearchBar
+      <Searchbar
         placeholder="Search..."
-        onChangeText={(text) => setSearchText(text)}
+        onChangeText={(text) => {
+          setSearchText(text);
+          handleSearch();
+        }}
         value={searchText}
-        onEndEditing={handleSearch}
       />
+      
       {searchResults.map((result, index) => (
-        <Card key={index}>
-          <Card.Content>
-            <Text>{result}</Text>
-          </Card.Content>
-        </Card>
-      ))}
+          <DepartmentComponent key={index} departmentName={result.name} courseData={result.courseData}/>
+        ))}
     </Surface>
   );
 };
