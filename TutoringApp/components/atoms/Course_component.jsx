@@ -1,27 +1,29 @@
-import * as React from 'react';
-import Button from 'react-native-paper';
-import Collapsible from 'react-native-collapsible';
-import { List } from 'react-native-paper';
-import Tutor from './tutor';
+import * as React from "react";
+import Button from "react-native-paper";
+import Collapsible from "react-native-collapsible";
+import { List } from "react-native-paper";
+import Tutor from "./tutor";
+import { View } from "react-native";
+import { COLORS } from "../../constants/theme";
 
-
-
-import { View } from 'react-native';
-
-
-const Course = ({CourseName,Tutors}) => {
+const Course = ({ CourseName, Tutors }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handlePress = () => setExpanded(!expanded);
 
-
   return (
     <List.Section>
       <List.Accordion
+        style={{
+          backgroundColor: COLORS.lightWhite,
+          color: COLORS.text,
+          borderRadius: 15,
+        }}
         title={CourseName}
-        left={props => <List.Icon {...props} icon="folder" />}
+        left={(props) => <List.Icon {...props} icon="folder" />}
         expanded={expanded}
-        onPress={handlePress}>
+        onPress={handlePress}
+      >
         {Tutors.map((test, index) => (
           <Tutor
             key={index}
@@ -34,4 +36,5 @@ const Course = ({CourseName,Tutors}) => {
     </List.Section>
   );
 };
+
 export default Course;

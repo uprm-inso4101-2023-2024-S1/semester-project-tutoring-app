@@ -10,15 +10,14 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView
-  
+  SafeAreaView,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Collapsible from "react-native-collapsible";
 import pfp from "./assets/pfp.png";
-
+import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -34,16 +33,18 @@ const sampleScheduleData = [
   "INGE3035 - Pedro Valle",
 ];
 
-
-
-
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on Tutoring App!</Text>
+      {/* <Text>Open up App.js to start working on Tutoring App!</Text> */}
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        >
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -53,43 +54,6 @@ export default function App() {
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-  },
-  profile: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    padding: 16,
-  },
-  row: {
-    flexDirection: "row", // Arrange child components horizontally
-    alignItems: "center", // Align items vertically at the center
-    padding: 16,
-  },
-  item: {
-    backgroundColor: "lightgray",
-    padding: 10,
-    marginVertical: 5,
-  },
-  textbox: {
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 15,
-    margin: 5,
-  },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
-    borderRadius: 5,
-    margin: 3,
-  },
-});
 
 function HomeScreen({ navigation }) {
   return (
@@ -143,8 +107,6 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
-  
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
@@ -154,17 +116,13 @@ function ActivityScreen({ route }) {
 function SearchScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1}}>
-      {
-        Services()
-      }
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-    </ScrollView>
-
+      <ScrollView style={{ flex: 1 }}>
+        {Services()}
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
     </SafeAreaView>
-    
   );
 }
 const renderItem = ({ item }) => {
@@ -196,3 +154,40 @@ export const TextList = ({ textList }) => {
     </View>
   );
 };
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+  },
+  profile: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    padding: 16,
+  },
+  row: {
+    flexDirection: "row", // Arrange child components horizontally
+    alignItems: "center", // Align items vertically at the center
+    padding: 16,
+  },
+  item: {
+    backgroundColor: "lightgray",
+    padding: 10,
+    marginVertical: 5,
+  },
+  textbox: {
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+    margin: 5,
+  },
+  button: {
+    backgroundColor: COLORS.tertiary,
+    padding: 10,
+    borderRadius: 5,
+    margin: 3,
+  },
+});
