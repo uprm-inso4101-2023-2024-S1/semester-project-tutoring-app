@@ -22,7 +22,9 @@ To implement this app, we will be utilizing the React Native framework.
        - npm start
 6. **Run the application**
    - Write the following command to start the application:
-     - npm run android
+     - npm run android (if you want to use the android development simulator)
+     - npm run web (if you want to test it on a web browser)
+
    
 
 
