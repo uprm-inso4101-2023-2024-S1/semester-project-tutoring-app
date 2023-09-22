@@ -1,27 +1,24 @@
 import React from 'react';
 
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
-export default function Header({text}) {
+export default function Header({text, container_width, container_height, font_size}) {
   return (
-    <View style={styles.header}>
-        <Text style={styles.home}>{text}</Text>
+    <View style={{width: container_width,height: container_height,...styles.header}}>
+        <Text style={{fontSize: font_size,...styles.home}}>{text}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
    header: {
-    width: '100%',
-    height: '15%', 
     alignItems: 'left',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     backgroundColor: '#eee'
+
    },
    home: {
     fontWeight: 'bold',
-    fontFamily: 'Roboto',
-    fontSize: 45
+    padding: 10
    } 
 });
