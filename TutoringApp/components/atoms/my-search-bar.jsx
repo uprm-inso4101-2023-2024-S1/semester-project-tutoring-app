@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
 import DepartmentComponent from "./DepartmentComponent";
+import { COLORS, SHADOWS } from "../../constants/theme";
 
 const MySearchBar = ({ contentList }) => {
   let [searchText, setSearchText] = useState("");
@@ -32,14 +33,37 @@ const MySearchBar = ({ contentList }) => {
   };
 
   return (
-    <Surface>
+    // current styles are just examples of themes. Remove when desining begins
+    <Surface
+      style={{
+        padding: 10,
+        marginVertical: 20,
+        backgroundColor: "transparent",
+        borderWidth: 0,
+        postion: "relative",
+      }}
+    >
       <Searchbar
-        placeholder="Search..."
+        placeholder="Search your course"
+        placeholderTextColor={COLORS.text}
         onChangeText={(text) => {
           setSearchText(text);
           handleSearch(text);
         }}
         value={searchText}
+        //This styles also
+        style={{
+          alignItems: "center",
+          backgroundColor: COLORS.lightWhite,
+          borderColor: COLORS.gray,
+          borderRadius: 25,
+          paddingHorizontal: 5,
+          width: "100%",
+          width: "45%",
+          marginHorizontal: "30%",
+        }}
+        iconColor={COLORS.primary}
+        inputStyle={{ color: COLORS.text, fontSize: 24 }}
       />
 
       {searchResults.map((result, index) => (

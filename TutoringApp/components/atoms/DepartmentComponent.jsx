@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import Collapsible from "react-native-collapsible";
 import { styles, TextList } from "../../App";
-import { Card, Title, Paragraph, Button as ReactPaperButton } from 'react-native-paper';
+import { COLORS, SIZES } from "../../constants/theme";
+import {
+  Card,
+  Title,
+  Paragraph,
+  Button as ReactPaperButton,
+} from "react-native-paper";
 import Course from "./Course_component";
-
 
 const DepartmentComponent = ({ departmentName, courseData }) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -14,16 +19,29 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
   };
 
   return (
-    <Card style={styles.card}>
+    <Card style={deparmentStyles.courseCard}>
       <Card.Content>
-        <Title>{departmentName}</Title>
-        <Paragraph>Select a course to see its available tutors and schedules.</Paragraph>
+        <Title style={{ color: COLORS.text, fontSize: SIZES.xxLarge }}>
+          {departmentName}
+        </Title>
+        <Paragraph style={{ color: COLORS.text, fontSize: SIZES.large }}>
+          Select a course to see its available tutors and schedules.
+        </Paragraph>
         {courseData.map((data, index) => (
-          <Course key={index} CourseName={data.name} Tutors={data.tutors}/> 
+          <Course key={index} CourseName={data.name} Tutors={data.tutors} />
         ))}
       </Card.Content>
     </Card>
   );
 };
+
+const deparmentStyles = StyleSheet.create({
+  courseCard: {
+    marginVertical: 30,
+    flex: 1,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
+  },
+});
 
 export default DepartmentComponent;
