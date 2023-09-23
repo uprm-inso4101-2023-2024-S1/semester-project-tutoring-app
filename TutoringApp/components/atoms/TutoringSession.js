@@ -5,12 +5,12 @@ import {Text} from 'react-native'
  * Component that displays the information of a completed or ongoing tutoring session.
  * It can display information like: Course name, tutor name, etc.
  * 
- * @returns {JSX.Element} BasicInfo Component
+ * @returns {JSX.Element} TutoringSession Component
  */
-const BasicInfo = () => {
+const TutoringSession = () => {
     return (
-        <Text>Name, role, date joined, etc.</Text>
+        <Text>Course name, tutor name</Text>
     );
 };
 
-export default BasicInfo;
+export default TutoringSession;

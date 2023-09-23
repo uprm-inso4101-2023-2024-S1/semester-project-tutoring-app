@@ -8,7 +8,7 @@ import {Text} from 'react-native'
  */
 const ContactInfo = () => {
     return (
-        <Text>Contact me</Text>
+        <Text>Contact me at myemail@something.com, or at my phone number</Text>
     );
 };
 
