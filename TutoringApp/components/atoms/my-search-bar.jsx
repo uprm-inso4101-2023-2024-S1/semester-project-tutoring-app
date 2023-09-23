@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
 import DepartmentComponent from "./DepartmentComponent";
+
+import { StyleSheet } from "react-native";
+import NoResultsSearch from "./NoResultsSearch";
 import { COLORS, SHADOWS } from "../../constants/theme";
 
 const MySearchBar = ({ contentList }) => {
@@ -66,15 +69,26 @@ const MySearchBar = ({ contentList }) => {
         inputStyle={{ color: COLORS.text, fontSize: 24 }}
       />
 
-      {searchResults.map((result, index) => (
-        <DepartmentComponent
-          key={index}
-          departmentName={result.name}
-          courseData={result.courseData}
-        />
-      ))}
+      {searchResults.length === 0 ? (
+        <NoResultsSearch />
+      ) : (
+        searchResults.map((result, index) => (
+          <DepartmentComponent
+            key={index}
+            departmentName={result.name}
+            courseData={result.courseData}
+          />
+        ))
+      )}
     </Surface>
   );
 };
+
+const styles = StyleSheet.create({
+  surface: {
+    flex: 1,
+    padding: 16,
+  },
+});
 
 export default MySearchBar;
