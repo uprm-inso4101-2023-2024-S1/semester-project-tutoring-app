@@ -15,7 +15,11 @@ function getRatingEmoji(rating) {
 }
 
 const Tutor = ({ name, course, rating }) => (
-  <Card>
+  <Card style={{
+    borderRadius: 15,
+    marginVertical: "0.25%",
+    
+  }}>
     <Card.Content>
       <Text>{name}</Text>
       <Text>{course}</Text>
