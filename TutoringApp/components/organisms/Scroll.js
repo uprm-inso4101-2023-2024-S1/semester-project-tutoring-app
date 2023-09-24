@@ -1,41 +1,28 @@
 import React from "react";
 
 import {
-    Image,
     StyleSheet,
     Text,
     View,
-    Button,
-    FlatList,
-    TouchableOpacity,
     ScrollView,
-    SafeAreaView
     
   } from "react-native";
 
-export default function Slider({text}) {
+import RecommendedTutorCard from "../molecules/RecommendedTutorCard"
+
+export default function Slider({text, components}) {
     return (
         <View>
             <Text style={styles.headingText}>{text}</Text>
             <ScrollView horizontal={true} style={styles.container}>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
-                <View style={[styles.card, styles.cardElevated]}>
-                    <Text>Dummy</Text>
-                </View>
+                {components.map((tutor, index)=> {
+                    return (
+                        <>
+                        <View style = {styles.seperator}/>
+                        <RecommendedTutorCard tutor={tutor}/>
+                        </>
+                    )
+                })}
             </ScrollView>
         </View>
     );
@@ -48,18 +35,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8
     },
     container: {
-        padding: 8
+        padding: 5,
+        flexDirection: 'row',
+        gap: 20
     },
-    card: {
-        flex: 1,
-        width: 200,
-        height: 200,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 5,
-        borderRadius: 5
-    },
-    cardElevated: {
-        backgroundColor: '#CAD5E2'
+    seperator: {
+        width: 10
     }
 })

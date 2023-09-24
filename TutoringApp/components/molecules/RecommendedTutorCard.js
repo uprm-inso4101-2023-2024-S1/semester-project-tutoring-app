@@ -68,7 +68,7 @@ function CourseList({ courses }) {
 const styles = StyleSheet.create({
     cardContainer: {
         position: 'relative',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
     },
     alignCenter: {
         display: 'flex',
