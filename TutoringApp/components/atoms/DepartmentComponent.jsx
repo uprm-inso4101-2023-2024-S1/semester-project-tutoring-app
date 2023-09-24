@@ -38,8 +38,9 @@ const DepartmentComponent = ({ departmentName, courseData }) => {
 const deparmentStyles = StyleSheet.create({
   courseCard: {
     marginVertical: 30,
-    flex: 1,
     borderWidth: 2,
+    height: "auto",
+    
     borderColor: COLORS.primary,
   },
 });

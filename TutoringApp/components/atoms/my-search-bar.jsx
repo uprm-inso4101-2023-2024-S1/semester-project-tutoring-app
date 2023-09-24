@@ -61,8 +61,7 @@ const MySearchBar = ({ contentList }) => {
           borderColor: COLORS.gray,
           borderRadius: 25,
           paddingHorizontal: 5,
-          width: "100%",
-          width: "45%",
+          width: "50%",
           marginHorizontal: "30%",
         }}
         iconColor={COLORS.primary}
