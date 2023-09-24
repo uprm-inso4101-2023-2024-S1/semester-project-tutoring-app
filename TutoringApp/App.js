@@ -8,8 +8,8 @@ export default function App() {
       <StatusBar style="auto" />
       <CourseCard 
         courseImage={require('./assets/data-structures.png')} 
-        courseName={'Data Structures'}
-        courseTutor={'Paco'}
+        courseName='Data Structures'
+        courseTutor='Paco'
       />
     </View>
   );
