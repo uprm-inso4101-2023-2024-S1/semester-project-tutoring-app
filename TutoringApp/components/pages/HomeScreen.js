@@ -13,21 +13,22 @@ import {
     
   } from "react-native";
 
-import Slider from '../organisms/Scroll'
+import Slider from '../organisms/Scroll';
+import CourseCard from '../atoms/CourseCard';
 
 export default function HomeScreen() {
-    let tut = [{'id': 0,
-        properties: {'name': "Joe Biden",
-        'specialty': "Economics",
-        'courses' : ['Intro to Economics', 'Finance'],
-        'rating': 4
-        }},
-        {id: 1, properties: {'name' : "Vannesa Ramos",
-        'specialty' : "Computer Science",
-        'courses' : ['CIIC3081', 'CIIC4020'],
-        'profile' : '',
-        'rating' : 3.7}}
-    ];
+    // let tut = [{'id': 0,
+    //     properties: {'name': "Joe Biden",
+    //     'specialty': "Economics",
+    //     'courses' : ['Intro to Economics', 'Finance'],
+    //     'rating': 4
+    //     }},
+    //     {id: 1, properties: {'name' : "Vannesa Ramos",
+    //     'specialty' : "Computer Science",
+    //     'courses' : ['CIIC3081', 'CIIC4020'],
+    //     'profile' : '',
+    //     'rating' : 3.7}}
+    // ];
     //  Current Issue to look into, the console is complaining
     //  that the tutor does not have a unique key, however, I believe
     //  this issue should be solved when the data base is set.
@@ -54,12 +55,15 @@ export default function HomeScreen() {
         'rating' : 4.7
       };
     const tutors2 = [tutor, tutor2, tutor3]
+
+    const test_course_card = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
     return (
         <ScrollView style={styles.container}>
             <View style={styles.scroll_box}>
                 <View style={styles.spacer}/>
-                <Slider text={'Recommended Tutors'} components={tutors2}/>
-
+                <Slider text={'Tutoring'} components={test_course_card} isCourseCard={true}/>
+                <View style={styles.spacer}/>
+                <Slider text={'Recommended Tutors'} components={tutors2} isRecommendedCard={true}/>
             </View>
         </ScrollView>
     );

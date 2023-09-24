@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         CardContainer: {
             alignItems: 'center',
             backgroundColor: 'transparent',
-            borderColor: '#fff',
+            borderColor: 'black',
             borderWidth: '3px',
             borderStyle: 'solid',
             borderRadius: '20px',

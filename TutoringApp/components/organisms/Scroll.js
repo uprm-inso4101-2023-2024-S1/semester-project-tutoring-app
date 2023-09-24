@@ -8,20 +8,31 @@ import {
     
   } from "react-native";
 
-import RecommendedTutorCard from "../molecules/RecommendedTutorCard"
+import RecommendedTutorCard from "../molecules/RecommendedTutorCard";
+import CourseCard from "../atoms/CourseCard";
 
-export default function Slider({text, components}) {
+export default function Slider({text, components, isRecommendedCard=false, isCourseCard=false}) {
     return (
         <View>
             <Text style={styles.headingText}>{text}</Text>
             <ScrollView horizontal={true} style={styles.container}>
-                {components.map((tutor, index)=> {
-                    return (
-                        <>
-                        <View style = {styles.seperator}/>
-                        <RecommendedTutorCard tutor={tutor}/>
-                        </>
-                    )
+                {components.map((elm)=> {
+                    if (isRecommendedCard) {
+                        return (
+                            <>
+                            <View style = {styles.seperator}/>
+                            <RecommendedTutorCard tutor={elm}/>
+                            </>
+                        )
+                    }
+                    if (isCourseCard) {
+                        return (
+                            <>
+                            <View style = {styles.seperator}/>
+                            <CourseCard courseImage={elm.courseImage} courseName={elm.courseName} courseTutor={elm.courseTutor}/>
+                            </>
+                        )
+                    }
                 })}
             </ScrollView>
         </View>
@@ -36,8 +47,6 @@ const styles = StyleSheet.create({
     },
     container: {
         padding: 5,
-        flexDirection: 'row',
-        gap: 20
     },
     seperator: {
         width: 10
