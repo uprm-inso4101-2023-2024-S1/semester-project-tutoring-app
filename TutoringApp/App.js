@@ -36,6 +36,7 @@ const sampleScheduleData = [
 
 
 
+import CourseCard from './components/atoms/CourseCard';
 
 export default function App() {
   return (
@@ -49,6 +50,11 @@ export default function App() {
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
+      <CourseCard 
+        courseImage={require('./assets/data-structures.png')} 
+        courseName='Data Structures'
+        courseTutor='Paco'
+      />
     </View>
   );
 }
