@@ -28,7 +28,7 @@ export default function Slider({ components, isRecommendedCard=false, isCourseCa
                         return (
                             <>
                             <View style = {styles.seperator}/>
-                            <CourseCard courseImage={elm.courseImage} courseName={elm.courseName} courseTutor={elm.courseTutor}/>
+                            <CourseCard {...elm}/>
                             </>
                         )
                     }

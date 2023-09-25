@@ -12,16 +12,17 @@ import {
   SafeAreaView
   
 } from "react-native";
+import React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
-import Collapsible from "react-native-collapsible";
-import pfp from "./assets/pfp.png";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import HomeScreen from "./components/pages/HomeScreen";
+import UpcomingSession from "./components/pages/upcomingSession";
 
 
 //Sample Data for First Mockup Version
-const Tab = createBottomTabNavigator();
 const sampleCourseData = [
   { id: "1", text: "CIIC3015" },
   { id: "2", text: "CIIC4010" },
@@ -34,20 +35,42 @@ const sampleScheduleData = [
   "INGE3035 - Pedro Valle",
 ];
 
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
+function TabNavigator() {
+  return (
+    <Tab.Navigator>
+        <Tab.Screen name="Home" component={StackNavigator} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Activity" component={ActivityScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  )
+}
 
+function StackNavigator() {
+  return(
+    <Stack.Navigator screenOptions={{ headerShown: false}}>
+      <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+      <Stack.Screen name="UpcomingSession" component={UpcomingSession}/>
+    </Stack.Navigator>
+    )
+    
+}
 
 export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tab.Navigator>
+        {/* <Tab.Navigator>
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
           <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
+        </Tab.Navigator> */}
+        <TabNavigator/>
       </NavigationContainer>
     </View>
   );

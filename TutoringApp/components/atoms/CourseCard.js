@@ -1,13 +1,12 @@
 import React from "react";
 import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
  
 export default function CourseCard(props) {
-    const pressHandler = () => {
-        navigation.navigate('UpcomingSession')
-    }
+    const navigation = useNavigation()
     return (
-        <Pressable onPress={pressHandler}>
+        <Pressable onPress={()=> navigation.navigate('UpcomingSession', {...props})}>
             <ImageBackground style={styles.CardContainer}>
                 <Image source={props.courseImage} style={styles.imageStyle}/>
                 <View style={styles.textContainer}>

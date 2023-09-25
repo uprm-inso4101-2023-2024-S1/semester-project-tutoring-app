@@ -21,15 +21,15 @@ const UpcomingSession = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.card}>
-                <SessionCard {...props} />
+                <SessionCard {...props.route.params} />
             </View>
             <View style={styles.bottomDetails}>
                 <View style={styles.sessionTime}>
-                    <SessionTimeDetails {...props} />
+                    <SessionTimeDetails {...props.route.params} />
                 </View>
                 <View style={styles.horizontalSpacer} />
                 <View style={styles.buttons}>
-                    <MeetButton style={styles.meetButton} {...props} />
+                    <MeetButton style={styles.meetButton} {...props.route.params} />
                     <CancelSessionButton />
                 </View>
             </View>

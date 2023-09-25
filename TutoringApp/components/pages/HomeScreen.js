@@ -16,6 +16,7 @@ import {
 import Slider from '../organisms/Scroll';
 import CourseCard from '../atoms/CourseCard';
 import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
     // let tut = [{'id': 0,
@@ -43,7 +44,8 @@ export default function HomeScreen() {
           setStatus("Active");
         }
       };
-
+    
+    // Static Testing
     const tutor = {
         'name' : "Barack Obama",
         'specialty' : "Economics",
@@ -67,9 +69,10 @@ export default function HomeScreen() {
       };
     const tutors2 = [tutor, tutor2, tutor3]
 
-    const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/data-structures.png'), courseName: 'Electric', courseTutor: 'Pablo'}]
+    const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Jose', link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '1:00pm', endTime: '2:00pm', tutor: 'Jose'},{courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo',link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '1:00pm', endTime: '2:00pm', tutor: 'Paco'}]
     const test_course_card_past = [{courseImage: require('../../assets/electric.jpeg'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
     const courseData = status === "Active" ? test_course_card_active : test_course_card_past;
+
 
     return (
         <ScrollView style={styles.container}>

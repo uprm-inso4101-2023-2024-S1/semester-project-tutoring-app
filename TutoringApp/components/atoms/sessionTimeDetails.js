@@ -4,6 +4,7 @@ const fontScale = PixelRatio.getFontScale();
 const getFontSize = size => size / fontScale;
 
 const SessionTimeDetails = (props) => {
+    console.log(props.startDate)
     return (
         <View style={styles.sessionDetails}>
             <View style={styles.sessionStart}>
