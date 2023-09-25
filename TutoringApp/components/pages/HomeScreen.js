@@ -75,10 +75,14 @@ export default function HomeScreen() {
         <ScrollView style={styles.container}>
             <View style={styles.scroll_box}>
                 <View style={styles.spacer} />
-                <Slider text={status === "Active" ? 'Active Courses' : 'Past Courses'} components={courseData} isCourseCard={true} />
-                <PastActiveCourseButton onPress={toggleStatus} status={status} />
+                <View style={styles.toggle_container_with_header}>
+                    <Text style={styles.headingText}>{status === "Active" ? "Active" : "Past"} Courses</Text>
+                    <PastActiveCourseButton onPress={toggleStatus} status={status}/>
+                </View>
+                <Slider components={courseData} isCourseCard={true} />
                 <View style={styles.spacer} />
-                <Slider text={'Recommended Tutors'} components={tutors2} isRecommendedCard={true} />
+                <Text style={styles.headingText}>Recommended Tutors</Text>
+                <Slider components={tutors2} isRecommendedCard={true} />
                 <View style={styles.spacer} />
             </View>  
         </ScrollView>
@@ -106,5 +110,13 @@ const styles = StyleSheet.create({
     spacer: {
         height: 40,
         width: '100%'
+    },
+    headingText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        paddingHorizontal: 8
+    },
+    toggle_container_with_header: {
+        flexDirection: 'row',
     }
-}); 
+});

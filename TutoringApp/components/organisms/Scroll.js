@@ -11,10 +11,9 @@ import {
 import RecommendedTutorCard from "../molecules/RecommendedTutorCard";
 import CourseCard from "../atoms/CourseCard";
 
-export default function Slider({text, components, isRecommendedCard=false, isCourseCard=false}) {
+export default function Slider({ components, isRecommendedCard=false, isCourseCard=false}) {
     return (
         <View>
-            <Text style={styles.headingText}>{text}</Text>
             <ScrollView horizontal={true} style={styles.container}>
                 {components.map((elm)=> {
                     if (isRecommendedCard) {
