@@ -1,12 +1,17 @@
+import React from "react";
 import { Image, ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function CourseCard({ courseImage = "", courseName = "text here", courseTutor="name here"}) {
+ 
+export default function CourseCard(props) {
+    const pressHandler = () => {
+        navigation.navigate('UpcomingSession')
+    }
     return (
-        <Pressable onPress={() => {console.log("tapped!")}}>
+        <Pressable onPress={pressHandler}>
             <ImageBackground style={styles.CardContainer}>
-                <Image source={courseImage} style={styles.imageStyle}/>
+                <Image source={props.courseImage} style={styles.imageStyle}/>
                 <View style={styles.textContainer}>
-                    <Text style={styles.textStyle}>{courseName} with {courseTutor}</Text>
+                    <Text style={styles.textStyle}>{props.courseName} with {props.courseTutor}</Text>
                 </View>
             </ImageBackground>
         </Pressable>
