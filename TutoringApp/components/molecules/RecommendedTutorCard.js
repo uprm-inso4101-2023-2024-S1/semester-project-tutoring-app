@@ -37,7 +37,7 @@ export default function RecommendedTutorCard({ tutor, size = {width: 250, height
                 <Text style={styles.textContainer}>
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{tutor.name + "\n"}</Text>
                     <Text style={{ fontWeight: '300', fontSize: 20}}>Teaches {tutor.specialty + "\n\n"}</Text>
-                    <CourseList courses={tutor.courses} />
+                    <CourseList courses={tutor.courses.slice(0, 2)} />
                 </Text>
                 <View style={[styles.starRatingContainer, styles.alignCenter]}>
                     <StarRating rating={tutor.rating} />
@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     textContainer: {
         marginTop: '20%',
         color: 'black',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     starRatingContainer: {
-        bottom: '25%',
+        bottom: '20%',
         width: '100%',
         justifyContent: 'center',
     },

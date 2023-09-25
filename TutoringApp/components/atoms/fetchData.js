@@ -29,7 +29,7 @@ export const fetchTutors = () => {
     return tutors;
 }
 
-export const fetchStudentUser = () => {
+export const fetchStudentUser = (userEmail) => {
     const [fetchError, setFetchError] = useState(null)
     const [student, setStudentUser] = useState(null)
 
@@ -38,7 +38,7 @@ export const fetchStudentUser = () => {
             const { data, error} = await supabase
             .from('users')
             .select()
-            .eq('email', JSON.parse(localStorage.getItem("email")).user)
+            .eq('email', userEmail)
 
             if (error) {
                 setFetchError('Could not fetch student user')

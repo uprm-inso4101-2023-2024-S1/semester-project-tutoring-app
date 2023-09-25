@@ -2,6 +2,7 @@ import React from "react";
 import { View, Image } from "react-native";
 
 export default function StarRating({ rating }) {
+    // TODO(): Showing half a star could also be nice
     return (
         <View style={{ flexDirection: 'row' }}>
             {[...Array(5)].map((_, index) => {
