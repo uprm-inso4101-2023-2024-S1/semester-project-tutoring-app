@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import pfp from "./assets/pfp.png";
+
+import React from 'react';
+import ProfileBio from "./src/components/ProfileBio/ProfileBio";
+
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -109,6 +112,12 @@ function ProfileScreen({ route }) {
       </View>
       <Text style={{ color: "blue" }}> Edit Profile</Text>
       <View>
+
+        <Text style={{ fontSize: 28 }}>Bio</Text>
+        <View style={styles.item}>
+          <ProfileBio /> {ProfileBio}
+        </View>
+
         <Text style={{ fontSize: 24 }}>My Courses</Text>
         <MyList />
       </View>
