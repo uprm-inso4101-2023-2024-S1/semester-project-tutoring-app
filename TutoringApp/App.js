@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import pfp from "./assets/pfp.png";
+
+import ProfilePic from "./src/components/ProfilePic/ProfilePic";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -95,16 +96,12 @@ function HomeScreen({ navigation }) {
 function ProfileScreen({ route }) {
   return (
     <View style={styles.profile}>
-      <View style={styles.row}>
-        <Image
-          source={require("./assets/pfp.png")}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            overflow: "hidden",
-          }}
-        />
+        <View style={styles.row}>
+          <ProfilePic /> {ProfilePic}
+          <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
+          </View>
+          <Text style={{ color: "blue" }}> Edit Profile</Text>
+        <View>
         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
       </View>
       <Text style={{ color: "blue" }}> Edit Profile</Text>
