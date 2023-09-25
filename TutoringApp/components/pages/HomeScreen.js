@@ -15,6 +15,7 @@ import {
 
 import Slider from '../organisms/Scroll';
 import CourseCard from '../atoms/CourseCard';
+import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
 
 export default function HomeScreen() {
     // let tut = [{'id': 0,
@@ -32,6 +33,16 @@ export default function HomeScreen() {
     //  Current Issue to look into, the console is complaining
     //  that the tutor does not have a unique key, however, I believe
     //  this issue should be solved when the data base is set.
+
+    const [status, setStatus] = useState("Active");
+
+    const toggleStatus = () => {
+        if (status === "Active") {
+          setStatus("Past");
+        } else {
+          setStatus("Active");
+        }
+      };
 
     const tutor = {
         'name' : "Barack Obama",
@@ -56,17 +67,22 @@ export default function HomeScreen() {
       };
     const tutors2 = [tutor, tutor2, tutor3]
 
-    const test_course_card = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
+    const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/data-structures.png'), courseName: 'Electric', courseTutor: 'Pablo'}]
+    const test_course_card_past = [{courseImage: require('../../assets/electric.jpeg'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
+    const courseData = status === "Active" ? test_course_card_active : test_course_card_past;
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.scroll_box}>
-                <View style={styles.spacer}/>
-                <Slider text={'Tutoring'} components={test_course_card} isCourseCard={true}/>
-                <View style={styles.spacer}/>
-                <Slider text={'Recommended Tutors'} components={tutors2} isRecommendedCard={true}/>
-            </View>
+                <View style={styles.spacer} />
+                <Slider text={status === "Active" ? 'Active Courses' : 'Past Courses'} components={courseData} isCourseCard={true} />
+                <PastActiveCourseButton onPress={toggleStatus} status={status} />
+                <View style={styles.spacer} />
+                <Slider text={'Recommended Tutors'} components={tutors2} isRecommendedCard={true} />
+                <View style={styles.spacer} />
+            </View>  
         </ScrollView>
-    );
+      );
 };
 
 const styles = StyleSheet.create({
