@@ -10,6 +10,7 @@ export default function App() {
         courseImage={require('./assets/data-structures.png')} 
         courseName='Data Structures'
         courseTutor='Paco'
+        onPress={() => console.log('Tapped!')}
       />
     </View>
   );
