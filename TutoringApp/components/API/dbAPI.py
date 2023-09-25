@@ -71,7 +71,7 @@ async def update_user():
         return jsonify({'message': 'Error updating user'}), 500
 
 
-@app.route('/28577', methods=['DELETE'])
+@app.route('/users', methods=['DELETE'])
 async def delete_user():
     #needs more testing
     data = request.get_json()
