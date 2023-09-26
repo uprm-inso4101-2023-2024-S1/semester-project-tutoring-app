@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import pfp from "./assets/pfp.png";
+import pfp from "./assets/pfp.png";
 
 
 import RatingComponent from "./RatingComponent";
@@ -88,9 +88,6 @@ function HomeScreen({ navigation }) {
   return (
     
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {/* <View style={styles.container}>
-      <Star size={50} color="gold" />
-      </View> */}
       <Text>Home!</Text>
       <Button
         title="Go to profile"
