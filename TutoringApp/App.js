@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import pfp from "./assets/pfp.png";
+// import pfp from "./assets/pfp.png";
+
+
+import RatingComponent from "./RatingComponent";
+
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -82,7 +86,11 @@ const styles = StyleSheet.create({
 
 function HomeScreen({ navigation }) {
   return (
+    
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {/* <View style={styles.container}>
+      <Star size={50} color="gold" />
+      </View> */}
       <Text>Home!</Text>
       <Button
         title="Go to profile"
@@ -93,6 +101,10 @@ function HomeScreen({ navigation }) {
 }
 
 function ProfileScreen({ route }) {
+
+  // RATING VALUE
+  const n = 2.1;
+
   return (
     <View style={styles.profile}>
       <View style={styles.row}>
@@ -106,7 +118,18 @@ function ProfileScreen({ route }) {
           }}
         />
         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
+
+       
+        <RatingComponent n = {n} />
+
+        
+
+
+
       </View>
+
+     
+      
       <Text style={{ color: "blue" }}> Edit Profile</Text>
       <View>
         <Text style={{ fontSize: 24 }}>My Courses</Text>
@@ -129,6 +152,14 @@ function ProfileScreen({ route }) {
         </TouchableOpacity>
       </View>
     </View>
+    // <Star size={50} color="gold" />
+
+    // <View style={styles.container}>
+    // <Star size={50} color="gold" />
+    // </View>
+
+      
+
   );
 }
 function ActivityScreen({ route }) {
@@ -180,3 +211,6 @@ const TextList = ({ textList }) => {
     </View>
   );
 };
+
+
+
