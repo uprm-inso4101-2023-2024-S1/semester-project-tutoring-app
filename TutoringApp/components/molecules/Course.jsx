@@ -3,6 +3,17 @@ import { List } from "react-native-paper";
 import Tutor from "../atoms/Tutor";
 import { COLORS } from "../../constants/theme";
 
+const FolderIcon = () => (
+  <List.Icon
+    style={{
+      backgroundColor: COLORS.lightWhite,
+      color: COLORS.text,
+      borderRadius: 15,
+    }}
+    icon="folder"
+  />
+);
+
 const Course = ({ CourseName, Tutors }) => {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -10,16 +21,9 @@ const Course = ({ CourseName, Tutors }) => {
 
   return (
     <List.Section>
-      <View
-        style={{
-          backgroundColor: COLORS.lightWhite,
-          color: COLORS.text,
-          borderRadius: 15,
-        }}
-      >
         <List.Accordion
           title={CourseName}
-          left={(props) => <List.Icon {...props} icon="folder" />}
+          left = {FolderIcon}
           expanded={expanded}
           onPress={handlePress}
         >
@@ -32,7 +36,6 @@ const Course = ({ CourseName, Tutors }) => {
             />
           ))}
         </List.Accordion>
-      </View>
     </List.Section>
   );
 };
