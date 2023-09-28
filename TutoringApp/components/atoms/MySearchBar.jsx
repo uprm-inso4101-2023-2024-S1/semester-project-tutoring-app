@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
 import Department from "../atoms/Department";
-
 import { StyleSheet } from "react-native";
 import NoResultsSearch from "../atoms/NoResultsSearch";
 import { COLORS } from "../../constants/theme";
@@ -36,16 +35,7 @@ const MySearchBar = ({ contentList }) => {
   };
 
   return (
-    // current styles are just examples of themes. Remove when desining begins
-    <Surface
-      style={{
-        padding: 10,
-        marginVertical: 20,
-        backgroundColor: "transparent",
-        borderWidth: 0,
-        postion: "relative",
-      }}
-    >
+    <Surface style={styles.surface}>
       <Searchbar
         placeholder="Search your course"
         placeholderTextColor={COLORS.text}
@@ -54,18 +44,9 @@ const MySearchBar = ({ contentList }) => {
           handleSearch(text);
         }}
         value={searchText}
-        //This styles also
-        style={{
-          alignItems: "center",
-          backgroundColor: COLORS.lightWhite,
-          borderColor: COLORS.gray,
-          borderRadius: 25,
-          paddingHorizontal: 5,
-          width: "50%",
-          marginHorizontal: "30%",
-        }}
+        style={styles.searchBar}
         iconColor={COLORS.primary}
-        inputStyle={{ color: COLORS.text, fontSize: 24 }}
+        inputStyle={styles.input}
       />
 
       {searchResults.length === 0 ? (
@@ -83,10 +64,27 @@ const MySearchBar = ({ contentList }) => {
   );
 };
 
+// Temporal styles
 const styles = StyleSheet.create({
   surface: {
-    flex: 1,
-    padding: 16,
+    padding: 10,
+    marginVertical: 20,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    postion: "relative",
+  },
+  searchBar: {
+    alignItems: "center",
+    backgroundColor: COLORS.lightWhite,
+    borderColor: COLORS.gray,
+    borderRadius: 25,
+    paddingHorizontal: 5,
+    width: "50%",
+    marginHorizontal: "30%",
+  },
+  input: {
+    color: COLORS.text,
+    fontSize: 24,
   },
 });
 
