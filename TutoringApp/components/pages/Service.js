@@ -1,6 +1,5 @@
-import MySearchBar from "../atoms/my-search-bar";
-
-import DeparmentList from "../atoms/deparment-list";
+import MySearchBar from "../atoms/MySearchBar";
+import DeparmentList from "../../constants/deparment-list";
 
 const Services = () => {
   return <MySearchBar contentList={DeparmentList} />;

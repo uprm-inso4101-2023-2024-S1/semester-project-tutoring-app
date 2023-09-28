@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
-import DepartmentComponent from "./DepartmentComponent";
+import Department from "../atoms/Department";
 
 import { StyleSheet } from "react-native";
-import NoResultsSearch from "./NoResultsSearch";
-import { COLORS, SHADOWS } from "../../constants/theme";
+import NoResultsSearch from "../atoms/NoResultsSearch";
+import { COLORS } from "../../constants/theme";
 
 const MySearchBar = ({ contentList }) => {
   let [searchText, setSearchText] = useState("");
@@ -72,7 +72,7 @@ const MySearchBar = ({ contentList }) => {
         <NoResultsSearch />
       ) : (
         searchResults.map((result, index) => (
-          <DepartmentComponent
+          <Department
             key={index}
             departmentName={result.name}
             courseData={result.courseData}

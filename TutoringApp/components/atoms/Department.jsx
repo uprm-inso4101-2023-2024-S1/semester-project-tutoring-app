@@ -1,17 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
-import Collapsible from "react-native-collapsible";
-import { styles, TextList } from "../../App";
+import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
-import {
-  Card,
-  Title,
-  Paragraph,
-  Button as ReactPaperButton,
-} from "react-native-paper";
-import Course from "./Course_component";
+import { Card, Title, Paragraph } from "react-native-paper";
+import Course from "../molecules/Course";
 
-const DepartmentComponent = ({ departmentName, courseData }) => {
+const Department = ({ departmentName, courseData }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleExpand = () => {
@@ -40,9 +33,8 @@ const deparmentStyles = StyleSheet.create({
     marginVertical: 30,
     borderWidth: 2,
     height: "auto",
-    
     borderColor: COLORS.primary,
   },
 });
 
-export default DepartmentComponent;
+export default Department;

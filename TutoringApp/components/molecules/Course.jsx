@@ -1,9 +1,6 @@
 import * as React from "react";
-import Button from "react-native-paper";
-import Collapsible from "react-native-collapsible";
 import { List } from "react-native-paper";
-import Tutor from "./tutor";
-import { View } from "react-native";
+import Tutor from "../atoms/Tutor";
 import { COLORS } from "../../constants/theme";
 
 const Course = ({ CourseName, Tutors }) => {
