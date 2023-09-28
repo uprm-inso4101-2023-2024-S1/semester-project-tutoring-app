@@ -10,26 +10,29 @@ const Course = ({ CourseName, Tutors }) => {
 
   return (
     <List.Section>
-      <List.Accordion
+      <View
         style={{
           backgroundColor: COLORS.lightWhite,
           color: COLORS.text,
           borderRadius: 15,
         }}
-        title={CourseName}
-        left={(props) => <List.Icon {...props} icon="folder" />}
-        expanded={expanded}
-        onPress={handlePress}
       >
-        {Tutors.map((test, index) => (
-          <Tutor
-            key={index}
-            name={test.name}
-            course={test.id}
-            rating={test.rating}
-          />
-        ))}
-      </List.Accordion>
+        <List.Accordion
+          title={CourseName}
+          left={(props) => <List.Icon {...props} icon="folder" />}
+          expanded={expanded}
+          onPress={handlePress}
+        >
+          {Tutors.map((test, index) => (
+            <Tutor
+              key={index}
+              name={test.name}
+              course={test.id}
+              rating={test.rating}
+            />
+          ))}
+        </List.Accordion>
+      </View>
     </List.Section>
   );
 };
