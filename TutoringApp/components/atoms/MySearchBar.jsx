@@ -5,10 +5,22 @@ import { StyleSheet } from "react-native";
 import NoResultsSearch from "../atoms/NoResultsSearch";
 import { COLORS } from "../../constants/theme";
 
+/**
+ * Represents a search bar component.
+ *
+ * @param {object} props - The properties for the search bar component.
+ * @param {Array} props.contentList - The content list from the API.
+ * @returns {JSX.Element} A Surface component representing the search bar and filter content.
+ */
 const MySearchBar = ({ contentList }) => {
   let [searchText, setSearchText] = useState("");
   let [searchResults, setSearchResults] = useState(contentList);
 
+  /**
+   * Handles the search based on the given text.
+   *
+   * @param {string} text - The search text.
+   */
   const handleSearch = (text) => {
     try {
       const currText = text.trim().toLowerCase();
@@ -64,7 +76,9 @@ const MySearchBar = ({ contentList }) => {
   );
 };
 
-// Temporal styles
+/**
+ * StyleSheet for styles used in the MySearchBar component.
+ */
 const styles = StyleSheet.create({
   surface: {
     padding: 10,
