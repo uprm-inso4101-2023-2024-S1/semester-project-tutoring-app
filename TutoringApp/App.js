@@ -32,7 +32,12 @@ const sampleScheduleData = [
   " Angel Morales 4:00PM",
   "INGE3035 - Pedro Valle",
 ];
-
+const sampleNotifications = [
+  "Steve Gates has sent you a message ",
+  "CIIC4020 Exam 2 is comming up. Be sure to watch course video on 'Stacks and Queues'",
+  "Ismael Rivera has posted his latest tutoring video on Chapter 6",
+  "Ismael Rivera sent you a message",
+];
 export default function App() {
   return (
     <View style={styles.container}>
@@ -69,6 +74,7 @@ function HomeScreen({ navigation }) {
 
 function ProfileScreen({ route }) {
   return (
+    <ScrollView style={{ flex: 1 }}>
     <View style={styles.profile}>
       <View style={styles.row}>
         <Image
@@ -104,12 +110,38 @@ function ProfileScreen({ route }) {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 }
 function ActivityScreen({ route }) {
+  const chatData = [
+    { id: '1', text: 'Notifications' },
+    { id: '2', text: 'Schedule' },
+  ];
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Activity!</Text>
+    <View style={{ flex: 1 }}>
+      <View style={{ backgroundColor: '#00cc99', flexDirection: 'row', alignItems: 'center',
+       justifyContent: 'space-between', padding: 30}}>
+        <Image source={require("./assets/favicon.png")} style={{ width: 50, height: 50 }} />
+        
+      </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 0.2, backgroundColor: '#e0ebeb' }}>
+            <Text style={{fontSize: 30, padding: 25, fontWeight: "bold"}}>Activity</Text>
+            <Text style={{fontSize: 28, padding:30, paddingLeft: 40}}>Notifications</Text>
+            <Text style={{fontSize: 28, padding:30, paddingLeft: 40}}>Schedule</Text>
+          </View>
+          <View style={{ flex: 0.8, flexDirection:'column' }}>
+              <View style={{flex: 0.10, backgroundColor: '#c3d5d5'}}>
+                <Text style ={{fontSize: 22, paddingLeft: 50, paddingVertical: 10}}>Notifications</Text>
+              </View>
+            <ScrollView style={{ flex: 1 }}>
+              <View style={{flex: 0.90, backgroundColor: '#f0f5f5'}}>
+              <NotificationList notify={sampleNotifications} />
+              </View>
+            </ScrollView>
+          </View>
+        </View>
     </View>
   );
 }
@@ -155,6 +187,19 @@ export const TextList = ({ textList }) => {
   );
 };
 
+export const NotificationList = ({ notify }) => {
+  return (
+    <View>
+      {notify.map((text, index) => (
+        <View style={styles.notifications} key={index}>
+          <Text style={{fontSize: 20}}>
+          <Text style={{fontSize: 20}}>•</Text> {text}
+          </Text>
+        </View>
+      ))}
+    </View>
+  );
+};
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -190,4 +235,12 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 3,
   },
+  notifications: {
+    borderColor: "green",
+    borderWidth: 3,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 40,
+    margin: 8,
+  }
 });
