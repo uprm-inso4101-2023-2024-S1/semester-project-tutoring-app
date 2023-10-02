@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     backgroundColor: "transparent",
     borderWidth: 0,
-    postion: "relative",
+    position: "relative",
   },
   searchBar: {
     alignItems: "center",
