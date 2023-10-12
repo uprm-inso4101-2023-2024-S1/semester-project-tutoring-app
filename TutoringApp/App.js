@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Services from "./components/pages/services";
+import * as ImagePicker from 'expo-image-picker';
 
 import {
   Image,
@@ -68,11 +69,29 @@ function HomeScreen({ navigation }) {
 }
 
 function ProfileScreen({ route }) {
+  const [profileImage, setProfileImage] = React.useState(pfp); // Initialize with the default profile image
+
+  // Function to open the image picker
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1], // Maintain a square aspect ratio
+      quality: 1,
+    });
+
+    if (result.uri && !result.cancelled) {
+      setProfileImage(result.uri);
+    } else {
+      console.log('Image selection failed');
+    }
+  };
+
   return (
     <View style={styles.profile}>
       <View style={styles.row}>
         <Image
-          source={require("./assets/pfp.png")}
+          source={{ uri: profileImage }}
           style={{
             width: 100,
             height: 100,
@@ -83,6 +102,7 @@ function ProfileScreen({ route }) {
         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
       </View>
       <Text style={{ color: "blue" }}> Edit Profile</Text>
+      <Button title="Change Profile Image" onPress={pickImage} />
       <View>
         <Text style={{ fontSize: 24 }}>My Courses</Text>
         <MyList />
@@ -104,6 +124,7 @@ function ProfileScreen({ route }) {
         </TouchableOpacity>
       </View>
     </View>
+
   );
 }
 function ActivityScreen({ route }) {
