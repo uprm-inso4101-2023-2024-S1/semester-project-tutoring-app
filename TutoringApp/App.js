@@ -101,7 +101,7 @@ function ProfileScreen({ route }) {
         />
         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
       </View>
-      <Text style={{ color: "blue" }}> Edit Profile</Text>
+      <Button title="Edit Profile" />
       <Button title="Change Profile Image" onPress={pickImage} />
       <View>
         <Text style={{ fontSize: 24 }}>My Courses</Text>
