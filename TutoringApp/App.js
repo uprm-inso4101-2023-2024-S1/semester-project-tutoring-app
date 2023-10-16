@@ -76,7 +76,7 @@ function ProfileScreen({ route }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [1, 1], // Maintain a square aspect ratio
+      aspect: [1, 1],
       quality: 1,
     });
 
