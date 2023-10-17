@@ -41,7 +41,7 @@ const Stack = createNativeStackNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator>
-        <Tab.Screen name="Home" component={StackNavigator} />
+        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false}}/>
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Activity" component={ActivityScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -51,8 +51,8 @@ function TabNavigator() {
 
 function StackNavigator() {
   return(
-    <Stack.Navigator screenOptions={{ headerShown: false}}>
-      <Stack.Screen name='HomeScreen' component={HomeScreen}/>
+    <Stack.Navigator>
+      <Stack.Screen name='Home' component={HomeScreen}/>
       <Stack.Screen name="UpcomingSession" component={UpcomingSession}/>
     </Stack.Navigator>
     )
@@ -60,16 +60,11 @@ function StackNavigator() {
 }
 
 export default function App() {
+  console.log(Stack)
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        {/* <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Search" component={SearchScreen} />
-          <Tab.Screen name="Activity" component={ActivityScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator> */}
         <TabNavigator/>
       </NavigationContainer>
     </View>
