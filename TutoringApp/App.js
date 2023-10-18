@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView
-  
+
 } from "react-native";
 import React from "react";
 
@@ -40,23 +40,23 @@ const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false}}/>
-        <Tab.Screen name="Search" component={SearchScreen} />
-        <Tab.Screen name="Activity" component={ActivityScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="HomeScreen" component={StackNavigator} options={{ headerShown: false }} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Activity" component={ActivityScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   )
 }
 
 function StackNavigator() {
-  return(
-    <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen}/>
-      <Stack.Screen name="UpcomingSession" component={UpcomingSession}/>
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name="UpcomingSession" component={UpcomingSession} />
     </Stack.Navigator>
-    )
-    
+  )
+
 }
 
 export default function App() {
@@ -65,7 +65,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <TabNavigator/>
+        <TabNavigator />
       </NavigationContainer>
     </View>
   );
@@ -148,7 +148,7 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
-  
+
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -159,14 +159,14 @@ function ActivityScreen({ route }) {
 function SearchScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1}}>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-    </ScrollView>
+      <ScrollView style={{ flex: 1 }}>
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
 
     </SafeAreaView>
-    
+
   );
 }
 const renderItem = ({ item }) => {

@@ -30,20 +30,20 @@ import ViewProfileButton from '../atoms/ViewProfileButton';
   };
 */
 
-export default function RecommendedTutorCard({ tutor, size = {width: 250, height: 350} }) {
+export default function RecommendedTutorCard({ tutor, size = { width: 250, height: 350 } }) {
     return (
-        <View style={[styles.cardContainer, {width: size.width, height: size.height}]}>
+        <View style={[styles.cardContainer, { width: size.width, height: size.height }]}>
             <View style={styles.cardInner}>
                 <Text style={styles.textContainer}>
                     <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{tutor.name + "\n"}</Text>
-                    <Text style={{ fontWeight: '300', fontSize: 20}}>Teaches {tutor.specialty + "\n\n"}</Text>
+                    <Text style={{ fontWeight: '300', fontSize: 20 }}>Teaches {tutor.specialty + "\n\n"}</Text>
                     <CourseList courses={tutor.courses} />
                 </Text>
                 <View style={[styles.starRatingContainer, styles.alignCenter]}>
                     <StarRating rating={tutor.rating} />
                 </View>
                 <View style={[styles.viewProfileButton, styles.alignCenter]}>
-                    <ViewProfileButton/>
+                    <ViewProfileButton />
                 </View>
             </View>
             <View style={[styles.profilePictureContainer, styles.alignCenter]}>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         height: "75%",
         borderWidth: 2,
         borderRadius: 20,
-        borderColor: 'black',
+        borderColor: '#77D975',
         backgroundColor: 'white',
         position: 'absolute',
     },
