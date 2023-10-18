@@ -17,6 +17,7 @@ import Slider from '../organisms/Scroll';
 import CourseCard from '../atoms/CourseCard';
 import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
 import { useNavigation } from "@react-navigation/native";
+import { COLORS, SIZES } from "../../constants/theme";
 
 export default function HomeScreen() {
     // let tut = [{'id': 0,
@@ -115,8 +116,8 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     headingText: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        color: COLORS.text,
+        fontSize: SIZES.xxLarge,
         paddingHorizontal: 8
     },
     toggle_container_with_header: {
