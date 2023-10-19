@@ -1,6 +1,6 @@
 import * as React from "react";
 import { List } from "react-native-paper";
-import Tutor from "../atoms/Tutor";
+import Tutor from "../atoms/tutor.jsx";
 import { COLORS } from "../../constants/theme";
 
 /**
