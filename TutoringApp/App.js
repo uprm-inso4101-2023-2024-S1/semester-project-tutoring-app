@@ -18,8 +18,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+// Screens
 import HomeScreen from "./components/pages/HomeScreen";
 import UpcomingSession from "./components/pages/upcomingSession";
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 //Sample Data for First Mockup Version
@@ -40,8 +43,32 @@ const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
-        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false}}/>
+    <Tab.Navigator
+    initialRouteName={"Home"}
+    tabBarOptions={{
+      activeTintColor: "#674886",
+      inactiveTintColor: 'grey',
+      labelStyle: { paddingBottom: 5, fontSize: 10 },
+    }}
+    screenOptions={({route}) => ({
+      tabBarIcon: ({focused, color, size}) => {
+        let iconName;
+        let rn = route.name;
+
+        if (rn === "HomeScreen") {
+          iconName = focused ? 'home' : 'home-outline'
+        } else if (rn === "Search") {
+          iconName = focused ? 'search' : 'search-outline'
+        } else if (rn === "Activity") {
+          iconName = focused ? "chatbox-ellipses" : "chatbox-ellipses-outline"
+        } else if (rn === "Profile") {
+          iconName = focused ? "people-circle" : "people-circle-outline"
+        }
+        return <Ionicons name={iconName} size={size} color={color}/>
+      }
+    })}
+    >
+        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false, title: "Home"}}/>
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Activity" component={ActivityScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
