@@ -4,34 +4,8 @@ import StarRating from '../atoms/StarRate';
 import ProfilePicture from '../atoms/ProfilePicture';
 import ViewProfileButton from '../atoms/ViewProfileButton';
 
-/*
-  Tutor objects to test RecommendedTutorCards
-  const tutor = {
-    'name' : "Joe Biden",
-    'specialty' : "Economics",
-    'courses' : ['Intro to Economics', 'Finance'],
-    'profile' : require('./assets/test_profile_picture.jpg'),
-    'rating' : 4
-  };
-  const tutor2 = {
-    'name' : "Vannesa Ramos",
-    'specialty' : "Computer Science",
-    'courses' : ['CIIC3081', 'CIIC4020'],
-    'profile' : require('./assets/test_profile_picture2.jpg'),
-    'rating' : 3.7
-  };
-
-  const tutor3 = {
-    'name' : "Juan River",
-    'specialty' : "English",
-    'courses' : ['INGL3010', 'INGL5030'],
-    'profile' : '',
-    'rating' : 4.7
-  };
-*/
 
 export default function RecommendedTutorCard({ tutor, size = {width: 250, height: 350} }) {
-    console.log('hello');
     return (
         <View style={[styles.cardContainer, {width: size.width, height: size.height}]}>
             <View style={styles.cardInner}>

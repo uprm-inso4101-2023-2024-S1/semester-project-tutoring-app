@@ -17,26 +17,10 @@ import Slider from '../organisms/Scroll';
 import CourseCard from '../atoms/CourseCard';
 import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
 import { useNavigation } from "@react-navigation/native";
-import { supabaseClient } from "../../config/supabaseClient";
+import { fetchTutors } from "../../config/supabaseClient";
 
 
 export default function HomeScreen() {
-    // let tut = [{'id': 0,
-    //     properties: {'name': "Joe Biden",
-    //     'specialty': "Economics",
-    //     'courses' : ['Intro to Economics', 'Finance'],
-    //     'rating': 4
-    //     }},
-    //     {id: 1, properties: {'name' : "Vannesa Ramos",
-    //     'specialty' : "Computer Science",
-    //     'courses' : ['CIIC3081', 'CIIC4020'],
-    //     'profile' : '',
-    //     'rating' : 3.7}}
-    // ];
-    //  Current Issue to look into, the console is complaining
-    //  that the tutor does not have a unique key, however, I believe
-    //  this issue should be solved when the data base is set.
-
     const [status, setStatus] = useState("Active");
 
     const toggleStatus = () => {
@@ -46,58 +30,25 @@ export default function HomeScreen() {
           setStatus("Active");
         }
       };
-    
-    // Static Testing
-    const tutor = {
-        'name' : "Barack Obama",
-        'specialty' : "Economics",
-        'courses' : ['Intro to Economics', 'Finance'],
-        'profile' : '',
-        'rating' : 4
-      };
-      const tutor2 = {
-        'name' : "Trump",
-        'specialty' : "Computer Science",
-        'courses' : ['CIIC3081', 'CIIC4020'],
-        'profile' : '',
-        'rating' : 3.7
-      };
-    const tutor3 = {
-        'name' : "Jose River",
-        'specialty' : "English",
-        'courses' : ['INGL3010', 'INGL5030'],
-        'profile' : '',
-        'rating' : 4.7
-      };
 
-    const rec = supabaseClient.fetchRecommendedTutors('802201628');
-    console.log(rec);
+    const recommendedTutors = fetchTutors('802201628'); //assuming for now a specific user given that we don't have a login page
+    console.log(recommendedTutors);
+
     const tutorsToUse = [];
-    (async() => {
-      await rec.then(result => {if (result) {
-        console.log(result);
-        for (var i = 0, len = result.length; i < len; i++) {
-          const tut = {
-            'name' : String(result[i].names),
-            'specialty' : String(result[i].specialty),
-            'courses' : [String(result[i].course_id)],
-            'profile' : "",
-            'rating' : Number(result[i].tutor_rating)
-          };
-          tutorsToUse.push(tut)
-          console.log(tut);    
-          console.log(tutorsToUse[0]);
-        }
-      }});
-    })();
+    if (recommendedTutors != null) {
+    for (var i = 0, len=recommendedTutors.length; i < len; i++) {
+      const tut = {
+        'name' : String(recommendedTutors[i].names),
+        'specialty' : String(recommendedTutors[i].specialty),
+        'courses' : recommendedTutors[i].courses,
+        'profile' : "",
+        'rating' : Number(recommendedTutors[i].tutor_rating)
+      };
+      tutorsToUse.push(tut)
+    }
+    }
 
     console.log(tutorsToUse);
-    console.log(tutorsToUse[0]);
-
-    tutorsToUse.forEach((element) => console.log(element));
-    
-    const tutors2 = [tutor, tutor2, tutor3]
-    console.log(tutors2);
 
     const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Jose', link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '12:00pm', endTime: '7:00pm', tutor: 'Jose'},{courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo',link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '1:00pm', endTime: '2:00pm', tutor: 'Paco'}]
     const test_course_card_past = [{courseImage: require('../../assets/electric.jpeg'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
