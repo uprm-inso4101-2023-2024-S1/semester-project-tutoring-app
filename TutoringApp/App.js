@@ -21,6 +21,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // Screens
 import HomeScreen from "./components/pages/HomeScreen";
 import UpcomingSession from "./components/pages/upcomingSession";
+import {supabaseClient} from "./config/supabaseClient";
+import {useEffect, useState} from "react";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -87,7 +89,10 @@ function StackNavigator() {
 }
 
 export default function App() {
-  console.log(Stack)
+
+  const data = supabaseClient.fetchDataFromTable();
+  console.log(data);
+  
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -175,8 +180,6 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
-  
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
@@ -190,6 +193,8 @@ function SearchScreen({ route }) {
       <Text>
         {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
       </Text>
+
+     
     </ScrollView>
 
     </SafeAreaView>

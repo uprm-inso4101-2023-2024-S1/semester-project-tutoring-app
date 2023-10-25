@@ -17,6 +17,8 @@ import Slider from '../organisms/Scroll';
 import CourseCard from '../atoms/CourseCard';
 import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
 import { useNavigation } from "@react-navigation/native";
+import { supabaseClient } from "../../config/supabaseClient";
+
 
 export default function HomeScreen() {
     // let tut = [{'id': 0,
@@ -67,7 +69,35 @@ export default function HomeScreen() {
         'profile' : '',
         'rating' : 4.7
       };
+
+    const rec = supabaseClient.fetchRecommendedTutors('802201628');
+    console.log(rec);
+    const tutorsToUse = [];
+    (async() => {
+      await rec.then(result => {if (result) {
+        console.log(result);
+        for (var i = 0, len = result.length; i < len; i++) {
+          const tut = {
+            'name' : String(result[i].names),
+            'specialty' : String(result[i].specialty),
+            'courses' : [String(result[i].course_id)],
+            'profile' : "",
+            'rating' : Number(result[i].tutor_rating)
+          };
+          tutorsToUse.push(tut)
+          console.log(tut);    
+          console.log(tutorsToUse[0]);
+        }
+      }});
+    })();
+
+    console.log(tutorsToUse);
+    console.log(tutorsToUse[0]);
+
+    tutorsToUse.forEach((element) => console.log(element));
+    
     const tutors2 = [tutor, tutor2, tutor3]
+    console.log(tutors2);
 
     const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Jose', link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '12:00pm', endTime: '7:00pm', tutor: 'Jose'},{courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo',link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '1:00pm', endTime: '2:00pm', tutor: 'Paco'}]
     const test_course_card_past = [{courseImage: require('../../assets/electric.jpeg'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
@@ -85,7 +115,7 @@ export default function HomeScreen() {
                 <Slider components={courseData} isCourseCard={true} />
                 <View style={styles.spacer} />
                 <Text style={styles.headingText}>Recommended Tutors</Text>
-                <Slider components={tutors2} isRecommendedCard={true} />
+                <Slider components={tutorsToUse} isRecommendedCard={true} />
                 <View style={styles.spacer} />
             </View>  
         </ScrollView>

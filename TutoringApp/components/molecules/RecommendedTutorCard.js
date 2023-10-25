@@ -31,6 +31,7 @@ import ViewProfileButton from '../atoms/ViewProfileButton';
 */
 
 export default function RecommendedTutorCard({ tutor, size = {width: 250, height: 350} }) {
+    console.log('hello');
     return (
         <View style={[styles.cardContainer, {width: size.width, height: size.height}]}>
             <View style={styles.cardInner}>
