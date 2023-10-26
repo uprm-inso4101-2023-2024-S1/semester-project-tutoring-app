@@ -12,15 +12,22 @@ import {
   ScrollView,
   SafeAreaView,
 } from "react-native";
+import React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
 import Collapsible from "react-native-collapsible";
-import pfp from "./assets/pfp.png";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// Screens
+import HomeScreen from "./components/pages/HomeScreen";
+import UpcomingSession from "./components/pages/upcomingSession";
+
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
-const Tab = createBottomTabNavigator();
 const sampleCourseData = [
   { id: "1", text: "CIIC3015" },
   { id: "2", text: "CIIC4010" },
@@ -33,7 +40,56 @@ const sampleScheduleData = [
   "INGE3035 - Pedro Valle",
 ];
 
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+    initialRouteName={"Home"}
+    tabBarOptions={{
+      activeTintColor: "#674886",
+      inactiveTintColor: 'grey',
+      labelStyle: { paddingBottom: 5, fontSize: 10 },
+    }}
+    screenOptions={({route}) => ({
+      tabBarIcon: ({focused, color, size}) => {
+        let iconName;
+        let rn = route.name;
+
+        if (rn === "HomeScreen") {
+          iconName = focused ? 'home' : 'home-outline'
+        } else if (rn === "Search") {
+          iconName = focused ? 'search' : 'search-outline'
+        } else if (rn === "Activity") {
+          iconName = focused ? "chatbox-ellipses" : "chatbox-ellipses-outline"
+        } else if (rn === "Profile") {
+          iconName = focused ? "people-circle" : "people-circle-outline"
+        }
+        return <Ionicons name={iconName} size={size} color={color}/>
+      }
+    })}
+    >
+        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false, title: "Home"}}/>
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="Activity" component={ActivityScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+    </Tab.Navigator>
+  )
+}
+
+function StackNavigator() {
+  return(
+    <Stack.Navigator>
+      <Stack.Screen name='Home' component={HomeScreen}/>
+      <Stack.Screen name="UpcomingSession" component={UpcomingSession}/>
+    </Stack.Navigator>
+    )
+    
+}
+
 export default function App() {
+  console.log(Stack)
   return (
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on Tutoring App!</Text> */}
@@ -51,18 +107,6 @@ export default function App() {
           <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
-    </View>
-  );
-}
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-      <Button
-        title="Go to profile"
-        onPress={() => navigation.jumpTo("Profile", { owner: "Jose" })}
-      />
     </View>
   );
 }
@@ -107,6 +151,8 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
+  
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
