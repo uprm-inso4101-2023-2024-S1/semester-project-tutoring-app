@@ -60,24 +60,26 @@ async def CreateUser():
         return jsonify({'message': 'Error creating user'}), 500
 
 
-@app.route('/users', methods=['PUT'])
+@app.route('/users/<int:user_id>', methods=['PUT'])
 async def update_user():
     #needs more testing
     data = request.get_json()
-    success = await DataBasePut('users', data)
+    user_id = data['user_id']
+    success = await DataBasePut(f'users/{user_id}', data)
     if success:
         return jsonify({'message': 'User updated successfully'}), 200
     else:
         return jsonify({'message': 'Error updating user'}), 500
 
 
-@app.route('/users', methods=['DELETE'])
+@app.route('/users/<int:user_id>', methods=['DELETE'])
 async def delete_user():
     #needs more testing
     data = request.get_json()
+    user_id = data['user_id']
     if 'user_id' not in data:
         return jsonify({'message': 'user_id is required'}), 400
-    response = await DataBaseDelete('users', data)
+    response = await DataBaseDelete(f'users/{user_id}', data)
     if response.status_code == 204:
         return jsonify({'message': 'User deleted successfully'}), 204
     else:
@@ -104,31 +106,33 @@ async def CreateCourses():
     else:
         return jsonify({'message': 'Error creating course'}), 500
 
-@app.route('/courses', methods=['PUT'])
+@app.route('/courses/<text:course_id>', methods=['PUT'])
 async def update_course():
     #needs more testing
     data = request.get_json()
+    course_id = data['course_id']
     if 'course_id' not in data or 'course_name' not in data or "description" not in data:
         return jsonify({'message': 'course_id, course_name, and description are required'}), 400
-    success = await DataBasePut('courses', data)
+    success = await DataBasePut(f'courses/{course_id}', data)
     if success:
         return jsonify({'message': 'Course updated successfully'}), 200
     else:
         return jsonify({'message': 'Error updating course'}), 500
 
-@app.route('/courses', methods=['DELETE'])
+@app.route('/courses/<text:course_id>', methods=['DELETE'])
 async def delete_course():
     #needs more testing
     data = request.get_json()
+    course_id = data['course_id']
     if 'course_id' not in data:
         return jsonify({'message': 'course_id is required'}), 400
-    response = await DataBaseDelete('courses', data)
+    response = await DataBaseDelete(f'courses/{course_id}', data)
     if response.status_code == 204:
         return jsonify({'message': 'Course deleted successfully'}), 204
     else:
         return jsonify({'message': 'Error deleting course'}), response.status_code
 
-# # Course Schedules
+# Course Schedules
 
 @app.route('/classschedules', methods=['GET'])
 async def GetClassSchedules():
@@ -148,30 +152,6 @@ async def create_course_schedule():
         return jsonify({'message': 'Course schedule created successfully'}), 201
     else:
         return jsonify({'message': 'Error creating course schedule'}), 500
-
-@app.route('/classschedules', methods=['PUT'])
-async def update_course_schedule():
-    #needs more testing
-    data = request.get_json()
-    if 'schedule_id' not in data or 'start_time' not in data or 'end_time' not in data:
-        return jsonify({'message': 'schedule_id, start_time, and end_time are required'}), 400
-    success = await DataBasePut('classschedules', data)
-    if success:
-        return jsonify({'message': 'Course schedule updated successfully'}), 200
-    else:
-        return jsonify({'message': 'Error updating course schedule'}), 500
-
-@app.route('/classschedules', methods=['DELETE'])
-async def delete_course_schedule():
-    #needs more testing
-    data = request.get_json()
-    if 'schedule_id' not in data:
-        return jsonify({'message': 'schedule_id is required'}), 400
-    response = await DataBaseDelete('classschedules', data)
-    if response.status_code == 204:
-        return jsonify({'message': 'Course schedule deleted successfully'}), 204
-    else:
-        return jsonify({'message': 'Error deleting course schedule'}), response.status_code
 
 if __name__ == '__main__':
     app.run(debug=True)
