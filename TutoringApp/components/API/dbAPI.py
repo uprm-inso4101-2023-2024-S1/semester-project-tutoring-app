@@ -132,26 +132,5 @@ async def delete_course():
     else:
         return jsonify({'message': 'Error deleting course'}), response.status_code
 
-# Course Schedules
-
-@app.route('/classschedules', methods=['GET'])
-async def GetClassSchedules():
-    schedules = await DataBaseGet('classschedules')
-    if schedules is not None:
-        return jsonify(schedules)
-    else:
-        return jsonify({'message': 'Error fetching course schedules'}), 500
-
-@app.route('/classschedules', methods=['POST'])
-async def create_course_schedule():
-    data = await request.get_json()
-    if 'schedule_id' not in data or 'start_time' not in data or 'end_time' not in data:
-        return jsonify({'message': 'schedule_id, start_time, and end_time are required'}), 400
-    success = await DataBasePost('classschedules', data)
-    if success:
-        return jsonify({'message': 'Course schedule created successfully'}), 201
-    else:
-        return jsonify({'message': 'Error creating course schedule'}), 500
-
 if __name__ == '__main__':
     app.run(debug=True)
