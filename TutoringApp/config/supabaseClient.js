@@ -38,6 +38,7 @@ const supabaseClient = {
   },
 };
 
+// NEW PROFILE PIC FETCH REQUEST
 export const fetchProfilePic = ( user_id ) => {
   const [fetchError, setFetchError] = useState(null)
   const [profilePic, setProfilePic] = useState(null)
