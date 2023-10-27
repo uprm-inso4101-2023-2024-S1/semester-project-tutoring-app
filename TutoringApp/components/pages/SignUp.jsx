@@ -8,20 +8,60 @@ import {
 } from "react-native";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
+function isValidNameOrLastName(nameOrLastName) {
+  return /^[A-Za-z\s'-]{1,50}$/.test(nameOrLastName);
+}
+
+function isValidEmail(email) {
+  return (
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email) &&
+    email.length <= 100
+  );
+}
+
+function isValidPassword(password, confirmPassword) {
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password);
+  return (
+    password.length >= 8 &&
+    password === confirmPassword &&
+    hasUppercase &&
+    hasNumber &&
+    hasSpecialChar
+  );
+}
+
 const SignUp = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const validMessage = "Valid Message";
+  const invalidMessage = "Invalid Message";
 
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
   }
 
   function handleSignUp() {
-    toggleSnackbar()
+    const isValidSignUp =
+      isValidNameOrLastName(name) &&
+      isValidNameOrLastName(lastName) &&
+      isValidEmail(email) &&
+      isValidPassword(password, confirmPassword);
+
+    if (isValidSignUp) {
+      /**TODO  Manage user register here*/
+      setSnackbarMessage(validMessage);
+    } else {
+      setSnackbarMessage(invalidMessage);
+    }
+    toggleSnackbar();
   }
 
   return (
@@ -63,8 +103,8 @@ const SignUp = () => {
         <TextInput
           style={styles.inputHalf}
           placeholder="Confirm Password"
-          value={passwordConfirm}
-          onChangeText={(text) => setPasswordConfirm(text)}
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
           secureTextEntry={true}
         />
       </View>
@@ -77,7 +117,7 @@ const SignUp = () => {
 
       {showSnackbar && (
         <View style={styles.snackbar}>
-          <Text>{"SnackBarMessage"}</Text>
+          <Text>{snackbarMessage}</Text>
           <TouchableOpacity onPress={toggleSnackbar}>
             <Text style={styles.snackbarDismiss}>✖️</Text>
           </TouchableOpacity>
