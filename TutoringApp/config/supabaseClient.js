@@ -50,6 +50,18 @@ const supabaseClient = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
+
+   async fetchRecommendedCourses(user_id) {
+    try {
+      const { data, error } = await supabase.rpc('getrecommendedcourses', {student: user_id});
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
 };
 
 export const fetchTutors = ( user_id ) => {
@@ -74,6 +86,30 @@ export const fetchTutors = ( user_id ) => {
     fetchTutors()
   }, [])
   return tutors;
+}
+
+export const fetchCourses = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [courses, setCourses] = useState(null)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const { data, error } =  await supabase.rpc('getrecommendedcourses', {student: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch courses')
+        setCourses(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setCourses(data)
+        setFetchError(null)
+      }
+    }
+    fetchCourses()
+  }, [])
+  return courses;
 }
 
 export { supabase, supabaseClient };
