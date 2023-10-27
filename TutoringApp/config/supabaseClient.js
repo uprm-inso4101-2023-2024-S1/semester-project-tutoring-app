@@ -38,4 +38,28 @@ const supabaseClient = {
   },
 };
 
+export const fetchProfilePic = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [profilePic, setProfilePic] = useState(null)
+
+  useEffect(() => {
+    const fetchProfilePic= async () => {
+      const { data, error } =  await supabase
+        .from('users')
+        
+      if (error) {
+        setFetchError('Could not fetch profile picture')
+        setProfilePic(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setProfilePic(data)
+        setFetchError(null)
+      }
+    }
+    fetchProfilePic()
+  }, [])
+  return profilePic;
+}
 export { supabase, supabaseClient };
