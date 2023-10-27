@@ -42,12 +42,12 @@ const supabaseClient = {
 export const fetchProfilePic = ( user_id ) => {
   const [fetchError, setFetchError] = useState(null)
   const [profilePic, setProfilePic] = useState(null)
-
+  
   useEffect(() => {
     const fetchProfilePic= async () => {
       const { data, error } =  await supabase
         .from('users')
-        .select('profile_image_url')
+        .select('pfp_image')
         .eq('user_id', user_id)
 
       if (error) {
@@ -57,15 +57,16 @@ export const fetchProfilePic = ( user_id ) => {
       }
 
       if (data.length > 0) {
-        setProfilePic(data[0].profile_pic_url);
+        setProfilePic(data[0].pfp_image);
         setFetchError(null);
       } else {
-        setFetchError('No profile pic'); // Handle the case where the user is not found
+        setFetchError('No profile pic');
         setProfilePic(null);
       }
     }
     fetchProfilePic()
   }, [user_id])
   return profilePic;
+  
 }
 export { supabase, supabaseClient };

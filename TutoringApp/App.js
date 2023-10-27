@@ -20,7 +20,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "./components/pages/HomeScreen";
 import UpcomingSession from "./components/pages/upcomingSession";
-import {supabaseClient} from "./config/supabaseClient";
+import {fetchProfilePic, supabaseClient} from "./config/supabaseClient";
+import supabase from "./config/supabaseClient";
 import {useEffect, useState} from "react";
 
 
@@ -118,22 +119,38 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 3,
   },
+  profilePic: {
+    width: 100,
+    height: 100,
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
 });
 
 function ProfileScreen({ route }) {
+  const [profPic, setProfPic] = useState(null);
+
+  useEffect(() => {
+    
+    fetchProfilePic('840201644')
+      .then(profilePicUrl => {
+        setProfPic(profilePicUrl);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
+  }, []);
+
 
   return (
     <View style={styles.profile}>
       <View style={styles.row}>
-        <Image
-          source={require("./assets/pfp.png")}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            overflow: "hidden",
-          }}
-        />
+      {profPic && (
+          <Image
+            source={{ uri: profPic }}
+          />
+        )}
         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
       </View>
       <Text style={{ color: "blue" }}> Edit Profile</Text>
