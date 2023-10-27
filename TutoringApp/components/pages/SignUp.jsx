@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
 function isValidNameOrLastName(nameOrLastName) {
@@ -38,14 +39,20 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [showSnackbar, setShowSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const validMessage = "Valid Message";
   const invalidMessage = "Invalid Message";
 
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
+  }
+
+  function toggleShowPassword() {
+    setShowPassword(!showPassword);
   }
 
   function handleSignUp() {
@@ -97,7 +104,7 @@ const SignUp = () => {
           placeholder="Password"
           value={password}
           onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
+          secureTextEntry={!showPassword}
         />
 
         <TextInput
@@ -105,7 +112,14 @@ const SignUp = () => {
           placeholder="Confirm Password"
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
-          secureTextEntry={true}
+          secureTextEntry={!showPassword}
+        />
+
+        <MaterialCommunityIcons
+          style={styles.icon}
+          size={SIZES.xLarge}
+          name={showPassword ? "eye-off" : "eye"}
+          onPress={toggleShowPassword}
         />
       </View>
 
@@ -160,6 +174,11 @@ const styles = StyleSheet.create({
   passwordContainer: {
     flexDirection: "row",
     marginBottom: SIZES.medium,
+  },
+  icon: {
+    color: COLORS.tertiary,
+    marginLeft: 10,
+    height: SIZES.xLarge,
   },
   signUpButton: {
     backgroundColor: COLORS.primary,
