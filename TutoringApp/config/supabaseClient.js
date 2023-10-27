@@ -152,6 +152,52 @@ export const clearUrl = (user_id, url) =>{
   }, [])
   return null;
 } 
+export const fetchUserFromId = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userId, setUserId] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromId = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_id', {student: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserId(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserId(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromId()
+  }, [])
+  return userId;
+}
+export const fetchUserFromEmail = ( email ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromEmail = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_email', {student: email})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserEmail(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserEmail(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromEmail()
+  }, [])
+  return userEmail;
+}
 
 
 export { supabase, supabaseClient };
