@@ -46,20 +46,25 @@ export const fetchProfilePic = ( user_id ) => {
     const fetchProfilePic= async () => {
       const { data, error } =  await supabase
         .from('users')
-        
+        .select('profile_image_url')
+        .eq('user_id', user_id)
+
       if (error) {
         setFetchError('Could not fetch profile picture')
         setProfilePic(null)
         console.log(error)
       }
 
-      if (data) {
-        setProfilePic(data)
-        setFetchError(null)
+      if (data.length > 0) {
+        setProfilePic(data[0].profile_pic_url);
+        setFetchError(null);
+      } else {
+        setFetchError('No profile pic'); // Handle the case where the user is not found
+        setProfilePic(null);
       }
     }
     fetchProfilePic()
-  }, [])
+  }, [user_id])
   return profilePic;
 }
 export { supabase, supabaseClient };
