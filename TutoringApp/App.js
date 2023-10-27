@@ -122,27 +122,8 @@ export const styles = StyleSheet.create({
 
 function ProfileScreen({ route }) {
 
-  const [userData, setUserData] = useState(null);
-  const userId = route.params.userId; // Assuming you pass the user ID as a parameter
-
-  useEffect(() => {
-    // Fetch user data from the "users" table using supabaseClient
-    async function fetchUserData() {
-      try {
-        const data = await supabaseClient.fetchDataFromTable();
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error.message);
-      }
-    }
-
-    fetchUserData();
-  }, [userId]);
-
   return (
     <View style={styles.profile}>
-       {/* Display user data here */}
-     
       <View style={styles.row}>
         <Image
           source={require("./assets/pfp.png")}
