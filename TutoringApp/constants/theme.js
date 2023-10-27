@@ -10,6 +10,12 @@ const COLORS = {
   lightWhite: "#FAFAFC",
 
   text: "#212121",
+
+  BORDERS: {
+    default: "#CECECE",
+    valid: "#41f368",
+    invalid: "#ff4c4a",
+  },
 };
 
 const SIZES = {

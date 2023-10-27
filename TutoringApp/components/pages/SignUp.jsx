@@ -50,6 +50,11 @@ const SignUp = () => {
   const invalidEmailMessage = "Invalid Email Message";
   const invalidPasswordMessage = "Invalid Password Message";
 
+  const [nameStatus, setNameStatus] = useState(0);
+  const [lastNameStatus, setLastNameStatus] = useState(0);
+  const [emailStatus, setEmailStatus] = useState(0);
+  const [passwordStatus, setPasswordStatus] = useState(0);
+
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
   }
@@ -60,17 +65,30 @@ const SignUp = () => {
 
   function getValidationErrors() {
     const validationErrors = [];
+
     if (!isValidNameOrLastName(name)) {
+      setNameStatus(-1);
       validationErrors.push(invalidNameMessage);
+    } else {
+      setNameStatus(1);
     }
     if (!isValidNameOrLastName(lastName)) {
+      setLastNameStatus(-1);
       validationErrors.push(invalidLastNameMessage);
+    } else {
+      setLastNameStatus(1);
     }
     if (!isValidEmail(email)) {
+      setEmailStatus(-1);
       validationErrors.push(invalidEmailMessage);
+    } else {
+      setEmailStatus(1);
     }
     if (!isValidPassword(password, confirmPassword)) {
+      setPasswordStatus(-1);
       validationErrors.push(invalidPasswordMessage);
+    } else {
+      setPasswordStatus(1);
     }
     return validationErrors;
   }
@@ -81,7 +99,7 @@ const SignUp = () => {
     if (validationErrors.length > 0) {
       setSnackbarMessage(validationErrors.join("\n"));
     } else {
-      /** TODO Manage user register here */
+      /** TODO: Manejar el registro de usuario aquí */
       setSnackbarMessage(validMessage);
     }
     toggleSnackbar();
@@ -93,41 +111,106 @@ const SignUp = () => {
 
       <View style={styles.nameAndLastNameContainer}>
         <TextInput
-          style={styles.inputHalf}
+          style={[
+            styles.inputHalf,
+            {
+              borderColor:
+                nameStatus === 1
+                  ? COLORS.BORDERS.valid
+                  : nameStatus === -1
+                  ? COLORS.BORDERS.invalid
+                  : COLORS.BORDERS.default,
+            },
+          ]}
           placeholder="First Name"
           value={name}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => {
+            setName(text);
+            setNameStatus(0);
+          }}
         />
 
         <TextInput
-          style={styles.inputHalf}
+          style={[
+            styles.inputHalf,
+            {
+              borderColor:
+                lastNameStatus === 1
+                  ? COLORS.BORDERS.valid
+                  : lastNameStatus === -1
+                  ? COLORS.BORDERS.invalid
+                  : COLORS.BORDERS.default,
+            },
+          ]}
           placeholder="Last Name"
           value={lastName}
-          onChangeText={(text) => setLastName(text)}
+          onChangeText={(text) => {
+            setLastName(text);
+            setLastNameStatus(0);
+          }}
         />
       </View>
 
       <TextInput
-        style={styles.emailInput}
+        style={[
+          styles.emailInput,
+          {
+            borderColor:
+              emailStatus === 1
+                ? COLORS.BORDERS.valid
+                : emailStatus === -1
+                ? COLORS.BORDERS.invalid
+                : COLORS.BORDERS.default,
+          },
+        ]}
         placeholder="Email"
         value={email}
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={(text) => {
+          setEmail(text);
+          setEmailStatus(0);
+        }}
       />
 
       <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.inputHalf}
+          style={[
+            styles.inputHalf,
+            {
+              borderColor:
+                passwordStatus === 1
+                  ? COLORS.BORDERS.valid
+                  : passwordStatus === -1
+                  ? COLORS.BORDERS.invalid
+                  : COLORS.BORDERS.default,
+            },
+          ]}
           placeholder="Password"
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => {
+            setPassword(text);
+            setPasswordStatus(0);
+          }}
           secureTextEntry={!showPassword}
         />
 
         <TextInput
-          style={styles.inputHalf}
+          style={[
+            styles.inputHalf,
+            {
+              borderColor:
+                passwordStatus === 1
+                  ? COLORS.BORDERS.valid
+                  : passwordStatus === -1
+                  ? COLORS.BORDERS.invalid
+                  : COLORS.BORDERS.default,
+            },
+          ]}
           placeholder="Confirm Password"
           value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={(text) => {
+            setConfirmPassword(text);
+            setPasswordStatus(0);
+          }}
           secureTextEntry={!showPassword}
         />
 
@@ -176,7 +259,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: SIZES.small,
     padding: SIZES.small,
-    borderColor: COLORS.gray,
+    // borderColor: COLORS.gray,
     borderWidth: 1,
     marginRight: 5,
   },
@@ -184,7 +267,7 @@ const styles = StyleSheet.create({
     width: 375,
     marginBottom: SIZES.medium,
     padding: SIZES.small,
-    borderColor: COLORS.gray,
+    // borderColor: COLORS.gray,
     borderWidth: 1,
   },
   passwordContainer: {
