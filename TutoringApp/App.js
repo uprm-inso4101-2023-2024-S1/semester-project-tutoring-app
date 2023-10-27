@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Services from "./components/pages/services";
 
 import {
   Image,
@@ -9,13 +10,13 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView
-  
+  SafeAreaView,
 } from "react-native";
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Collapsible from "react-native-collapsible";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
@@ -26,6 +27,7 @@ import {useEffect, useState} from "react";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
 const sampleCourseData = [
@@ -189,16 +191,13 @@ function ActivityScreen({ route }) {
 function SearchScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1}}>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-
-     
-    </ScrollView>
-
+      <ScrollView style={{ flex: 1 }}>
+        {Services()}
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
     </SafeAreaView>
-    
   );
 }
 const renderItem = ({ item }) => {
