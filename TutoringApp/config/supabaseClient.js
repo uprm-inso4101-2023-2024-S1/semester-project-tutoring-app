@@ -112,4 +112,46 @@ export const fetchCourses = ( user_id ) => {
   return courses;
 }
 
+export const insertUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const insertUrl = async () => {
+      const { data, error } =  await supabase.rpc('setpfp', {id: user_id, Pfp: url})
+
+      if (error) {
+        setInsertError('Could not Insert Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    insertUrl()
+  }, [])
+  return null;
+}
+export const clearUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const clearUrl = async () => {
+      const { data, error } =  await supabase.rpc('clearpfp', {id: user_id})
+
+      if (error) {
+        setInsertError('Could not clear Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    clearUrl()
+  }, [])
+  return null;
+} 
+
+
 export { supabase, supabaseClient };
