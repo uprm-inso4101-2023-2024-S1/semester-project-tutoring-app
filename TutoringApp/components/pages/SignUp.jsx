@@ -45,7 +45,10 @@ const SignUp = () => {
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const validMessage = "Valid Message";
-  const invalidMessage = "Invalid Message";
+  const invalidNameMessage = "Invalid Name Message";
+  const invalidLastNameMessage = "Invalid Last Name Message";
+  const invalidEmailMessage = "Invalid Email Message";
+  const invalidPasswordMessage = "Invalid Password Message";
 
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
@@ -55,18 +58,31 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   }
 
-  function handleSignUp() {
-    const isValidSignUp =
-      isValidNameOrLastName(name) &&
-      isValidNameOrLastName(lastName) &&
-      isValidEmail(email) &&
-      isValidPassword(password, confirmPassword);
+  function getValidationErrors() {
+    const validationErrors = [];
+    if (!isValidNameOrLastName(name)) {
+      validationErrors.push(invalidNameMessage);
+    }
+    if (!isValidNameOrLastName(lastName)) {
+      validationErrors.push(invalidLastNameMessage);
+    }
+    if (!isValidEmail(email)) {
+      validationErrors.push(invalidEmailMessage);
+    }
+    if (!isValidPassword(password, confirmPassword)) {
+      validationErrors.push(invalidPasswordMessage);
+    }
+    return validationErrors;
+  }
 
-    if (isValidSignUp) {
-      /**TODO  Manage user register here*/
-      setSnackbarMessage(validMessage);
+  function handleSignUp() {
+    const validationErrors = getValidationErrors();
+
+    if (validationErrors.length > 0) {
+      setSnackbarMessage(validationErrors.join("\n"));
     } else {
-      setSnackbarMessage(invalidMessage);
+      /** TODO Manage user register here */
+      setSnackbarMessage(validMessage);
     }
     toggleSnackbar();
   }
