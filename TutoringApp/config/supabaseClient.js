@@ -158,7 +158,7 @@ export const fetchUserFromId = ( user_id ) => {
 
   useEffect(() => {
     const fetchUserFromId = async () => {
-      const { data, error } =  await supabase.rpc('get_user_from_id', {student: user_id})
+      const { data, error } =  await supabase.rpc('get_user_from_id', {id: user_id})
 
       if (error) {
         setFetchError('Could not fetch user')
@@ -181,7 +181,7 @@ export const fetchUserFromEmail = ( email ) => {
 
   useEffect(() => {
     const fetchUserFromEmail = async () => {
-      const { data, error } =  await supabase.rpc('get_user_from_email', {student: email})
+      const { data, error } =  await supabase.rpc('get_user_from_email', {email: email})
 
       if (error) {
         setFetchError('Could not fetch user')
