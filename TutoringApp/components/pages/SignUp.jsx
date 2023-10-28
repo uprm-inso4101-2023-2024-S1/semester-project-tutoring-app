@@ -140,7 +140,10 @@ const SignUp = () => {
           ]}
           placeholder="First Name"
           value={form.name}
-          onChangeText={(text) => updateForm("name", text)}
+          onChangeText={(text) => {
+            updateForm("name", text);
+            setNameStatus(defaultStatus);
+          }}
         />
 
         <TextInput
@@ -150,7 +153,10 @@ const SignUp = () => {
           ]}
           placeholder="Last Name"
           value={form.lastName}
-          onChangeText={(text) => updateForm("lastName", text)}
+          onChangeText={(text) => {
+            updateForm("lastName", text);
+            setLastNameStatus(defaultStatus);
+          }}
         />
       </View>
 
@@ -161,7 +167,10 @@ const SignUp = () => {
         ]}
         placeholder="Email"
         value={form.email}
-        onChangeText={(text) => updateForm("email", text)}
+        onChangeText={(text) => {
+          updateForm("email", text);
+          setEmailStatus(defaultStatus);
+        }}
       />
 
       <View style={styles.passwordContainer}>
@@ -172,7 +181,10 @@ const SignUp = () => {
           ]}
           placeholder="Password"
           value={form.password}
-          onChangeText={(text) => updateForm("password", text)}
+          onChangeText={(text) => {
+            updateForm("password", text);
+            setPasswordStatus(defaultStatus);
+          }}
           secureTextEntry={!showPassword}
         />
 
@@ -183,7 +195,10 @@ const SignUp = () => {
           ]}
           placeholder="Confirm Password"
           value={form.confirmPassword}
-          onChangeText={(text) => updateForm("confirmPassword", text)}
+          onChangeText={(text) => {
+            updateForm("confirmPassword", text);
+            setPasswordStatus(defaultStatus);
+          }}
           secureTextEntry={!showPassword}
         />
 
