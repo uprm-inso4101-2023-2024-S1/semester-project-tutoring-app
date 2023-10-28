@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import Services from "./components/pages/services";
+import Service from "./components/pages/Service";
 
 import {
   Image,
@@ -15,8 +15,6 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import Collapsible from "react-native-collapsible";
-import pfp from "./assets/pfp.png";
 import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
@@ -117,7 +115,7 @@ function SearchScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        {Services()}
+        {Service()}
         <Text>
           {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
         </Text>
