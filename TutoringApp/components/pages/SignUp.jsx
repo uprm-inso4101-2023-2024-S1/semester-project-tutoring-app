@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
 function isValidNameOrLastName(nameOrLastName) {
@@ -49,11 +49,18 @@ const SignUp = () => {
   const invalidLastNameMessage = "Invalid Last Name Message";
   const invalidEmailMessage = "Invalid Email Message";
   const invalidPasswordMessage = "Invalid Password Message";
+  
+  const headingText = "Sign Up";
+  const buttonMessage = "Sign up";
 
-  const [nameStatus, setNameStatus] = useState(0);
-  const [lastNameStatus, setLastNameStatus] = useState(0);
-  const [emailStatus, setEmailStatus] = useState(0);
-  const [passwordStatus, setPasswordStatus] = useState(0);
+  const invalidStatus = -1;
+  const defaultStatus = 0;
+  const validStatus = 1;
+
+  const [nameStatus, setNameStatus] = useState(defaultStatus);
+  const [lastNameStatus, setLastNameStatus] = useState(defaultStatus);
+  const [emailStatus, setEmailStatus] = useState(defaultStatus);
+  const [passwordStatus, setPasswordStatus] = useState(defaultStatus);
 
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
@@ -67,28 +74,28 @@ const SignUp = () => {
     const validationErrors = [];
 
     if (!isValidNameOrLastName(name)) {
-      setNameStatus(-1);
+      setNameStatus(invalidStatus);
       validationErrors.push(invalidNameMessage);
     } else {
-      setNameStatus(1);
+      setNameStatus(validStatus);
     }
     if (!isValidNameOrLastName(lastName)) {
-      setLastNameStatus(-1);
+      setLastNameStatus(invalidStatus);
       validationErrors.push(invalidLastNameMessage);
     } else {
-      setLastNameStatus(1);
+      setLastNameStatus(validStatus);
     }
     if (!isValidEmail(email)) {
-      setEmailStatus(-1);
+      setEmailStatus(invalidStatus);
       validationErrors.push(invalidEmailMessage);
     } else {
-      setEmailStatus(1);
+      setEmailStatus(validStatus);
     }
     if (!isValidPassword(password, confirmPassword)) {
-      setPasswordStatus(-1);
+      setPasswordStatus(invalidStatus);
       validationErrors.push(invalidPasswordMessage);
     } else {
-      setPasswordStatus(1);
+      setPasswordStatus(validStatus);
     }
     return validationErrors;
   }
@@ -107,7 +114,7 @@ const SignUp = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Sign up</Text>
+      <Text style={styles.heading}>{headingText}</Text>
 
       <View style={styles.nameAndLastNameContainer}>
         <TextInput
@@ -115,9 +122,9 @@ const SignUp = () => {
             styles.inputHalf,
             {
               borderColor:
-                nameStatus === 1
+                nameStatus === validStatus
                   ? COLORS.BORDERS.valid
-                  : nameStatus === -1
+                  : nameStatus === invalidStatus
                   ? COLORS.BORDERS.invalid
                   : COLORS.BORDERS.default,
             },
@@ -126,7 +133,7 @@ const SignUp = () => {
           value={name}
           onChangeText={(text) => {
             setName(text);
-            setNameStatus(0);
+            setNameStatus(defaultStatus);
           }}
         />
 
@@ -135,9 +142,9 @@ const SignUp = () => {
             styles.inputHalf,
             {
               borderColor:
-                lastNameStatus === 1
+                lastNameStatus === validStatus
                   ? COLORS.BORDERS.valid
-                  : lastNameStatus === -1
+                  : lastNameStatus === invalidStatus
                   ? COLORS.BORDERS.invalid
                   : COLORS.BORDERS.default,
             },
@@ -146,7 +153,7 @@ const SignUp = () => {
           value={lastName}
           onChangeText={(text) => {
             setLastName(text);
-            setLastNameStatus(0);
+            setLastNameStatus(defaultStatus);
           }}
         />
       </View>
@@ -156,9 +163,9 @@ const SignUp = () => {
           styles.emailInput,
           {
             borderColor:
-              emailStatus === 1
+              emailStatus === validStatus
                 ? COLORS.BORDERS.valid
-                : emailStatus === -1
+                : emailStatus === invalidStatus
                 ? COLORS.BORDERS.invalid
                 : COLORS.BORDERS.default,
           },
@@ -167,7 +174,7 @@ const SignUp = () => {
         value={email}
         onChangeText={(text) => {
           setEmail(text);
-          setEmailStatus(0);
+          setEmailStatus(defaultStatus);
         }}
       />
 
@@ -177,9 +184,9 @@ const SignUp = () => {
             styles.inputHalf,
             {
               borderColor:
-                passwordStatus === 1
+                passwordStatus === validStatus
                   ? COLORS.BORDERS.valid
-                  : passwordStatus === -1
+                  : passwordStatus === invalidStatus
                   ? COLORS.BORDERS.invalid
                   : COLORS.BORDERS.default,
             },
@@ -188,7 +195,7 @@ const SignUp = () => {
           value={password}
           onChangeText={(text) => {
             setPassword(text);
-            setPasswordStatus(0);
+            setPasswordStatus(defaultStatus);
           }}
           secureTextEntry={!showPassword}
         />
@@ -198,9 +205,9 @@ const SignUp = () => {
             styles.inputHalf,
             {
               borderColor:
-                passwordStatus === 1
+                passwordStatus === validStatus
                   ? COLORS.BORDERS.valid
-                  : passwordStatus === -1
+                  : passwordStatus === invalidStatus
                   ? COLORS.BORDERS.invalid
                   : COLORS.BORDERS.default,
             },
@@ -209,7 +216,7 @@ const SignUp = () => {
           value={confirmPassword}
           onChangeText={(text) => {
             setConfirmPassword(text);
-            setPasswordStatus(0);
+            setPasswordStatus(defaultStatus);
           }}
           secureTextEntry={!showPassword}
         />
@@ -224,16 +231,21 @@ const SignUp = () => {
 
       <TouchableOpacity onPress={handleSignUp}>
         <View style={styles.signUpButton}>
-          <Text style={styles.buttonText}>Sign Up</Text>
+          <Text style={styles.buttonText}>{buttonMessage}</Text>
         </View>
       </TouchableOpacity>
 
       {showSnackbar && (
         <View style={styles.snackbar}>
           <Text>{snackbarMessage}</Text>
-          <TouchableOpacity onPress={toggleSnackbar}>
-            <Text style={styles.snackbarDismiss}>✖️</Text>
-          </TouchableOpacity>
+          <Feather
+            name="x-circle"
+            size={SIZES.xLarge}
+            color={COLORS.tertiary}
+            marginLeft={10}
+            height={SIZES.xLarge}
+            onPress={toggleSnackbar}
+          />
         </View>
       )}
     </View>
@@ -259,7 +271,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: SIZES.small,
     padding: SIZES.small,
-    // borderColor: COLORS.gray,
     borderWidth: 1,
     marginRight: 5,
   },
@@ -267,7 +278,6 @@ const styles = StyleSheet.create({
     width: 375,
     marginBottom: SIZES.medium,
     padding: SIZES.small,
-    // borderColor: COLORS.gray,
     borderWidth: 1,
   },
   passwordContainer: {
@@ -289,6 +299,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   snackbar: {
+    flexDirection: "row",
     borderRadius: SIZES.small,
     ...SHADOWS.medium,
   },
