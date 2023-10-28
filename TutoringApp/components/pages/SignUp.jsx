@@ -23,7 +23,7 @@ function isValidEmail(email) {
 function isValidPassword(password, confirmPassword) {
   const hasUppercase = /[A-Z]/.test(password);
   const hasNumber = /\d/.test(password);
-  const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password);
   return (
     password.length >= 8 &&
     password === confirmPassword &&
@@ -34,11 +34,14 @@ function isValidPassword(password, confirmPassword) {
 }
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
@@ -49,7 +52,7 @@ const SignUp = () => {
   const invalidLastNameMessage = "Invalid Last Name Message";
   const invalidEmailMessage = "Invalid Email Message";
   const invalidPasswordMessage = "Invalid Password Message";
-  
+
   const headingText = "Sign Up";
   const buttonMessage = "Sign up";
 
@@ -62,6 +65,10 @@ const SignUp = () => {
   const [emailStatus, setEmailStatus] = useState(defaultStatus);
   const [passwordStatus, setPasswordStatus] = useState(defaultStatus);
 
+  const updateForm = (fieldName, value) => {
+    setForm({ ...form, [fieldName]: value });
+  };
+
   function toggleSnackbar() {
     setShowSnackbar(!showSnackbar);
   }
@@ -70,28 +77,37 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   }
 
+  function getBorderStyle(status) {
+    if (status === validStatus) {
+      return COLORS.BORDERS.valid;
+    } else if (status === invalidStatus) {
+      return COLORS.BORDERS.invalid;
+    }
+    return COLORS.BORDERS.default;
+  }
+
   function getValidationErrors() {
     const validationErrors = [];
 
-    if (!isValidNameOrLastName(name)) {
+    if (!isValidNameOrLastName(form.name)) {
       setNameStatus(invalidStatus);
       validationErrors.push(invalidNameMessage);
     } else {
       setNameStatus(validStatus);
     }
-    if (!isValidNameOrLastName(lastName)) {
+    if (!isValidNameOrLastName(form.lastName)) {
       setLastNameStatus(invalidStatus);
       validationErrors.push(invalidLastNameMessage);
     } else {
       setLastNameStatus(validStatus);
     }
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(form.email)) {
       setEmailStatus(invalidStatus);
       validationErrors.push(invalidEmailMessage);
     } else {
       setEmailStatus(validStatus);
     }
-    if (!isValidPassword(password, confirmPassword)) {
+    if (!isValidPassword(form.password, form.confirmPassword)) {
       setPasswordStatus(invalidStatus);
       validationErrors.push(invalidPasswordMessage);
     } else {
@@ -106,10 +122,10 @@ const SignUp = () => {
     if (validationErrors.length > 0) {
       setSnackbarMessage(validationErrors.join("\n"));
     } else {
-      /** TODO: Manejar el registro de usuario aquí */
+      /** TODO: Manage user register here */
       setSnackbarMessage(validMessage);
     }
-    toggleSnackbar();
+    setShowSnackbar(true);
   }
 
   return (
@@ -120,104 +136,54 @@ const SignUp = () => {
         <TextInput
           style={[
             styles.inputHalf,
-            {
-              borderColor:
-                nameStatus === validStatus
-                  ? COLORS.BORDERS.valid
-                  : nameStatus === invalidStatus
-                  ? COLORS.BORDERS.invalid
-                  : COLORS.BORDERS.default,
-            },
+            { borderColor: getBorderStyle(nameStatus) },
           ]}
           placeholder="First Name"
-          value={name}
-          onChangeText={(text) => {
-            setName(text);
-            setNameStatus(defaultStatus);
-          }}
+          value={form.name}
+          onChangeText={(text) => updateForm("name", text)}
         />
 
         <TextInput
           style={[
             styles.inputHalf,
-            {
-              borderColor:
-                lastNameStatus === validStatus
-                  ? COLORS.BORDERS.valid
-                  : lastNameStatus === invalidStatus
-                  ? COLORS.BORDERS.invalid
-                  : COLORS.BORDERS.default,
-            },
+            { borderColor: getBorderStyle(lastNameStatus) },
           ]}
           placeholder="Last Name"
-          value={lastName}
-          onChangeText={(text) => {
-            setLastName(text);
-            setLastNameStatus(defaultStatus);
-          }}
+          value={form.lastName}
+          onChangeText={(text) => updateForm("lastName", text)}
         />
       </View>
 
       <TextInput
         style={[
           styles.emailInput,
-          {
-            borderColor:
-              emailStatus === validStatus
-                ? COLORS.BORDERS.valid
-                : emailStatus === invalidStatus
-                ? COLORS.BORDERS.invalid
-                : COLORS.BORDERS.default,
-          },
+          { borderColor: getBorderStyle(emailStatus) },
         ]}
         placeholder="Email"
-        value={email}
-        onChangeText={(text) => {
-          setEmail(text);
-          setEmailStatus(defaultStatus);
-        }}
+        value={form.email}
+        onChangeText={(text) => updateForm("email", text)}
       />
 
       <View style={styles.passwordContainer}>
         <TextInput
           style={[
             styles.inputHalf,
-            {
-              borderColor:
-                passwordStatus === validStatus
-                  ? COLORS.BORDERS.valid
-                  : passwordStatus === invalidStatus
-                  ? COLORS.BORDERS.invalid
-                  : COLORS.BORDERS.default,
-            },
+            { borderColor: getBorderStyle(passwordStatus) },
           ]}
           placeholder="Password"
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-            setPasswordStatus(defaultStatus);
-          }}
+          value={form.password}
+          onChangeText={(text) => updateForm("password", text)}
           secureTextEntry={!showPassword}
         />
 
         <TextInput
           style={[
             styles.inputHalf,
-            {
-              borderColor:
-                passwordStatus === validStatus
-                  ? COLORS.BORDERS.valid
-                  : passwordStatus === invalidStatus
-                  ? COLORS.BORDERS.invalid
-                  : COLORS.BORDERS.default,
-            },
+            { borderColor: getBorderStyle(passwordStatus) },
           ]}
           placeholder="Confirm Password"
-          value={confirmPassword}
-          onChangeText={(text) => {
-            setConfirmPassword(text);
-            setPasswordStatus(defaultStatus);
-          }}
+          value={form.confirmPassword}
+          onChangeText={(text) => updateForm("confirmPassword", text)}
           secureTextEntry={!showPassword}
         />
 
@@ -302,6 +268,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: SIZES.small,
     ...SHADOWS.medium,
+    marginTop: 20,
   },
   snackbarDismiss: {
     textAlign: "right",
