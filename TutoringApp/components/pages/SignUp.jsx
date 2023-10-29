@@ -9,28 +9,120 @@ import {
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
-function isValidNameOrLastName(nameOrLastName) {
-  return /^[A-Za-z\s'-]{1,50}$/.test(nameOrLastName);
+function getNameErrors(name) {
+  const validationErrors = [];
+
+  if (name.length === 0) {
+    validationErrors.push("Invalid Name: The field is empty.");
+  } else {
+    if (name.length > 50) {
+      validationErrors.push("Invalid Name: The field is too long.");
+    }
+
+    if (!/^[A-Za-z\s'-]*$/.test(name)) {
+      validationErrors.push("Invalid Name: Invalid characters used.");
+    }
+  }
+
+  if (validationErrors.length > 1) {
+    validationErrors.length = 1;
+    validationErrors[0] =
+      "Invalid Name: A valid name may contain letters, spaces, and certain special characters (', -, and space).";
+  }
+
+  return validationErrors;
 }
 
-function isValidEmail(email) {
-  return (
-    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email) &&
-    email.length <= 100
-  );
+function getLastNameErrors(lastName) {
+  const validationErrors = [];
+
+  if (lastName.length === 0) {
+    validationErrors.push("Invalid Last Name: The field is empty.");
+  } else {
+    if (lastName.length > 50) {
+      validationErrors.push("Invalid Last Name: The field is too long.");
+    }
+
+    if (!/^[A-Za-z\s'-]*$/.test(lastName)) {
+      validationErrors.push("Invalid Last Name: Invalid characters used.");
+    }
+  }
+
+  if (validationErrors.length > 1) {
+    validationErrors.length = 1;
+    validationErrors[0] =
+      "Invalid Last Name: A valid last name may contain letters, spaces, and certain special characters (', -, and space).";
+  }
+
+  return validationErrors;
 }
 
-function isValidPassword(password, confirmPassword) {
+function getEmailErrors(email) {
+  const validationErrors = [];
+
+  const validEmailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const isEmailValid = validEmailPattern.test(email);
+  const isEmailWithinLengthLimit = email.length <= 100;
+
+  if (email.length === 0) {
+    validationErrors.push("Invalid Email: The field is empty.");
+  } else {
+    if (!isEmailValid) {
+      validationErrors.push("Invalid Email: Invalid email format.");
+    }
+
+    if (!isEmailWithinLengthLimit) {
+      validationErrors.push("Invalid Email: The email is too long.");
+    }
+  }
+
+  if (validationErrors.length > 1) {
+    validationErrors.length = 1;
+    validationErrors[0] =
+      "Invalid Email: Please enter a valid email address (e.g., user@example.com).";
+  }
+
+  /**
+   * TODO: Add validation to check if the email is already in use here
+   */
+
+  return validationErrors;
+}
+
+function getPasswordErrors(password, confirmPassword) {
+  const validationErrors = [];
+
   const hasUppercase = /[A-Z]/.test(password);
   const hasNumber = /\d/.test(password);
   const hasSpecialChar = /[!@#$%^&*()_+{}[\]:;<>,.?~\\-]/.test(password);
-  return (
-    password.length >= 8 &&
-    password === confirmPassword &&
-    hasUppercase &&
-    hasNumber &&
-    hasSpecialChar
-  );
+
+  if (password.length === 0 || confirmPassword.length === 0) {
+    validationErrors.push("Invalid Password: The field is empty.");
+  }
+
+  if (password.length < 8) {
+    validationErrors.push(
+      "Invalid Password: A valid password must contain at least 8 characters."
+    );
+  }
+
+  if (password !== confirmPassword) {
+    validationErrors.push("Invalid Password: Passwords do not match.");
+  }
+
+  if (!hasUppercase || !hasNumber || !hasSpecialChar) {
+    validationErrors.push(
+      "Invalid Password: A valid password must contain at least one uppercase letter, one number, and one special character."
+    );
+  }
+
+  if (validationErrors.length > 1) {
+    validationErrors.length = 1;
+    validationErrors[0] =
+      "Invalid Password: A valid password must contain at least 8 characters, one uppercase letter, one number, and one special character.";
+  }
+
+  return validationErrors;
 }
 
 const SignUp = () => {
@@ -48,10 +140,6 @@ const SignUp = () => {
   const [showSnackbar, setShowSnackbar] = useState(false);
 
   const validMessage = "Valid Message";
-  const invalidNameMessage = "Invalid Name Message";
-  const invalidLastNameMessage = "Invalid Last Name Message";
-  const invalidEmailMessage = "Invalid Email Message";
-  const invalidPasswordMessage = "Invalid Password Message";
 
   const headingText = "Sign Up";
   const buttonMessage = "Sign up";
@@ -86,38 +174,32 @@ const SignUp = () => {
     return COLORS.BORDERS.default;
   }
 
-  function getValidationErrors() {
+  function getValidationErrors(form) {
     const validationErrors = [];
 
-    if (!isValidNameOrLastName(form.name)) {
-      setNameStatus(invalidStatus);
-      validationErrors.push(invalidNameMessage);
-    } else {
-      setNameStatus(validStatus);
-    }
-    if (!isValidNameOrLastName(form.lastName)) {
-      setLastNameStatus(invalidStatus);
-      validationErrors.push(invalidLastNameMessage);
-    } else {
-      setLastNameStatus(validStatus);
-    }
-    if (!isValidEmail(form.email)) {
-      setEmailStatus(invalidStatus);
-      validationErrors.push(invalidEmailMessage);
-    } else {
-      setEmailStatus(validStatus);
-    }
-    if (!isValidPassword(form.password, form.confirmPassword)) {
-      setPasswordStatus(invalidStatus);
-      validationErrors.push(invalidPasswordMessage);
-    } else {
-      setPasswordStatus(validStatus);
-    }
+    const nameErrors = getNameErrors(form.name);
+    const lastNameErrors = getLastNameErrors(form.lastName);
+    const emailErrors = getEmailErrors(form.email);
+    const passwordErrors = getPasswordErrors(
+      form.password,
+      form.confirmPassword
+    );
+
+    validationErrors.push(...nameErrors);
+    validationErrors.push(...lastNameErrors);
+    validationErrors.push(...emailErrors);
+    validationErrors.push(...passwordErrors);
+
+    setNameStatus(nameErrors.length > 0 ? invalidStatus : validStatus);
+    setLastNameStatus(lastNameErrors.length > 0 ? invalidStatus : validStatus);
+    setEmailStatus(emailErrors.length > 0 ? invalidStatus : validStatus);
+    setPasswordStatus(passwordErrors.length > 0 ? invalidStatus : validStatus);
+
     return validationErrors;
   }
 
   function handleSignUp() {
-    const validationErrors = getValidationErrors();
+    const validationErrors = getValidationErrors(form);
 
     if (validationErrors.length > 0) {
       setSnackbarMessage(validationErrors.join("\n"));
