@@ -98,22 +98,22 @@ function getPasswordErrors(password, confirmPassword) {
 
   if (password.length === 0 || confirmPassword.length === 0) {
     validationErrors.push("Invalid Password: The field is empty.");
-  }
+  } else {
+    if (password.length < 8) {
+      validationErrors.push(
+        "Invalid Password: A valid password must contain at least 8 characters."
+      );
+    }
 
-  if (password.length < 8) {
-    validationErrors.push(
-      "Invalid Password: A valid password must contain at least 8 characters."
-    );
-  }
+    if (password !== confirmPassword) {
+      validationErrors.push("Invalid Password: Passwords do not match.");
+    }
 
-  if (password !== confirmPassword) {
-    validationErrors.push("Invalid Password: Passwords do not match.");
-  }
-
-  if (!hasUppercase || !hasNumber || !hasSpecialChar) {
-    validationErrors.push(
-      "Invalid Password: A valid password must contain at least one uppercase letter, one number, and one special character."
-    );
+    if (!hasUppercase || !hasNumber || !hasSpecialChar) {
+      validationErrors.push(
+        "Invalid Password: A valid password must contain at least one uppercase letter, one number, and one special character."
+      );
+    }
   }
 
   if (validationErrors.length > 1) {
