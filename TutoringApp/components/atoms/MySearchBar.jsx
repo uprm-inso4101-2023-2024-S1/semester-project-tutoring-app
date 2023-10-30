@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
-import DepartmentComponent from "./DepartmentComponent";
-
+import Department from "../atoms/Department";
 import { StyleSheet } from "react-native";
-import NoResultsSearch from "./NoResultsSearch";
-import { COLORS, SHADOWS } from "../../constants/theme";
+import NoResultsSearch from "../atoms/NoResultsSearch";
+import { COLORS } from "../../constants/theme";
 
+/**
+ * Represents a search bar component.
+ *
+ * @param {object} props - The properties for the search bar component.
+ * @param {Array} props.contentList - The content list from the API.
+ * @returns {JSX.Element} A Surface component representing the search bar and filter content.
+ */
 const MySearchBar = ({ contentList }) => {
   let [searchText, setSearchText] = useState("");
   let [searchResults, setSearchResults] = useState(contentList);
 
+  /**
+   * Handles the search based on the given text.
+   *
+   * @param {string} text - The search text.
+   */
   const handleSearch = (text) => {
     try {
       const currText = text.trim().toLowerCase();
@@ -36,16 +47,7 @@ const MySearchBar = ({ contentList }) => {
   };
 
   return (
-    // current styles are just examples of themes. Remove when desining begins
-    <Surface
-      style={{
-        padding: 10,
-        marginVertical: 20,
-        backgroundColor: "transparent",
-        borderWidth: 0,
-        postion: "relative",
-      }}
-    >
+    <Surface style={styles.surface}>
       <Searchbar
         placeholder="Search your course"
         placeholderTextColor={COLORS.text}
@@ -54,25 +56,16 @@ const MySearchBar = ({ contentList }) => {
           handleSearch(text);
         }}
         value={searchText}
-        //This styles also
-        style={{
-          alignItems: "center",
-          backgroundColor: COLORS.lightWhite,
-          borderColor: COLORS.gray,
-          borderRadius: 25,
-          paddingHorizontal: 5,
-          width: "50%",
-          marginHorizontal: "30%",
-        }}
+        style={styles.searchBar}
         iconColor={COLORS.primary}
-        inputStyle={{ color: COLORS.text, fontSize: 24 }}
+        inputStyle={styles.input}
       />
 
       {searchResults.length === 0 ? (
         <NoResultsSearch />
       ) : (
         searchResults.map((result, index) => (
-          <DepartmentComponent
+          <Department
             key={index}
             departmentName={result.name}
             courseData={result.courseData}
@@ -83,10 +76,29 @@ const MySearchBar = ({ contentList }) => {
   );
 };
 
+/**
+ * StyleSheet for styles used in the MySearchBar component.
+ */
 const styles = StyleSheet.create({
   surface: {
-    flex: 1,
-    padding: 16,
+    padding: 10,
+    marginVertical: 20,
+    backgroundColor: "transparent",
+    borderWidth: 0,
+    position: "relative",
+  },
+  searchBar: {
+    alignItems: "center",
+    backgroundColor: COLORS.lightWhite,
+    borderColor: COLORS.gray,
+    borderRadius: 25,
+    paddingHorizontal: 5,
+    width: "50%",
+    marginHorizontal: "30%",
+  },
+  input: {
+    color: COLORS.text,
+    fontSize: 24,
   },
 });
 

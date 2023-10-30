@@ -1,6 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-
+/**
+ * A component that represents an edge case when no search results are found.
+ *
+ * @returns {JSX.Element} A View component with informative text.
+ */
 const NoResultsSearch = () => {
   return (
     <View style={styles.container}>
@@ -9,6 +13,9 @@ const NoResultsSearch = () => {
   );
 };
 
+/**
+ * StyleSheet for styles used in the NoResultsSearch component.
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
