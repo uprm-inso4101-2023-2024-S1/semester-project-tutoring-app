@@ -9,6 +9,12 @@ import {
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
+/**
+ * Returns a list of string errors for each specified case
+ *
+ * @param {String} name
+ * @returns {Array} validationErrors
+ */
 function getNameErrors(name) {
   const validationErrors = [];
 
@@ -33,6 +39,12 @@ function getNameErrors(name) {
   return validationErrors;
 }
 
+/**
+ * Retuns a list of string errors for each specified case
+ *
+ * @param {String} lastName
+ * @returns {Array} validationErrors
+ */
 function getLastNameErrors(lastName) {
   const validationErrors = [];
 
@@ -57,6 +69,11 @@ function getLastNameErrors(lastName) {
   return validationErrors;
 }
 
+/**
+ * Returns a list of string errors for each specified case
+ * @param {String} email
+ * @returns {Array} validationErrors
+ */
 function getEmailErrors(email) {
   const validationErrors = [];
 
@@ -89,6 +106,12 @@ function getEmailErrors(email) {
   return validationErrors;
 }
 
+/**
+ * Returns a list of string errors for each specified case
+ * @param {String} password
+ * @param {String} confirmPassword
+ * @returns {Array} validationErrors
+ */
 function getPasswordErrors(password, confirmPassword) {
   const validationErrors = [];
 
@@ -125,6 +148,12 @@ function getPasswordErrors(password, confirmPassword) {
   return validationErrors;
 }
 
+/**
+ * Represents a form to create a user account
+ * Which have some fields to complete and send to validate and record the information
+ *
+ * @returns {JSX.element} render
+ */
 const SignUp = () => {
   const [form, setForm] = useState({
     name: "",
@@ -153,6 +182,11 @@ const SignUp = () => {
   const [emailStatus, setEmailStatus] = useState(defaultStatus);
   const [passwordStatus, setPasswordStatus] = useState(defaultStatus);
 
+  /**
+   * Set a form field to a current value
+   * @param {String} fieldName
+   * @param {String} value
+   */
   const updateForm = (fieldName, value) => {
     setForm({ ...form, [fieldName]: value });
   };
@@ -165,6 +199,11 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   }
 
+  /**
+   * Returns a specific color related to the current state
+   * @param {Number} status
+   * @returns {COLORS.BORDERS}
+   */
   function getBorderStyle(status) {
     if (status === validStatus) {
       return COLORS.BORDERS.valid;
@@ -174,6 +213,11 @@ const SignUp = () => {
     return COLORS.BORDERS.default;
   }
 
+  /**
+   * Returns a list of errors containing the current form for each specified field   
+   * @param {useState} form
+   * @returns {Array} validationErrors
+   */
   function getValidationErrors(form) {
     const validationErrors = [];
 
@@ -198,6 +242,10 @@ const SignUp = () => {
     return validationErrors;
   }
 
+  /**
+   * Manage the sending of registrations:
+   * show a popup with errors or register the user account in the system database
+   */
   function handleSignUp() {
     const validationErrors = getValidationErrors(form);
 
