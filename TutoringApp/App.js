@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Service from "./components/pages/Service";
-import SignUp from "./components/pages/SignUp"
+import Sign from "./components/pages/Sign";
 
 import {
   Image,
@@ -44,9 +44,7 @@ export default function App() {
             headerShown: false,
           }}
         >
-          
-          <Tab.Screen name="SignUp" component={SignUpScreen}/>
-
+          <Tab.Screen name="Sign" component={SignScreen} />
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -57,8 +55,8 @@ export default function App() {
   );
 }
 
-function SignUpScreen(){ /** TESTING */
-  return SignUp()
+function SignScreen() {
+  return Sign();
 }
 
 function HomeScreen({ navigation }) {

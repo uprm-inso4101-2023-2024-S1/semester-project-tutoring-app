@@ -6,14 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 
 /**
- * Returns a list of string errors for each specified case
+ * Returns a list of validation errors for the name input.
  *
- * @param {String} name
- * @returns {Array} validationErrors
+ * @param {String} name - The name input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getNameErrors(name) {
   const validationErrors = [];
@@ -40,10 +40,10 @@ function getNameErrors(name) {
 }
 
 /**
- * Retuns a list of string errors for each specified case
+ * Returns a list of validation errors for the last name input.
  *
- * @param {String} lastName
- * @returns {Array} validationErrors
+ * @param {String} lastName - The last name input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getLastNameErrors(lastName) {
   const validationErrors = [];
@@ -70,9 +70,10 @@ function getLastNameErrors(lastName) {
 }
 
 /**
- * Returns a list of string errors for each specified case
- * @param {String} email
- * @returns {Array} validationErrors
+ * Returns a list of validation errors for the email input.
+ *
+ * @param {String} email - The email input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getEmailErrors(email) {
   const validationErrors = [];
@@ -107,10 +108,11 @@ function getEmailErrors(email) {
 }
 
 /**
- * Returns a list of string errors for each specified case
- * @param {String} password
- * @param {String} confirmPassword
- * @returns {Array} validationErrors
+ * Returns a list of validation errors for the password input.
+ *
+ * @param {String} password - The password input to validate.
+ * @param {String} confirmPassword - The confirm password input for validation.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getPasswordErrors(password, confirmPassword) {
   const validationErrors = [];
@@ -149,10 +151,9 @@ function getPasswordErrors(password, confirmPassword) {
 }
 
 /**
- * Represents a form to create a user account
- * Which have some fields to complete and send to validate and record the information
+ * Represents a form to create a user account.
  *
- * @returns {JSX.element} render
+ * @returns {JSX.Element} render - The JSX representation of the sign-up form.
  */
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -170,8 +171,7 @@ const SignUp = () => {
 
   const validMessage = "Valid Message";
 
-  const headingText = "Sign Up";
-  const buttonMessage = "Sign up";
+  const buttonMessage = "Submit";
 
   const invalidStatus = -1;
   const defaultStatus = 0;
@@ -183,26 +183,24 @@ const SignUp = () => {
   const [passwordStatus, setPasswordStatus] = useState(defaultStatus);
 
   /**
-   * Set a form field to a current value
-   * @param {String} fieldName
-   * @param {String} value
+   * Updates the value of a form field.
+   *
+   * @param {String} fieldName - The name of the form field to update.
+   * @param {String} value - The new value for the form field.
    */
   const updateForm = (fieldName, value) => {
     setForm({ ...form, [fieldName]: value });
   };
-
-  function toggleSnackbar() {
-    setShowSnackbar(!showSnackbar);
-  }
 
   function toggleShowPassword() {
     setShowPassword(!showPassword);
   }
 
   /**
-   * Returns a specific color related to the current state
-   * @param {Number} status
-   * @returns {COLORS.BORDERS}
+   * Returns a specific border color related to the current state.
+   *
+   * @param {Number} status - The validation status (valid, invalid, or default).
+   * @returns {COLORS.BORDERS} - The appropriate border color.
    */
   function getBorderStyle(status) {
     if (status === validStatus) {
@@ -214,9 +212,10 @@ const SignUp = () => {
   }
 
   /**
-   * Returns a list of errors containing the current form for each specified field   
-   * @param {useState} form
-   * @returns {Array} validationErrors
+   * Returns a list of errors containing the current form for each specified field.
+   *
+   * @param {useState} form - The form state containing name, last name, email, password, and confirm password fields.
+   * @returns {Array} validationErrors - An array of validation error messages.
    */
   function getValidationErrors(form) {
     const validationErrors = [];
@@ -260,9 +259,7 @@ const SignUp = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>{headingText}</Text>
-
-      <View style={styles.nameAndLastNameContainer}>
+      <View style={styles.multipleFieldContainer}>
         <TextInput
           style={[
             styles.inputHalf,
@@ -303,7 +300,7 @@ const SignUp = () => {
         }}
       />
 
-      <View style={styles.passwordContainer}>
+      <View style={styles.multipleFieldContainer}>
         <TextInput
           style={[
             styles.inputHalf,
@@ -348,14 +345,13 @@ const SignUp = () => {
 
       {showSnackbar && (
         <View style={styles.snackbar}>
-          <Text>{snackbarMessage}</Text>
-          <Feather
-            name="x-circle"
-            size={SIZES.xLarge}
+          <Text style={styles.snackbarText}>{snackbarMessage}</Text>
+
+          <MaterialCommunityIcons
+            name="close-circle"
+            size={24}
             color={COLORS.tertiary}
-            marginLeft={10}
-            height={SIZES.xLarge}
-            onPress={toggleSnackbar}
+            onPress={() => setShowSnackbar(false)}
           />
         </View>
       )}
@@ -365,35 +361,25 @@ const SignUp = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    borderRadius: 10,
+    padding: SIZES.medium,
+    ...SHADOWS.medium,
   },
-  heading: {
-    marginBottom: SIZES.medium,
-    color: COLORS.primary,
-    fontSize: SIZES.large,
-  },
-  nameAndLastNameContainer: {
+  multipleFieldContainer: {
     flexDirection: "row",
     marginBottom: SIZES.medium,
   },
   inputHalf: {
     flex: 1,
-    marginBottom: SIZES.small,
     padding: SIZES.small,
     borderWidth: 1,
-    marginRight: 5,
   },
   emailInput: {
-    width: 375,
     marginBottom: SIZES.medium,
     padding: SIZES.small,
     borderWidth: 1,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    marginBottom: SIZES.medium,
   },
   icon: {
     color: COLORS.tertiary,
@@ -415,8 +401,9 @@ const styles = StyleSheet.create({
     ...SHADOWS.medium,
     marginTop: 20,
   },
-  snackbarDismiss: {
-    textAlign: "right",
+  snackbarText: {
+    flex: 1,
+    textAlign: "left",
   },
 });
 
