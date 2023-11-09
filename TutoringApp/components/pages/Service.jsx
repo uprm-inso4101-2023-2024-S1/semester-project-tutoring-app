@@ -4,6 +4,8 @@ import { COLORS, SIZES } from "../../constants/theme";
 import DepartmentList from "../../constants/department-list";
 import ServiceSearch from "../atoms/ServiceSearch";
 import ServiceContent from "../atoms/ServiceContent";
+import { supabaseClient } from "../../configdb/supabaseClient";
+
 
 /**
  * Component representing a service page that implements
@@ -41,7 +43,11 @@ const Service = () => {
       console.error(errorMessage, error);
     }
   };
-
+  
+  let data1 = supabaseClient.fetchDataFromTable('Departments');
+  console.log(data1);
+        
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{headerMessage}</Text>
