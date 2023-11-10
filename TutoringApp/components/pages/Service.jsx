@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
 import DepartmentList from "../../constants/department-list";
 import ServiceSearch from "../atoms/ServiceSearch";
 import ServiceContent from "../atoms/ServiceContent";
 import { supabaseClient } from "../../configdb/supabaseClient";
+
+
 
 
 /**
@@ -15,12 +17,23 @@ import { supabaseClient } from "../../configdb/supabaseClient";
  */
 const Service = () => {
   const [searchResults, setSearchResults] = useState(DepartmentList);
+  const [data1, setSearchJSON] = useState(null);
+  
+  // creates a json file
+  supabaseClient.fetchDataFromTable('Test').then(response => {
+    let json = JSON.stringify(response)
+    setSearchJSON(json)
+    
+  });
+  
+
 
   const headerMessage = "Search";
   const errorMessage = "An error occurred during the search";
 
   const handleSearch = (text) => {
     try {
+      
       const currText = text.trim().toLowerCase();
       if (currText.length !== 0) {
         const data = DepartmentList.filter((result) => {
@@ -44,15 +57,22 @@ const Service = () => {
     }
   };
   
-  let data1 = supabaseClient.fetchDataFromTable('Departments');
-  console.log(data1);
-        
+    
   
+  
+  
+  console.log(data1)
   return (
     <View style={styles.container}>
       <Text style={styles.header}>{headerMessage}</Text>
+      
+      
       <ServiceSearch onSearch={handleSearch} />
+
       <ServiceContent searchResults={searchResults} />
+      {/* {data1.map((test, index) => (
+          <p>{test.id}</p>
+        ))} */}
     </View>
   );
 };
