@@ -1,4 +1,4 @@
-const DeparmentList = [
+const DepartmentList = [
   {
     id: 1,
     name: "CIIC",
@@ -66,4 +66,4 @@ const DeparmentList = [
     ],
   },
 ];
-export default DeparmentList;
+export default DepartmentList;

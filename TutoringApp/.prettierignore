@@ -1,0 +1,9 @@
+.expo/
+.eslintrc.js
+.prettierrc
+app.json
+babel.config.js
+package-lock.json
+package.json
+README.md
+.github/
