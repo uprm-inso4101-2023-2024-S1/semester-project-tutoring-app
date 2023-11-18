@@ -1,4 +1,6 @@
 import { StatusBar } from "expo-status-bar";
+import Service from "./components/pages/Service";
+
 import {
   Image,
   StyleSheet,
@@ -7,11 +9,15 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import pfp from "./assets/pfp.png";
 import ProfilePicture from "./components/atoms/ProfilePicture";
+import React from "react";
+import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -23,17 +29,22 @@ const sampleCourseData = [
 const sampleScheduleData = [
   "CIIC3015 - Alejandro Ramirez 10:00AM",
   "INGE3016 - Emmanuel Velez 1:00PM",
-  "CIIC4020 - Angel Morales 4:00PM",
+  " Angel Morales 4:00PM",
   "INGE3035 - Pedro Valle",
 ];
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on Tutoring App!</Text>
+      {/* <Text>Open up App.js to start working on Tutoring App!</Text> */}
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator
+          screenOptions={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        >
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -43,43 +54,6 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-  },
-  profile: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    padding: 16,
-  },
-  row: {
-    flexDirection: "row", // Arrange child components horizontally
-    alignItems: "center", // Align items vertically at the center
-    padding: 16,
-  },
-  item: {
-    backgroundColor: "lightgray",
-    padding: 10,
-    marginVertical: 5,
-  },
-  textbox: {
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 15,
-    margin: 5,
-  },
-  button: {
-    backgroundColor: "lightblue",
-    padding: 10,
-    borderRadius: 5,
-    margin: 3,
-  },
-});
 
 function HomeScreen({ navigation }) {
   return (
@@ -137,20 +111,19 @@ function ActivityScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
     </View>
   );
 }
 function SearchScreen({ route }) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Search!</Text>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={{ flex: 1 }}>
+        {Service()}
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 const renderItem = ({ item }) => {
@@ -169,7 +142,7 @@ const MyList = () => {
     />
   );
 };
-const TextList = ({ textList }) => {
+export const TextList = ({ textList }) => {
   return (
     <View>
       {textList.map((text, index) => (
@@ -182,3 +155,40 @@ const TextList = ({ textList }) => {
     </View>
   );
 };
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+  },
+  profile: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    padding: 16,
+  },
+  row: {
+    flexDirection: "row", // Arrange child components horizontally
+    alignItems: "center", // Align items vertically at the center
+    padding: 16,
+  },
+  item: {
+    backgroundColor: "lightgray",
+    padding: 10,
+    marginVertical: 5,
+  },
+  textbox: {
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+    margin: 5,
+  },
+  button: {
+    backgroundColor: COLORS.tertiary,
+    padding: 10,
+    borderRadius: 5,
+    margin: 3,
+  },
+});
