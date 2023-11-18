@@ -1,6 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import Service from "./components/pages/Service";
 
+import Header from "./components/Profile/Header";
+import Stats from "./components/Profile/Stats";
+import Bio from "./components/Profile/Bio";
+import EditProfileButton from "./components/Profile/EditProfileButton";
+
 import {
   Image,
   StyleSheet,
@@ -18,6 +23,7 @@ import pfp from "./assets/pfp.png";
 import ProfilePicture from "./components/atoms/ProfilePicture";
 import React from "react";
 import { COLORS } from "./constants/theme";
+import ProfileScreen from "./ProfileScreen";
 
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
@@ -48,7 +54,7 @@ export default function App() {
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Profile" component={UserProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </View>
@@ -67,44 +73,17 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function ProfileScreen({ route }) {
+function UserProfileScreen({ route }) {
   return (
-    <View style={styles.profile}>
-      <View style={styles.row}>
-        {/* <Image
-          source={require("./assets/pfp.png")}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            overflow: "hidden",
-          }}
-        /> */}
-        <ProfilePicture imagePath={require("./assets/pfp.png")}/>
-        <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
-      </View>
-      <Text style={{ color: "blue" }}> Edit Profile</Text>
-      <View>
-        <Text style={{ fontSize: 24 }}>My Courses</Text>
-        <MyList />
-      </View>
-      <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
-      <TextList textList={sampleScheduleData} />
-      <Text style={{ fontSize: 24 }}>Tags</Text>
-      <View style={styles.row}>
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#LeetCode</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Java</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Python</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.profile}>
+          <div>
+            <ProfileScreen></ProfileScreen>
+          </div>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 function ActivityScreen({ route }) {
