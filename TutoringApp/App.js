@@ -7,20 +7,23 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   FlatList,
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
 } from "react-native";
-import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import React from "react";
-import Collapsible from "react-native-collapsible";
-import pfp from "./assets/pfp.png";
-import { COLORS } from "./constants/theme";
+
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+// Screens
+import HomeScreen from "./components/pages/HomeScreen";
+import UpcomingSession from "./components/pages/upcomingSession";
+import { supabaseClient } from "./config/supabaseClient";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 //Sample Data for First Mockup Version
 const sampleCourseData = [
@@ -44,18 +47,18 @@ function TabNavigator() {
     initialRouteName={"Home"}
     tabBarOptions={{
       activeTintColor: "#674886",
-      inactiveTintColor: 'grey',
+      inactiveTintColor: "grey",
       labelStyle: { paddingBottom: 5, fontSize: 10 },
     }}
-    screenOptions={({route}) => ({
-      tabBarIcon: ({focused, color, size}) => {
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
         let iconName;
         let rn = route.name;
 
         if (rn === "HomeScreen") {
-          iconName = focused ? 'home' : 'home-outline'
+          iconName = focused ? "home" : "home-outline"
         } else if (rn === "Search") {
-          iconName = focused ? 'search' : 'search-outline'
+          iconName = focused ? "search" : "search-outline"
         } else if (rn === "Activity") {
           iconName = focused ? "chatbox-ellipses" : "chatbox-ellipses-outline"
         } else if (rn === "Profile") {
@@ -65,7 +68,8 @@ function TabNavigator() {
       }
     })}
     >
-        <Tab.Screen name="HomeScreen" component={StackNavigator} options={{headerShown: false, title: "Home"}}/>
+        <Tab.Screen name="SignUp" component={SignUpScreen}/>
+        <Tab.Screen name="HomeScreen" component={StackNavigator} options={ { headerShown: false, title: "Home" } }/>
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Activity" component={ActivityScreen} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -74,42 +78,25 @@ function TabNavigator() {
 }
 
 function StackNavigator() {
-  return(
+  return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen}/>
+      <Stack.Screen name="Home" component={HomeScreen}/>
       <Stack.Screen name="UpcomingSession" component={UpcomingSession}/>
     </Stack.Navigator>
     )
-    
 }
 
 export default function App() {
-
   const data = supabaseClient.fetchDataFromTable();
   console.log(data);
-  
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={{
-            headerShadowVisible: false,
-            headerShown: false,
-          }}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Search" component={SearchScreen} />
-          <Tab.Screen name="Activity" component={ActivityScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
-        </Tab.Navigator>
+        <TabNavigator/>
       </NavigationContainer>
     </View>
   );
-}
-
-function SignUpScreen(){ /** TESTING */
-  return SignUp()
 }
 
 export const styles = StyleSheet.create({
@@ -148,6 +135,7 @@ export const styles = StyleSheet.create({
     margin: 3,
   },
 });
+
 function ProfileScreen({ route }) {
   return (
     <View style={styles.profile}>
@@ -187,6 +175,7 @@ function ProfileScreen({ route }) {
     </View>
   );
 }
+
 function ActivityScreen({ route }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -200,11 +189,14 @@ function SearchScreen({ route }) {
       <ScrollView style={{ flex: 1 }}>
         {Service()}
         <Text>
-          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+          {route?.params?.owner ? `${route.params.owner}"s Activity` : ""}
         </Text>
       </ScrollView>
     </SafeAreaView>
   );
+}
+function SignUpScreen() { /** TESTING */
+  return SignUp()
 }
 const renderItem = ({ item }) => {
   return (

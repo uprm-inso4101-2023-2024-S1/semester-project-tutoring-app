@@ -1,14 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Platform, Dimensions } from "react-native";
-import { ImageBackground } from "react-native";
+import { View, StyleSheet, } from "react-native";
 import SessionCard from "../atoms/sessionCard";
 import MeetButton from "../atoms/googleMeetButton";
 import CancelSessionButton from "../atoms/cancelSessionButton";
 import SessionTimeDetails from "../atoms/sessionTimeDetails";
 
-const { width, height } = Dimensions.get('window');
-
 /* TODO: OnPress for CourseCardComponent should call UpcomingSession with the required arguments:
-    - tutor (string) 
+    - tutor (string)
     - google meet link (string)
     - startDate (string)
     - endDate (string)
@@ -39,42 +36,42 @@ const UpcomingSession = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        alignSelf: 'center',
-        width: '100%',
-        height: '100%',
+        alignSelf: "center",
+        width: "100%",
+        height: "100%",
     },
     card: {
-        width: '100%',
-        height: '45%',
-        paddingBottom: '5%',
-        alignSelf: 'center',
+        width: "100%",
+        height: "45%",
+        paddingBottom: "5%",
+        alignSelf: "center",
     },
     bottomDetails: {
-        height: '100%',
-        alignSelf: 'center',
-        width: '100%',
+        height: "100%",
+        alignSelf: "center",
+        width: "100%",
     },
     sessionTime: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        paddingBottom: '4%',
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        paddingBottom: "4%",
     },
     horizontalSpacer: {
-        alignSelf: 'center',
+        alignSelf: "center",
         height: 3,
-        width: '90%',
-        backgroundColor: '#909090',
+        width: "90%",
+        backgroundColor: "#909090",
         borderRadius: 20,
     },
     buttons: {
-        paddingTop: '5%',
-        alignSelf: 'auto',
-        width: '100%',
-        height: '30%',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around'
+        paddingTop: "5%",
+        alignSelf: "auto",
+        width: "100%",
+        height: "30%",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-around"
     },
 });
 

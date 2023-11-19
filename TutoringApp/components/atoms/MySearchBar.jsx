@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Surface, Searchbar } from "react-native-paper";
 import Department from "../atoms/Department";
 import { StyleSheet } from "react-native";

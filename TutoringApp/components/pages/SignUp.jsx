@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -214,7 +214,7 @@ const SignUp = () => {
   }
 
   /**
-   * Returns a list of errors containing the current form for each specified field   
+   * Returns a list of errors containing the current form for each specified field
    * @param {useState} form
    * @returns {Array} validationErrors
    */

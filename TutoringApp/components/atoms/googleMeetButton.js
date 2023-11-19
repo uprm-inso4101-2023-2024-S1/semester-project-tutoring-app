@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, TouchableOpacity, PixelRatio, Dimensions } from "react-native";
+import { Text, StyleSheet, TouchableOpacity, PixelRatio, Dimensions, Linking } from "react-native";
 
 const fontScale = PixelRatio.getFontScale();
 const getFontSize = size => size / fontScale;
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
 
 const MeetButton = (props) => {
     return (
@@ -14,8 +14,8 @@ const MeetButton = (props) => {
 const styles = StyleSheet.create({
     meetButton: {
         justifyContent: "center",
-        width: width * .5,
-        height: height * .1,
+        width: width * 0.5,
+        height: height * 0.1,
         backgroundColor: "#4285F4",
         color: "#4285F4",
         borderRadius: 10,

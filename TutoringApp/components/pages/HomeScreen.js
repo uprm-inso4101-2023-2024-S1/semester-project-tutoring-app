@@ -1,24 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {
-    Image,
     StyleSheet,
     Text,
     View,
-    Button,
-    FlatList,
-    TouchableOpacity,
     ScrollView,
-    SafeAreaView
-    
   } from "react-native";
 
-import Slider from '../organisms/Scroll';
-import CourseCard from '../atoms/CourseCard';
+import Slider from "../organisms/Scroll";
 import PastActiveCourseButton from "../atoms/PastActiveCourseButton";
-import { useNavigation } from "@react-navigation/native";
 import { fetchTutors } from "../../config/supabaseClient";
-
 
 export default function HomeScreen() {
     const [status, setStatus] = useState("Active");
@@ -31,18 +22,18 @@ export default function HomeScreen() {
         }
       };
 
-    const recommendedTutors = fetchTutors('802201628'); //assuming for now a specific user given that we don't have a login page
+    const recommendedTutors = fetchTutors("802201628"); //assuming for now a specific user given that we don"t have a login page
     console.log(recommendedTutors);
 
     const tutorsToUse = [];
     if (recommendedTutors != null) {
-    for (var i = 0, len=recommendedTutors.length; i < len; i++) {
+    for (let i = 0, len = recommendedTutors.length; i < len; i++) {
       const tut = {
-        'name' : String(recommendedTutors[i].names),
-        'specialty' : String(recommendedTutors[i].specialty),
-        'courses' : recommendedTutors[i].courses,
-        'profile' : "",
-        'rating' : Number(recommendedTutors[i].tutor_rating)
+        name: String(recommendedTutors[i].names),
+        specialty: String(recommendedTutors[i].specialty),
+        courses: recommendedTutors[i].courses,
+        profile: "",
+        rating: Number(recommendedTutors[i].tutor_rating)
       };
       tutorsToUse.push(tut)
     }
@@ -50,10 +41,9 @@ export default function HomeScreen() {
 
     console.log(tutorsToUse);
 
-    const test_course_card_active = [{courseImage: require('../../assets/data-structures.png'), courseName: 'Data Structures', courseTutor: 'Jose', link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '12:00pm', endTime: '7:00pm', tutor: 'Jose'},{courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo',link: 'www.google.com', startDate: '9/25/2023', endDate: '10/20/2024', startTime: '1:00pm', endTime: '2:00pm', tutor: 'Paco'}]
-    const test_course_card_past = [{courseImage: require('../../assets/electric.jpeg'), courseName: 'Data Structures', courseTutor: 'Paco'}, {courseImage: require('../../assets/electric.jpeg'), courseName: 'Electric', courseTutor: 'Pablo'}]
-    const courseData = status === "Active" ? test_course_card_active : test_course_card_past;
-
+    const testCourseCardActive = [{ courseImage: require("../../assets/data-structures.png"), courseName: "Data Structures", courseTutor: "Jose", link: "www.google.com", startDate: "9/25/2023", endDate: "10/20/2024", startTime: "12:00pm", endTime: "7:00pm", tutor: "Jose" }, { courseImage: require("../../assets/electric.jpeg"), courseName: "Electric", courseTutor: "Pablo", link: "www.google.com", startDate: "9/25/2023", endDate: "10/20/2024", startTime: "1:00pm", endTime: "2:00pm", tutor: "Paco" }]
+    const testCourseCardPast = [{ courseImage: require("../../assets/electric.jpeg"), courseName: "Data Structures", courseTutor: "Paco" }, { courseImage: require("../../assets/electric.jpeg"), courseName: "Electric", courseTutor: "Pablo" }]
+    const courseData = status === "Active" ? testCourseCardActive : testCourseCardPast;
 
     return (
         <ScrollView style={styles.container}>
@@ -68,7 +58,7 @@ export default function HomeScreen() {
                 <Text style={styles.headingText}>Recommended Tutors</Text>
                 <Slider components={tutorsToUse} isRecommendedCard={true} />
                 <View style={styles.spacer} />
-            </View>  
+            </View>
         </ScrollView>
       );
 };
@@ -76,31 +66,31 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: "white"
     },
     scroll_box: {
         padding: 5
     },
     box: {
-        width: '100%',
+        width: "100%",
         height: 180,
     },
     inner: {
-        flex:1,
-        backgroundColor: '#eee',
-        alignItems: 'center',
-        justifyContent: 'center'
+        flex: 1,
+        backgroundColor: "#eee",
+        alignItems: "center",
+        justifyContent: "center"
     },
     spacer: {
         height: 40,
-        width: '100%'
+        width: "100%"
     },
     headingText: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         paddingHorizontal: 8
     },
     toggle_container_with_header: {
-        flexDirection: 'row',
+        flexDirection: "row",
     }
 });

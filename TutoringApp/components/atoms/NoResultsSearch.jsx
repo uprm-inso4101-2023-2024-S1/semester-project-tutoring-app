@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 /**
  * A component that represents an edge case when no search results are found.

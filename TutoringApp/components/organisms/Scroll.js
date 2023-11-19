@@ -1,21 +1,17 @@
-import React from "react";
-
 import {
     StyleSheet,
-    Text,
     View,
     ScrollView,
-    
-  } from "react-native";
+} from "react-native";
 
 import RecommendedTutorCard from "../molecules/RecommendedTutorCard";
 import CourseCard from "../atoms/CourseCard";
 
-export default function Slider({ components, isRecommendedCard=false, isCourseCard=false}) {
+export default function Slider({ components, isRecommendedCard = false, isCourseCard = false }) {
     return (
         <View>
             <ScrollView horizontal={true} style={styles.container}>
-                {components.map((elm)=> {
+                {components.map((elm) => {
                     if (isRecommendedCard) {
                         return (
                             <>
@@ -32,6 +28,7 @@ export default function Slider({ components, isRecommendedCard=false, isCourseCa
                             </>
                         )
                     }
+                    return (<></>)
                 })}
             </ScrollView>
         </View>
@@ -41,7 +38,7 @@ export default function Slider({ components, isRecommendedCard=false, isCourseCa
 const styles = StyleSheet.create({
     headingText: {
         fontSize: 24,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         paddingHorizontal: 8
     },
     container: {

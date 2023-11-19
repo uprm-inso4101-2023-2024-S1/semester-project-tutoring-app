@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, PixelRatio } from "react-native";
+import { View, Text, StyleSheet, PixelRatio } from "react-native";
 
 const fontScale = PixelRatio.getFontScale();
 const getFontSize = size => size / fontScale;
@@ -23,31 +23,31 @@ const SessionTimeDetails = (props) => {
 
 const styles = StyleSheet.create({
     sessionDetails: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
     },
     sessionStart: {
-        justifyContent: 'space-around',
+        justifyContent: "space-around",
     },
     title: {
         fontSize: getFontSize(12),
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     date: {
         fontSize: getFontSize(12),
-        color: '#909090',
-        fontWeight: '600',
+        color: "#909090",
+        fontWeight: "600",
     },
     time: {
 
         fontSize: getFontSize(18),
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     verticleLine: {
-        height: '100%',
+        height: "100%",
         width: 3,
-        backgroundColor: '#909090',
+        backgroundColor: "#909090",
         borderRadius: 20,
     }
 });
