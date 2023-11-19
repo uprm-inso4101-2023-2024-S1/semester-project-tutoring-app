@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import Services from "./components/pages/services";
+import Service from "./components/pages/Service";
+import SignUp from "./components/pages/SignUp"
 
 import {
   Image,
@@ -16,17 +17,9 @@ import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from "react";
 import Collapsible from "react-native-collapsible";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-// Screens
-import HomeScreen from "./components/pages/HomeScreen";
-import UpcomingSession from "./components/pages/upcomingSession";
-import {supabaseClient} from "./config/supabaseClient";
-import {useEffect, useState} from "react";
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import pfp from "./assets/pfp.png";
 import { COLORS } from "./constants/theme";
 
 //Sample Data for First Mockup Version
@@ -99,10 +92,24 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <TabNavigator/>
+        <Tab.Navigator
+          screenOptions={{
+            headerShadowVisible: false,
+            headerShown: false,
+          }}
+        >
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Search" component={SearchScreen} />
+          <Tab.Screen name="Activity" component={ActivityScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} />
+        </Tab.Navigator>
       </NavigationContainer>
     </View>
   );
+}
+
+function SignUpScreen(){ /** TESTING */
+  return SignUp()
 }
 
 export const styles = StyleSheet.create({
@@ -141,7 +148,6 @@ export const styles = StyleSheet.create({
     margin: 3,
   },
 });
-
 function ProfileScreen({ route }) {
   return (
     <View style={styles.profile}>
@@ -192,7 +198,7 @@ function SearchScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        {Services()}
+        {Service()}
         <Text>
           {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
         </Text>
