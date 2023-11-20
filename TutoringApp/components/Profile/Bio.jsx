@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { COLORS } from "../../constants/theme";
 
 const Bio = ({ user }) => {
   const { tags } = user;
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   tag: {
-    backgroundColor: "lightgray",
+    backgroundColor: COLORS.white,
     paddingVertical: 4,
     paddingHorizontal: 8,
     margin: 4,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   },
   tagText: {
     fontSize: 12,
-    color: "#000",
+    color: COLORS.text,
   },
 });
 
