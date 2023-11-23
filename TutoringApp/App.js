@@ -1,5 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import Service from "./components/pages/Service";
+import supabaseClient from "./config/supabaseClient";
+import {useEffect, useState} from "react";
 
 import {
   Image,
@@ -37,6 +39,9 @@ const sampleNotifications = [
   "Ismael Rivera sent you a message",
 ];
 export default function App() {
+  const data = supabaseClient.fetchDataFromTable();
+  console.log(data);
+  const insert = supabaseClient.insertDataIntoTable();
   return (
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on Tutoring App!</Text> */}
@@ -233,6 +238,34 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 3,
   },
+
+  // //Fetch data from a table
+  //  async function fetchData() {
+  //   try {
+  //     const data = await supabaseClient.fetchDataFromTable('users');
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  
+  // // Insert data into a table
+  //  async function insertData() {
+  //   try {
+  //     const dataToInsert = { column1: 'value1', column2: 'value2' };
+  //     const response = await supabaseClient.insertDataIntoTable('users', dataToInsert);
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  
+  // // Call the functions as needed
+  // fetchData();
+  // insertData();
+  
+
+
   notifications: {
     borderColor: "green",
     borderWidth: 3,
