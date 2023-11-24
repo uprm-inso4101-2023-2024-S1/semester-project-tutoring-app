@@ -110,4 +110,92 @@ export const fetchCourses = ( user_id ) => {
   return courses;
 }
 
+export const insertUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const insertUrl = async () => {
+      const { data, error } =  await supabase.rpc('setpfp', {id: user_id, Pfp: url})
+
+      if (error) {
+        setInsertError('Could not Insert Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    insertUrl()
+  }, [])
+  return null;
+}
+export const clearUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const clearUrl = async () => {
+      const { data, error } =  await supabase.rpc('clearpfp', {id: user_id})
+
+      if (error) {
+        setInsertError('Could not clear Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    clearUrl()
+  }, [])
+  return null;
+} 
+export const fetchUserFromId = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userId, setUserId] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromId = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_id', {id: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserId(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserId(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromId()
+  }, [])
+  return userId;
+}
+export const fetchUserFromEmail = ( email ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromEmail = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_email', {email: email})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserEmail(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserEmail(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromEmail()
+  }, [])
+  return userEmail;
+}
+
+
 export { supabase, supabaseClient };
