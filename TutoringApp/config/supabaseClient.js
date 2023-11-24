@@ -25,9 +25,9 @@ const supabaseClient = {
   },
 
   // Function to insert data into a table
-  async insertDataIntoTable(data) {
+  async insertDataIntoTable(tableName, data) {
     try {
-      const { error } = await supabase.from("users").insert(data);
+      const { error } = await supabase.from(tableName).insert(data);
       if (error) {
         throw new Error(error.message);
       }
@@ -36,6 +36,78 @@ const supabaseClient = {
       throw new Error(`Error inserting data: ${error.message}`);
     }
   },
+
+  async fetchRecommendedTutors(user_id) {
+    try {
+      const { data, error } = await supabase.rpc('recommended_tutors', {student: user_id});
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
+
+   async fetchRecommendedCourses(user_id) {
+    try {
+      const { data, error } = await supabase.rpc('getrecommendedcourses', {student: user_id});
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
 };
 
-export default supabaseClient;
+export const fetchTutors = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [tutors, setTutors] = useState(null)
+
+  useEffect(() => {
+    const fetchTutors = async () => {
+      const { data, error } =  await supabase.rpc('recommended_tutors', {student: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch tutors')
+        setTutors(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setTutors(data)
+        setFetchError(null)
+      }
+    }
+    fetchTutors()
+  }, [])
+  return tutors;
+}
+
+export const fetchCourses = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [courses, setCourses] = useState(null)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const { data, error } =  await supabase.rpc('getrecommendedcourses', {student: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch courses')
+        setCourses(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setCourses(data)
+        setFetchError(null)
+      }
+    }
+    fetchCourses()
+  }, [])
+  return courses;
+}
+
+export { supabase, supabaseClient };
