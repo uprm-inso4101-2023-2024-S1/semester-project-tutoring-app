@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { COLORS } from "../../constants/theme";
 
 const EditProfileButton = () => {
   return (
@@ -11,7 +12,7 @@ const EditProfileButton = () => {
 
 const styles = StyleSheet.create({
   editButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: COLORS.secondary,
     padding: 10,
     borderRadius: 5,
     marginTop: 10,

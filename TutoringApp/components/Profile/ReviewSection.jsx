@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import StarRating from "./StarRating";
+import { COLORS } from "../../constants/theme";
 const ReviewSection = ({ ratings }) => {
   return (
     <View style={styles.reviewContainer}>
@@ -18,7 +19,9 @@ const ReviewSection = ({ ratings }) => {
 
 const styles = StyleSheet.create({
   reviewContainer: {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: COLORS.white,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
     padding: 16,
     borderRadius: 10,
   },
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   reviewItem: {
-    backgroundColor: "#007BFF",
+    backgroundColor: COLORS.secondary,
     padding: 12,
     margin: 8,
     borderRadius: 8,

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { COLORS } from "../../constants/theme";
 
 const CoursesSection = ({ courses }) => {
   return (
@@ -18,7 +19,9 @@ const CoursesSection = ({ courses }) => {
 
 const styles = StyleSheet.create({
   coursesSection: {
-    backgroundColor: "#E0E0E0", 
+    backgroundColor: COLORS.white,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
     padding: 16,
     borderRadius: 10,
   },
@@ -33,13 +36,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   courseItem: {
-    backgroundColor: "#007BFF", 
+    backgroundColor: COLORS.secondary, 
     padding: 8,
     margin: 4,
     borderRadius: 8,
   },
   courseText: {
-    color: "#fff",
+    color: COLORS.white,
   },
 });
 

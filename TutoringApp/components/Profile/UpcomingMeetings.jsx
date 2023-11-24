@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { COLORS } from "../../constants/theme";
 
 const UpcomingMeetings = ({ meetings }) => {
   return (
@@ -19,7 +20,9 @@ const UpcomingMeetings = ({ meetings }) => {
 
 const styles = StyleSheet.create({
   meetingsContainer: {
-    backgroundColor: "#E0E0E0",
+    backgroundColor: COLORS.white,
+    borderWidth: 2,
+    borderColor: COLORS.primary,
     padding: 16,
     borderRadius: 10,
   },
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
     color: "#333", 
   },
   meetingItem: {
-    backgroundColor: "#007BFF",
+    backgroundColor: COLORS.secondary,
     padding: 12,
     margin: 8,
     borderRadius: 8,
