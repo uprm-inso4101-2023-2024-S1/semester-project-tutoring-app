@@ -30,15 +30,15 @@ const Service = () => {
 
   const fetchData1 = async ()=>{
     const {data: Departments} = await supabase
-    .from('Departments')
+    .from('Team2_Departments')
     .select('*');
 
     const {data: Courses} = await supabase
-    .from('courseData')
+    .from('Team2_courseData')
     .select('*');
 
     const {data: Tutors} = await supabase
-    .from('tutorsData')
+    .from('Team2_tutorsData')
     .select('*');
 
 
@@ -62,7 +62,6 @@ const Service = () => {
       DepartmentList.push(newy);
     }
 
-    console.log(DepartmentList);
   };
 
   function tutorList(){
