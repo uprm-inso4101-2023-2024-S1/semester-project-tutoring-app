@@ -19,7 +19,10 @@ const Service = () => {
   
 
 
-  const [AllVals, setSearchAll] = useState(null);
+  const [Done, setDone] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
+  const headerMessage = "Search";
+  const errorMessage = "An error occurred during the search";
   
 
   useEffect(()=>{
@@ -27,7 +30,6 @@ const Service = () => {
   },[]);
 
   const fetchData1 = async ()=>{
-    let all = []
     const {data: Departments_Listy} = await supabase
     .from('Team2_Departments')
     .select('*');
@@ -61,25 +63,24 @@ const Service = () => {
 
     };
     
-    for (let i=0;i<Departments_Listy.length;i++){
-      all.push(Departments_Listy[i]);
-    }
+    setDone(Departments_Listy);
     
-    setSearchAll(all);
+    
+    
   };
 
-  console.log(AllVals);
   
 
-  const [searchResults, setSearchResults] = useState(AllVals);
-  const headerMessage = "Search";
-  const errorMessage = "An error occurred during the search";
+  
+  
+
+  
 
   const handleSearch = (text) => {
     try {
       const currText = text.trim().toLowerCase();
       if (currText.length !== 0) {
-        const data = AllVals.filter((result) => {
+        const data = Done.filter((result) => {
           const departmentMatch = result.name?.toLowerCase().includes(currText);
           const courseOrTutorMatch = result.courseData?.some(
             (course) =>
@@ -93,7 +94,7 @@ const Service = () => {
         });
         setSearchResults(data);
       } else {
-        setSearchResults(AllVals);
+        setSearchResults(Done);
       }
     } catch (error) {
       console.error(errorMessage, error);
@@ -101,8 +102,8 @@ const Service = () => {
   };
   
     
-  
-  
+  console.log(Done)
+  console.log(searchResults)
   if(searchResults){
     return (
       <View style={styles.container}>
@@ -112,11 +113,13 @@ const Service = () => {
         <ServiceSearch onSearch={handleSearch} />
   
         <ServiceContent searchResults={searchResults} />
+        
       </View>
     );
   }else{
     return (
       <View style={styles.container}>
+        {setSearchResults(Done)}
       </View>
     );
   }
