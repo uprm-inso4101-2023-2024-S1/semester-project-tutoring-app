@@ -161,6 +161,8 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
+
+  const userId = route.params.userId; // Assuming you pass the user ID as a parameter
   const chatData = [
     { id: '1', text: 'Notifications' },
     { id: '2', text: 'Schedule' },
