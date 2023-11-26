@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
-import DepartmentList from "../../constants/department-list";
+// import DepartmentList from "../../constants/department-list";
 import ServiceSearch from "../atoms/ServiceSearch";
 import ServiceContent from "../atoms/ServiceContent";
 import { supabaseClient,supabase } from "../../configdb/supabaseClient";
@@ -16,8 +16,12 @@ import { supabaseClient,supabase } from "../../configdb/supabaseClient";
  * @returns {JSX.Element} The rendered Service component.
  */
 const Service = () => {
-  const [searchResults, setSearchResults] = useState(null);
-  const [data1, setSearchJSON] = useState(null);
+  
+
+
+  const [Departments, setSearchJSON] = useState(null);
+  const [Courses, setSearchCourses] = useState(null);
+  const [Tutors, setSearchTutors] = useState(null);
   
 
   useEffect(()=>{
@@ -25,16 +29,74 @@ const Service = () => {
   },[]);
 
   const fetchData1 = async ()=>{
-    const {data: data1} = await supabase
-    .from('Test')
+    const {data: Departments} = await supabase
+    .from('Departments')
     .select('*');
-    setSearchResults(data1)
-    setSearchJSON(data1)
+
+    const {data: Courses} = await supabase
+    .from('courseData')
+    .select('*');
+
+    const {data: Tutors} = await supabase
+    .from('tutorsData')
+    .select('*');
+
+
+
+    setSearchJSON(Departments);
+    setSearchCourses(Courses);
+    setSearchTutors(Tutors);
+    setSearchResults(Departments);
+    
   };
   
+
+  if(Departments && Courses && Tutors){
+    var DepartmentList = [];
+    
+    let courseData = CourseList(tutorList());
+
+    for (let i=0;i<3;i++){
+      let newy = Departments[i];
+      newy['courseData']=courseData[i];
+      DepartmentList.push(newy);
+    }
+
+    console.log(DepartmentList);
+  };
+
+  function tutorList(){
+    let listy = []
+    let listy2= []
+    for (let i =0;i<12;i++){
+      if(listy2.length==2){
+        listy.push(listy2);
+        listy2=[];
+      }
+      listy2.push(Tutors[i]);
+    }
+    listy.push(listy2);
+
+    return listy
+  }
   
+  function CourseList (tur){
+    let final = [];
+    let temp =[];
+    for(let i=0;i<6;i++){
+      let newy = Courses[i];
+      newy['tutors']=tur[i];
+      if(temp.length ==2){
+        final.push(temp);
+        temp = [];
+      }
+      temp.push(newy);
+    }
+    final.push(temp);
+    return final;
+  }
 
-
+  const [searchResults, setSearchResults] = useState(DepartmentList);
   const headerMessage = "Search";
   const errorMessage = "An error occurred during the search";
 
@@ -57,7 +119,7 @@ const Service = () => {
         });
         setSearchResults(data);
       } else {
-        setSearchResults(data1);
+        setSearchResults(DepartmentList);
       }
     } catch (error) {
       console.error(errorMessage, error);
@@ -68,19 +130,15 @@ const Service = () => {
   
   
   
-  console.log(data1)
-  if(data1){
+  if(searchResults){
     return (
       <View style={styles.container}>
         <Text style={styles.header}>{headerMessage}</Text>
         
         
-        {/* <ServiceSearch onSearch={handleSearch} />
+        <ServiceSearch onSearch={handleSearch} />
   
-        <ServiceContent searchResults={searchResults} /> */}
-        {data1.map((test, index) => (
-            <li key={test.id}>{test.name}</li>
-          ))} 
+        <ServiceContent searchResults={searchResults} />
       </View>
     );
   }else{
