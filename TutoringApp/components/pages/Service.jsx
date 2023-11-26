@@ -19,9 +19,7 @@ const Service = () => {
   
 
 
-  const [Departments, setSearchJSON] = useState(null);
-  const [Courses, setSearchCourses] = useState(null);
-  const [Tutors, setSearchTutors] = useState(null);
+  const [AllVals, setSearchAll] = useState(null);
   
 
   useEffect(()=>{
@@ -29,82 +27,59 @@ const Service = () => {
   },[]);
 
   const fetchData1 = async ()=>{
-    const {data: Departments} = await supabase
+    let all = []
+    const {data: Departments_Listy} = await supabase
     .from('Team2_Departments')
     .select('*');
 
-    const {data: Courses} = await supabase
-    .from('Team2_courseData')
-    .select('*');
 
-    const {data: Tutors} = await supabase
-    .from('Team2_tutorsData')
-    .select('*');
+    for(let i=0;i<Departments_Listy.length;i++){
+
+      let Depart_Name = Departments_Listy[i]['name'];
+
+      const {data: courseData} = await supabase
+      .from('Team2_courseData')
+      .select('name,id')
+      .eq('Departments',Depart_Name);
+
+      
+      for (let x=0;x<courseData.length;x++){
+
+        let id = courseData[x]['id']
+
+        const {data: tutorDAta} = await supabase
+        .from('Team2_tutorsData')
+        .select('id,name,rating')
+        .eq('course',id);
+        
+        courseData[x]['tutors']=tutorDAta;
+        Departments_Listy[i]['courseData']=courseData;
+        
+
+      };
 
 
-
-    setSearchJSON(Departments);
-    setSearchCourses(Courses);
-    setSearchTutors(Tutors);
-    setSearchResults(Departments);
+    };
     
+    for (let i=0;i<Departments_Listy.length;i++){
+      all.push(Departments_Listy[i]);
+    }
+    
+    setSearchAll(all);
   };
+
+  console.log(AllVals);
   
 
-  if(Departments && Courses && Tutors){
-    var DepartmentList = [];
-    
-    let courseData = CourseList(tutorList());
-
-    for (let i=0;i<Departments.length;i++){
-      let newy = Departments[i];
-      newy['courseData']=courseData[i];
-      DepartmentList.push(newy);
-    }
-
-  };
-
-  function tutorList(){
-    let listy = []
-    let listy2= []
-    for (let i =0;i<Tutors.length;i++){
-      if(listy2.length==2){
-        listy.push(listy2);
-        listy2=[];
-      }
-      listy2.push(Tutors[i]);
-    }
-    listy.push(listy2);
-
-    return listy
-  }
-  
-  function CourseList (tur){
-    let final = [];
-    let temp =[];
-    for(let i=0;i<tur.length;i++){
-      let newy = Courses[i];
-      newy['tutors']=tur[i];
-      if(temp.length ==2){
-        final.push(temp);
-        temp = [];
-      }
-      temp.push(newy);
-    }
-    final.push(temp);
-    return final;
-  }
-
-  const [searchResults, setSearchResults] = useState(DepartmentList);
+  const [searchResults, setSearchResults] = useState(AllVals);
   const headerMessage = "Search";
   const errorMessage = "An error occurred during the search";
 
   const handleSearch = (text) => {
     try {
-      
       const currText = text.trim().toLowerCase();
       if (currText.length !== 0) {
-        const data = DepartmentList.filter((result) => {
+        const data = AllVals.filter((result) => {
           const departmentMatch = result.name?.toLowerCase().includes(currText);
           const courseOrTutorMatch = result.courseData?.some(
             (course) =>
@@ -118,7 +93,7 @@ const Service = () => {
         });
         setSearchResults(data);
       } else {
-        setSearchResults(DepartmentList);
+        setSearchResults(AllVals);
       }
     } catch (error) {
       console.error(errorMessage, error);
@@ -126,7 +101,6 @@ const Service = () => {
   };
   
     
-  
   
   
   if(searchResults){
