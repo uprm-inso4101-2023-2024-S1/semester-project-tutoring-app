@@ -161,12 +161,27 @@ function ProfileScreen({ route }) {
   );
 }
 function ActivityScreen({ route }) {
-
+  
   const userId = route.params.userId; // Assuming you pass the user ID as a parameter
   const chatData = [
     { id: '1', text: 'Notifications' },
     { id: '2', text: 'Schedule' },
   ];
+  // Fetch activity data from the "activity" table using supabaseClient
+  async function fetchNotifications() {
+    const { data, error } = await supabase
+      .from('notifications')
+      .select('*')
+      .eq('receiver_id', userId);
+    if (error) {
+      console.error('Error fetching notifications:', error);
+      return;
+    }
+    return data;
+  }
+
+  const notifications = fetchNotifications();
+
   return (
     <View style={{ flex: 1 }}>
       <View style={{ backgroundColor: '#00cc99', flexDirection: 'row', alignItems: 'center',
@@ -186,7 +201,7 @@ function ActivityScreen({ route }) {
               </View>
             <ScrollView style={{ flex: 1 }}>
               <View style={{flex: 0.90, backgroundColor: '#f0f5f5'}}>
-              <NotificationList notify={sampleNotifications} />
+              <NotificationList notify={notifications} />
               </View>
             </ScrollView>
           </View>
