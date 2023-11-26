@@ -56,7 +56,7 @@ const Service = () => {
     
     let courseData = CourseList(tutorList());
 
-    for (let i=0;i<3;i++){
+    for (let i=0;i<Departments.length;i++){
       let newy = Departments[i];
       newy['courseData']=courseData[i];
       DepartmentList.push(newy);
@@ -68,7 +68,7 @@ const Service = () => {
   function tutorList(){
     let listy = []
     let listy2= []
-    for (let i =0;i<12;i++){
+    for (let i =0;i<Tutors.length;i++){
       if(listy2.length==2){
         listy.push(listy2);
         listy2=[];
@@ -83,7 +83,7 @@ const Service = () => {
   function CourseList (tur){
     let final = [];
     let temp =[];
-    for(let i=0;i<6;i++){
+    for(let i=0;i<tur.length;i++){
       let newy = Courses[i];
       newy['tutors']=tur[i];
       if(temp.length ==2){
