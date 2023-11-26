@@ -19,8 +19,9 @@ const Service = () => {
   
 
 
-  const [Done, setDone] = useState(null);
   const [searchResults, setSearchResults] = useState(null);
+  const [copy,setCopy] = useState(null);
+  
   const headerMessage = "Search";
   const errorMessage = "An error occurred during the search";
   
@@ -63,11 +64,14 @@ const Service = () => {
 
     };
     
-    setDone(Departments_Listy);
+    setSearchResults(Departments_Listy);
+    setCopy(Departments_Listy);
     
     
     
   };
+
+ 
 
   
 
@@ -80,7 +84,7 @@ const Service = () => {
     try {
       const currText = text.trim().toLowerCase();
       if (currText.length !== 0) {
-        const data = Done.filter((result) => {
+        const data = copy.filter((result) => {
           const departmentMatch = result.name?.toLowerCase().includes(currText);
           const courseOrTutorMatch = result.courseData?.some(
             (course) =>
@@ -94,7 +98,7 @@ const Service = () => {
         });
         setSearchResults(data);
       } else {
-        setSearchResults(Done);
+        setSearchResults(copy);
       }
     } catch (error) {
       console.error(errorMessage, error);
@@ -102,7 +106,6 @@ const Service = () => {
   };
   
     
-  console.log(Done)
   console.log(searchResults)
   if(searchResults){
     return (
@@ -119,7 +122,6 @@ const Service = () => {
   }else{
     return (
       <View style={styles.container}>
-        {setSearchResults(Done)}
       </View>
     );
   }
