@@ -106,7 +106,6 @@ const Service = () => {
   };
   
     
-  console.log(searchResults)
   if(searchResults){
     return (
       <View style={styles.container}>
