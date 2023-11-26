@@ -16,7 +16,7 @@ import { supabaseClient,supabase } from "../../configdb/supabaseClient";
  * @returns {JSX.Element} The rendered Service component.
  */
 const Service = () => {
-  const [searchResults, setSearchResults] = useState(DepartmentList);
+  const [searchResults, setSearchResults] = useState(null);
   const [data1, setSearchJSON] = useState(null);
   
 
@@ -28,6 +28,7 @@ const Service = () => {
     const {data: data1} = await supabase
     .from('Test')
     .select('*');
+    setSearchResults(data1)
     setSearchJSON(data1)
   };
   
@@ -56,7 +57,7 @@ const Service = () => {
         });
         setSearchResults(data);
       } else {
-        setSearchResults(DepartmentList);
+        setSearchResults(data1);
       }
     } catch (error) {
       console.error(errorMessage, error);
@@ -74,23 +75,17 @@ const Service = () => {
         <Text style={styles.header}>{headerMessage}</Text>
         
         
-        <ServiceSearch onSearch={handleSearch} />
+        {/* <ServiceSearch onSearch={handleSearch} />
   
-        <ServiceContent searchResults={searchResults} />
+        <ServiceContent searchResults={searchResults} /> */}
         {data1.map((test, index) => (
-            <p>{test.id}</p>
+            <li key={test.id}>{test.name}</li>
           ))} 
       </View>
     );
   }else{
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>{headerMessage}</Text>
-        
-        
-        <ServiceSearch onSearch={handleSearch} />
-  
-        <ServiceContent searchResults={searchResults} />
       </View>
     );
   }
