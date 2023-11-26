@@ -25,6 +25,10 @@ import React from "react";
 import { COLORS } from "./constants/theme";
 import ProfileScreen from "./ProfileScreen";
 
+
+import RatingComponent from "./RatingComponent";
+
+
 //Sample Data for First Mockup Version
 const Tab = createBottomTabNavigator();
 const sampleCourseData = [
@@ -57,18 +61,6 @@ export default function App() {
           <Tab.Screen name="Profile" component={UserProfileScreen} />
         </Tab.Navigator>
       </NavigationContainer>
-    </View>
-  );
-}
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-      <Button
-        title="Go to profile"
-        onPress={() => navigation.jumpTo("Profile", { owner: "Jose" })}
-      />
     </View>
   );
 }
@@ -171,3 +163,16 @@ export const styles = StyleSheet.create({
     margin: 3,
   },
 });
+
+function HomeScreen({ navigation }) {
+  return (
+    
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Home!</Text>
+      <Button
+        title="Go to profile"
+        onPress={() => navigation.jumpTo("Profile", { owner: "Jose" })}
+      />
+    </View>
+  );
+}
