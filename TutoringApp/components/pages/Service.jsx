@@ -97,9 +97,9 @@ const Service = () => {
           const departmentMatch = result.name?.toLowerCase().includes(currText);
           const courseOrTutorMatch = result.courseData?.some(
             (course) =>
-              course.name?.toLowerCase().includes(currText.toLowerCase()) ||
+              course.course_name?.toLowerCase().includes(currText.toLowerCase()) ||
               course.tutors?.some((tutor) =>
-                tutor.name?.toLowerCase().includes(currText.toLowerCase())
+                tutor.names?.toLowerCase().includes(currText.toLowerCase())
               )
           );
 
