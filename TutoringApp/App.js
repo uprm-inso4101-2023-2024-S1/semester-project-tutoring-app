@@ -65,9 +65,6 @@ function StackNavigator() {
 
 export default function App() {
 
-  const data = supabaseClient.fetchDataFromTable();
-  console.log(data);
-  const insert = supabaseClient.insertDataIntoTable();
 
   return (
     <View style={styles.container}>
@@ -218,43 +215,16 @@ function ActivityScreen({ route }) {
 }
 function SearchScreen({ route }) {
 
-  const [searchResults, setSearchResults] = useState([]);
-  const owner = route.params.owner; // Assuming you pass the owner as a parameter
-
-  useEffect(() => {
-    // Fetch search results from the "search_results" table using supabaseClient
-    async function fetchSearchResults() {
-      try {
-        const data = await supabaseClient.fetchDataFromTable("search_results"); // Specify your table name
-        // Filter the results by owner
-        const filteredResults = data.filter((result) => result.owner === owner);
-        setSearchResults(filteredResults);
-      } catch (error) {
-        console.error("Error fetching search results:", error.message);
-      }
-    }
-
-    fetchSearchResults();
-  }, [owner]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={{ flex: 1}}>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-
-      {/* Display search results here */}
-      {searchResults.map((resultItem, index) => (
-          <View key={index}>
-            <Text>{resultItem.name}</Text>
-            {/* Display other search result fields as needed */}
-          </View>
-        ))}
-    </ScrollView>
-
+      <ScrollView style={{ flex: 1 }}>
+        {Service()}
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
     </SafeAreaView>
-    
   );
 }
 const renderItem = ({ item }) => {
