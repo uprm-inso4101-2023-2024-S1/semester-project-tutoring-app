@@ -41,29 +41,38 @@ const Service = () => {
       let Depart_Name = Departments_Listy[i]['name'];
 
       const {data: courseData} = await supabase
-      .from('Team2_courseData')
-      .select('name,id')
-      .eq('Departments',Depart_Name);
+      .from('courses')
+      .select('course_name,course_id')
+      .eq('department',Depart_Name);
 
-      
       for (let x=0;x<courseData.length;x++){
 
-        let id = courseData[x]['id']
+        let id = courseData[x]['course_id']
 
-        const {data: tutorDAta} = await supabase
-        .from('Team2_tutorsData')
-        .select('id,name,rating')
-        .eq('course',id);
-        
-        courseData[x]['tutors']=tutorDAta;
-        Departments_Listy[i]['courseData']=courseData;
-        
+        const {data: tutorId} = await supabase
+        .from('tutoring_courses')
+        .select('tutor_id')
+        .eq('course_id',id);
 
+        var listy = []
+
+        for(let y=0;y<tutorId.length;y++){
+          let tutor = tutorId[y]['tutor_id'];
+
+          const {data: finalDataLine} =await supabase.from('users').select('names,tutor_rating,user_id').eq('user_id',tutor);
+
+          listy.push(finalDataLine[0]);
+        };
+        courseData[x]['tutors'] = listy;
+      
       };
+      Departments_Listy[i]['courseData']=courseData;
+      
+      
 
 
     };
-    
+    console.log(Departments_Listy);
     setSearchResults(Departments_Listy);
     setCopy(Departments_Listy);
     

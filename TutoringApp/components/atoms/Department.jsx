@@ -24,7 +24,7 @@ const Department = ({
         <Title style={styles.title}>{departmentName}</Title>
         <Paragraph style={styles.paragraph}>{departmentMessage}</Paragraph>
         {courseData.map((data, index) => (
-          <Course key={index} CourseName={data.name} Tutors={data.tutors} />
+          <Course key={data.course_id} CourseName={data.course_name} Tutors={data.tutors} />
         ))}
       </Card.Content>
     </Card>
