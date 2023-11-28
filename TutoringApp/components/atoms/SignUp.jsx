@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,15 +6,14 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
-import {supabaseClient,supabase} from "../../config/supabaseClient";
 
 /**
- * Returns a list of string errors for each specified case
+ * Returns a list of validation errors for the name input.
  *
- * @param {String} name
- * @returns {Array} validationErrors
+ * @param {String} name - The name input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getNameErrors(name) {
   const validationErrors = [];
@@ -41,10 +40,10 @@ function getNameErrors(name) {
 }
 
 /**
- * Retuns a list of string errors for each specified case
+ * Returns a list of validation errors for the last name input.
  *
- * @param {String} lastName
- * @returns {Array} validationErrors
+ * @param {String} lastName - The last name input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getLastNameErrors(lastName) {
   const validationErrors = [];
@@ -71,9 +70,10 @@ function getLastNameErrors(lastName) {
 }
 
 /**
- * Returns a list of string errors for each specified case
- * @param {String} email
- * @returns {Array} validationErrors
+ * Returns a list of validation errors for the email input.
+ *
+ * @param {String} email - The email input to validate.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getEmailErrors(email) {
   const validationErrors = [];
@@ -108,10 +108,11 @@ function getEmailErrors(email) {
 }
 
 /**
- * Returns a list of string errors for each specified case
- * @param {String} password
- * @param {String} confirmPassword
- * @returns {Array} validationErrors
+ * Returns a list of validation errors for the password input.
+ *
+ * @param {String} password - The password input to validate.
+ * @param {String} confirmPassword - The confirm password input for validation.
+ * @returns {Array} validationErrors - An array of validation error messages.
  */
 function getPasswordErrors(password, confirmPassword) {
   const validationErrors = [];
@@ -150,10 +151,9 @@ function getPasswordErrors(password, confirmPassword) {
 }
 
 /**
- * Represents a form to create a user account
- * Which have some fields to complete and send to validate and record the information
+ * Represents a form to create a user account.
  *
- * @returns {JSX.element} render
+ * @returns {JSX.Element} render - The JSX representation of the sign-up form.
  */
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -171,10 +171,7 @@ const SignUp = () => {
 
   const validMessage = "Valid Message";
 
-  const headingText = "Sign Up";
-  const signUpMessage = "Sign up";
-  const signInMessage = "Sign in";
-  const signOutMessage = "Sign out";
+  const buttonMessage = "Submit";
 
   const invalidStatus = -1;
   const defaultStatus = 0;
@@ -186,26 +183,24 @@ const SignUp = () => {
   const [passwordStatus, setPasswordStatus] = useState(defaultStatus);
 
   /**
-   * Set a form field to a current value
-   * @param {String} fieldName
-   * @param {String} value
+   * Updates the value of a form field.
+   *
+   * @param {String} fieldName - The name of the form field to update.
+   * @param {String} value - The new value for the form field.
    */
   const updateForm = (fieldName, value) => {
     setForm({ ...form, [fieldName]: value });
   };
-
-  function toggleSnackbar() {
-    setShowSnackbar(!showSnackbar);
-  }
 
   function toggleShowPassword() {
     setShowPassword(!showPassword);
   }
 
   /**
-   * Returns a specific color related to the current state
-   * @param {Number} status
-   * @returns {COLORS.BORDERS}
+   * Returns a specific border color related to the current state.
+   *
+   * @param {Number} status - The validation status (valid, invalid, or default).
+   * @returns {COLORS.BORDERS} - The appropriate border color.
    */
   function getBorderStyle(status) {
     if (status === validStatus) {
@@ -217,9 +212,10 @@ const SignUp = () => {
   }
 
   /**
-   * Returns a list of errors containing the current form for each specified field
-   * @param {useState} form
-   * @returns {Array} validationErrors
+   * Returns a list of errors containing the current form for each specified field.
+   *
+   * @param {useState} form - The form state containing name, last name, email, password, and confirm password fields.
+   * @returns {Array} validationErrors - An array of validation error messages.
    */
   function getValidationErrors(form) {
     const validationErrors = [];
@@ -249,63 +245,21 @@ const SignUp = () => {
    * Manage the sending of registrations:
    * show a popup with errors or register the user account in the system database
    */
-  async function handleSignUp() {
+  function handleSignUp() {
     const validationErrors = getValidationErrors(form);
+
     if (validationErrors.length > 0) {
       setSnackbarMessage(validationErrors.join("\n"));
     } else {
-      try {
-        const { user, error } = await supabaseClient.auth.signUp({
-          email: form.email,
-          password: form.password,
-        });
-        if (error) {setSnackbarMessage(error.message);}
-        else {
-          setSnackbarMessage("Successfully signed up. Welcome!");
-          // TODO: Redirect user to home page???
-        }
-      } catch (error) { console.error("Error:", error.message); }
+      /** TODO: Manage user register here */
+      setSnackbarMessage(validMessage);
     }
-    setShowSnackbar(true);
-  }
-
-  async function handleSignIn() {
-    const validationErrors = getValidationErrors(form);
-    if (validationErrors.length > 0) {
-      setSnackbarMessage(validationErrors.join("\n"));
-    } else {
-      try {
-        const { user, error } = await supabaseClient.auth.signIn({
-          email: form.email,
-          password: form.password,
-        });
-        if (error) {setSnackbarMessage(error.message);}
-        else {
-          setSnackbarMessage("Successfully signed in. Welcome back!");
-          // TODO: Redirect user to home page???
-        }
-      } catch (error) { console.error("Error:", error.message); }
-    }
-    setShowSnackbar(true);
-  }
-
-  async function handleSignOut() {
-    try {
-      const { error } = await supabaseClient.auth.signOut();
-      if (error) {setSnackbarMessage(error.message);}
-      else {
-        setSnackbarMessage("Successfully signed out. See you later!");
-        // TODO: Redirect user to home page???
-      }
-    } catch (error) { console.error("Error:", error.message); }
     setShowSnackbar(true);
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>{headingText}</Text>
-
-      <View style={styles.nameAndLastNameContainer}>
+      <View style={styles.multipleFieldContainer}>
         <TextInput
           style={[
             styles.inputHalf,
@@ -346,7 +300,7 @@ const SignUp = () => {
         }}
       />
 
-      <View style={styles.passwordContainer}>
+      <View style={styles.multipleFieldContainer}>
         <TextInput
           style={[
             styles.inputHalf,
@@ -384,33 +338,20 @@ const SignUp = () => {
       </View>
 
       <TouchableOpacity onPress={handleSignUp}>
-        <View style={styles.signButton}>
-          <Text style={styles.buttonText}>{signUpMessage}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleSignIn}>
-        <View style={styles.signButton}>
-          <Text style={styles.buttonText}>{signInMessage}</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleSignOut}>
-        <View style={styles.signButton}>
-          <Text style={styles.buttonText}>{signOutMessage}</Text>
+        <View style={styles.signUpButton}>
+          <Text style={styles.buttonText}>{buttonMessage}</Text>
         </View>
       </TouchableOpacity>
 
       {showSnackbar && (
         <View style={styles.snackbar}>
-          <Text>{snackbarMessage}</Text>
-          <Feather
-            name="x-circle"
-            size={SIZES.xLarge}
+          <Text style={styles.snackbarText}>{snackbarMessage}</Text>
+
+          <MaterialCommunityIcons
+            name="close-circle"
+            size={24}
             color={COLORS.tertiary}
-            marginLeft={10}
-            height={SIZES.xLarge}
-            onPress={toggleSnackbar}
+            onPress={() => setShowSnackbar(false)}
           />
         </View>
       )}
@@ -420,42 +361,32 @@ const SignUp = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    borderWidth: 1,
+    borderColor: COLORS.primary,
+    borderRadius: 10,
+    padding: SIZES.medium,
+    ...SHADOWS.medium,
   },
-  heading: {
-    marginBottom: SIZES.medium,
-    color: COLORS.primary,
-    fontSize: SIZES.large,
-  },
-  nameAndLastNameContainer: {
+  multipleFieldContainer: {
     flexDirection: "row",
     marginBottom: SIZES.medium,
   },
   inputHalf: {
     flex: 1,
-    marginBottom: SIZES.small,
     padding: SIZES.small,
     borderWidth: 1,
-    marginRight: 5,
   },
   emailInput: {
-    width: 375,
     marginBottom: SIZES.medium,
     padding: SIZES.small,
     borderWidth: 1,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    marginBottom: SIZES.medium,
   },
   icon: {
     color: COLORS.tertiary,
     marginLeft: 10,
     height: SIZES.xLarge,
   },
-  signButton: {
+  signUpButton: {
     backgroundColor: COLORS.primary,
     padding: SIZES.small,
     ...SHADOWS.small,
@@ -470,8 +401,9 @@ const styles = StyleSheet.create({
     ...SHADOWS.medium,
     marginTop: 20,
   },
-  snackbarDismiss: {
-    textAlign: "right",
+  snackbarText: {
+    flex: 1,
+    textAlign: "left",
   },
 });
 

@@ -1,6 +1,8 @@
 import { StatusBar } from "expo-status-bar";
+<<<<<<<<< Temporary merge branch 1
+=========
 import Service from "./components/pages/Service";
-import SignUp from "./components/pages/SignUp"
+import Sign from "./components/pages/Sign";
 
 import {
   Image,
@@ -10,12 +12,12 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
-  SafeAreaView,
+  SafeAreaView
+
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // Screens
@@ -24,6 +26,7 @@ import UpcomingSession from "./components/pages/upcomingSession";
 import { supabaseClient } from "./config/supabaseClient";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useEffect, useState } from "react";
 
 //Sample Data for First Mockup Version
 const sampleCourseData = [
@@ -68,7 +71,7 @@ function TabNavigator() {
       }
     })}
     >
-        <Tab.Screen name="SignUp" component={SignUpScreen}/>
+        <Tab.Screen name="Sign" component={SignScreen} />
         <Tab.Screen name="HomeScreen" component={StackNavigator} options={ { headerShown: false, title: "Home" } }/>
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -97,6 +100,10 @@ export default function App() {
       </NavigationContainer>
     </View>
   );
+}
+
+function SignScreen() {
+  return Sign();
 }
 
 export const styles = StyleSheet.create({
@@ -137,8 +144,26 @@ export const styles = StyleSheet.create({
 });
 
 function ProfileScreen({ route }) {
+  const [, setUserData] = useState(null);
+  const userId = route.params.userId; // Assuming you pass the user ID as a parameter
+
+  useEffect(() => {
+    // Fetch user data from the "users" table using supabaseClient
+    async function fetchUserData() {
+      try {
+        const data = await supabaseClient.fetchDataFromTable();
+        setUserData(data);
+      } catch (error) {
+        console.error("Error fetching user data:", error.message);
+      }
+    }
+
+    fetchUserData();
+  }, [userId]);
+
   return (
     <View style={styles.profile}>
+       {/* Display user data here */}
       <View style={styles.row}>
         <Image
           source={require("./assets/pfp.png")}
@@ -175,29 +200,77 @@ function ProfileScreen({ route }) {
     </View>
   );
 }
-
 function ActivityScreen({ route }) {
+  const [activityData, setActivityData] = useState([]);
+
+  useEffect(() => {
+    // Fetch activity data from the "activity" table using supabaseClient
+    async function fetchActivityData() {
+      try {
+        const data = await supabaseClient.fetchDataFromTable("student_tutor_courses_relationship"); // Specify your table name
+        setActivityData(data);
+      } catch (error) {
+        console.error("Error fetching activity data:", error.message);
+      }
+    }
+
+    fetchActivityData();
+  }, []);
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Activity!</Text>
+      {/* Display activity data here */}
+      {activityData.map((activityItem, index) => (
+        <View key={index}>
+          <Text>{activityItem.description}</Text>
+          {/* Display other activity data fields as needed */}
+        </View>
+      ))}
     </View>
   );
 }
+
 function SearchScreen({ route }) {
+  const [searchResults, setSearchResults] = useState([]);
+  const owner = route.params.owner; // Assuming you pass the owner as a parameter
+
+  useEffect(() => {
+    // Fetch search results from the "search_results" table using supabaseClient
+    async function fetchSearchResults() {
+      try {
+        const data = await supabaseClient.fetchDataFromTable("search_results"); // Specify your table name
+        // Filter the results by owner
+        const filteredResults = data.filter((result) => result.owner === owner);
+        setSearchResults(filteredResults);
+      } catch (error) {
+        console.error("Error fetching search results:", error.message);
+      }
+    }
+
+    fetchSearchResults();
+  }, [owner]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-        {Service()}
-        <Text>
-          {route?.params?.owner ? `${route.params.owner}"s Activity` : ""}
-        </Text>
-      </ScrollView>
+      <Text>
+        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+      </Text>
+
+      {/* Display search results here */}
+      {searchResults.map((resultItem, index) => (
+          <View key={index}>
+            <Text>{resultItem.name}</Text>
+            {/* Display other search result fields as needed */}
+          </View>
+        ))}
+    </ScrollView>
+
     </SafeAreaView>
   );
 }
-function SignUpScreen() { /** TESTING */
-  return SignUp()
-}
+
 const renderItem = ({ item }) => {
   return (
     <View style={styles.item}>
@@ -214,6 +287,7 @@ const MyList = () => {
     />
   );
 };
+
 export const TextList = ({ textList }) => {
   return (
     <View>
