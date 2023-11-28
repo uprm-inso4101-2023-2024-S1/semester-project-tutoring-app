@@ -1,21 +1,37 @@
-import { Image } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 
-// If the image to be loaded is local pass the imageSource as "require(/your/image/path)".
+/**
+ * Component that handles (display and edit) the user"s profile picture.
+ *
+ * @returns {JSX.Element} ProfilePicture Component
+ */
+const ProfilePicture = ({ imagePath }) => {
+  return (
+    <View style={styles.container}>
+      <Image
+        // source={{uri : (imagePath)}} // You can use "require" for local images
+        source={imagePath}
+        style={styles.image}
+        resizeMode="cover" // You can change resizeMode to fit your UI requirements
+      />
+    </View>
+  );
+};
 
-export default function ProfilePicture({ size, imageSource }) {
-    imageSource = imageSource || require("../../assets/test_default_profile_picture.jpg");
-    const isRemoteImage = imageSource.startsWith("http://") || imageSource.startsWith("https://");
-    return (
-        <Image
-            source={isRemoteImage ? { uri: imageSource } : imageSource}
-            style={{
-                height: size,
-                width: size,
-                borderRadius: 50
-            }}
-            props={{
-                resizeMode: "cover",
-            }}
-        />
-    );
-}
+const styles = StyleSheet.create({
+  container: {
+    width: 200, // Adjust the width and height as per your UI design
+    height: 200,
+    borderRadius: 100, // To make it a circular profile picture
+    overflow: "hidden", // Clip the image to the borderRadius
+    borderWidth: 5,
+    borderColor: "gray"
+  },
+  image: {
+    flex: 1, // Make the image expand to fill the container
+    width: null, // Reset width and height to make it responsive
+    height: null,
+  },
+});
+
+export default ProfilePicture;

@@ -2,12 +2,9 @@ import { StatusBar } from "expo-status-bar";
 import Sign from "./components/pages/Sign";
 
 import {
-  Image,
   StyleSheet,
   Text,
   View,
-  FlatList,
-  TouchableOpacity,
   ScrollView,
   SafeAreaView
 
@@ -24,19 +21,20 @@ import { supabaseClient } from "./config/supabaseClient";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useEffect, useState } from "react";
+import ProfileScreen from "./ProfileScreen";
 
 //Sample Data for First Mockup Version
-const sampleCourseData = [
-  { id: "1", text: "CIIC3015" },
-  { id: "2", text: "CIIC4010" },
-  { id: "3", text: "CIIC4020" },
-];
-const sampleScheduleData = [
-  "CIIC3015 - Alejandro Ramirez 10:00AM",
-  "INGE3016 - Emmanuel Velez 1:00PM",
-  " Angel Morales 4:00PM",
-  "INGE3035 - Pedro Valle",
-];
+// const sampleCourseData = [
+//   { id: "1", text: "CIIC3015" },
+//   { id: "2", text: "CIIC4010" },
+//   { id: "3", text: "CIIC4020" },
+// ];
+// const sampleScheduleData = [
+//   "CIIC3015 - Alejandro Ramirez 10:00AM",
+//   "INGE3016 - Emmanuel Velez 1:00PM",
+//   " Angel Morales 4:00PM",
+//   "INGE3035 - Pedro Valle",
+// ];
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -72,7 +70,7 @@ function TabNavigator() {
         <Tab.Screen name="HomeScreen" component={StackNavigator} options={ { headerShown: false, title: "Home" } }/>
         <Tab.Screen name="Search" component={SearchScreen} />
         <Tab.Screen name="Activity" component={ActivityScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
+        <Tab.Screen name="Profile" component={UserProfileScreen} />
     </Tab.Navigator>
   )
 }
@@ -140,61 +138,73 @@ export const styles = StyleSheet.create({
   },
 });
 
-function ProfileScreen({ route }) {
-  const [, setUserData] = useState(null);
-  const userId = route.params.userId; // Assuming you pass the user ID as a parameter
+// function ProfileScreen({ route }) {
+//   const [, setUserData] = useState(null);
+//   const userId = route.params.userId; // Assuming you pass the user ID as a parameter
 
-  useEffect(() => {
-    // Fetch user data from the "users" table using supabaseClient
-    async function fetchUserData() {
-      try {
-        const data = await supabaseClient.fetchDataFromTable();
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error.message);
-      }
-    }
+//   useEffect(() => {
+//     // Fetch user data from the "users" table using supabaseClient
+//     async function fetchUserData() {
+//       try {
+//         const data = await supabaseClient.fetchDataFromTable();
+//         setUserData(data);
+//       } catch (error) {
+//         console.error("Error fetching user data:", error.message);
+//       }
+//     }
 
-    fetchUserData();
-  }, [userId]);
+//     fetchUserData();
+//   }, [userId]);
 
+//   return (
+//     <View style={styles.profile}>
+//        {/* Display user data here */}
+//       <View style={styles.row}>
+//         <Image
+//           source={require("./assets/pfp.png")}
+//           style={{
+//             width: 100,
+//             height: 100,
+//             borderRadius: 100,
+//             overflow: "hidden",
+//           }}
+//         />
+//         <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
+//       </View>
+//       <Text style={{ color: "blue" }}> Edit Profile</Text>
+//       <View>
+//         <Text style={{ fontSize: 24 }}>My Courses</Text>
+//         <MyList />
+//       </View>
+//       <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
+//       <TextList textList={sampleScheduleData} />
+//       <Text style={{ fontSize: 24 }}>Tags</Text>
+//       <View style={styles.row}>
+//         <TouchableOpacity style={styles.button} disabled={true}>
+//           <Text>#LeetCode</Text>
+//         </TouchableOpacity>
+
+//         <TouchableOpacity style={styles.button} disabled={true}>
+//           <Text>#Java</Text>
+//         </TouchableOpacity>
+
+//         <TouchableOpacity style={styles.button} disabled={true}>
+//           <Text>#Python</Text>
+//         </TouchableOpacity>
+//       </View>
+//     </View>)
+// }
+function UserProfileScreen({ route }) {
   return (
-    <View style={styles.profile}>
-       {/* Display user data here */}
-      <View style={styles.row}>
-        <Image
-          source={require("./assets/pfp.png")}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            overflow: "hidden",
-          }}
-        />
-        <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
-      </View>
-      <Text style={{ color: "blue" }}> Edit Profile</Text>
-      <View>
-        <Text style={{ fontSize: 24 }}>My Courses</Text>
-        <MyList />
-      </View>
-      <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
-      <TextList textList={sampleScheduleData} />
-      <Text style={{ fontSize: 24 }}>Tags</Text>
-      <View style={styles.row}>
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#LeetCode</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Java</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Python</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={styles.profile}>
+          <div>
+            <ProfileScreen></ProfileScreen>
+          </div>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 function ActivityScreen({ route }) {
@@ -268,22 +278,22 @@ function SearchScreen({ route }) {
   );
 }
 
-const renderItem = ({ item }) => {
-  return (
-    <View style={styles.item}>
-      <Text>{item.text}</Text>
-    </View>
-  );
-};
-const MyList = () => {
-  return (
-    <FlatList
-      data={sampleCourseData}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
-  );
-};
+// const renderItem = ({ item }) => {
+//   return (
+//     <View style={styles.item}>
+//       <Text>{item.text}</Text>
+//     </View>
+//   );
+// };
+// const MyList = () => {
+//   return (
+//     <FlatList
+//       data={sampleCourseData}
+//       renderItem={renderItem}
+//       keyExtractor={(item) => item.id}
+//     />
+//   );
+// };
 
 export const TextList = ({ textList }) => {
   return (
