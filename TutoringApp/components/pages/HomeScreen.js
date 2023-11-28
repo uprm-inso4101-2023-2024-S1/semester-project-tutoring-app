@@ -32,7 +32,7 @@ export default function HomeScreen() {
         name: String(recommendedTutors[i].names),
         specialty: String(recommendedTutors[i].specialty),
         courses: recommendedTutors[i].courses,
-        profile: "",
+        profile: "TutoringApp/assets/test_default_profile_picture.jpg",
         rating: Number(recommendedTutors[i].tutor_rating)
       };
       tutorsToUse.push(tut)

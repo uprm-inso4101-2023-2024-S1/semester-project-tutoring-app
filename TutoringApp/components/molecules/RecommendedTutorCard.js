@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
         marginTop: "10%",
         borderRadius: 50,
         alignItems: "center",
-        overflow: "hidden"
+        overflow: "hidden",
     }
 });
