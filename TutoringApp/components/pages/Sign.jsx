@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
 import SignUp from "../atoms/SignUp";

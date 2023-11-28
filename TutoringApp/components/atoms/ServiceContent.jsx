@@ -19,7 +19,7 @@ const ServiceContent = ({ searchResults }) => {
       ) : (
         searchResults.map((result, index) => (
           <Department
-            key={index}
+            key={result.id}
             departmentName={result.name}
             courseData={result.courseData}
           ></Department>

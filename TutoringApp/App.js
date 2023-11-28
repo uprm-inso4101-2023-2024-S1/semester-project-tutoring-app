@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Service from "./components/pages/Service";
 import Sign from "./components/pages/Sign";
 
 import {
@@ -7,26 +8,40 @@ import {
   View,
   ScrollView,
   SafeAreaView
-
+  
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { COLORS } from "./constants/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import ProfileScreen from "./ProfileScreen";
 // Screens
 import HomeScreen from "./components/pages/HomeScreen";
 import UpcomingSession from "./components/pages/upcomingSession";
-import { supabaseClient } from "./config/supabaseClient";
-
+import {supabaseClient,supabase} from "./config/supabaseClient";
+import {useEffect, useState} from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useEffect, useState } from "react";
-import ProfileScreen from "./ProfileScreen";
+
+
+//Sample Data for First Mockup Version
+const sampleCourseData = [
+  { id: "1", text: "CIIC3015" },
+  { id: "2", text: "CIIC4010" },
+  { id: "3", text: "CIIC4020" },
+];
+const sampleScheduleData = [
+  "CIIC3015 - Alejandro Ramirez 10:00AM",
+  "INGE3016 - Emmanuel Velez 1:00PM",
+  " Angel Morales 4:00PM",
+  "INGE3035 - Pedro Valle",
+];
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
+
   return (
     <Tab.Navigator
     initialRouteName={"Home"}
@@ -138,6 +153,79 @@ function UserProfileScreen({ route }) {
     </SafeAreaView>
   );
 }
+// function ProfileScreen({ route }) {
+
+//   const [userData, setUserData] = useState(null);
+//   const id = route.params.userId
+
+
+//   useEffect(() => {
+//     // Fetch user data from the "users" table using supabaseClient
+//     async function fetchUserData() {
+//       try {
+//         const {data:user} = await supabase.from('users').select("user_id,names,last_name,pfp_image").eq('user_id',route.params.userId);
+//         setUserData(user);
+//       } catch (error) {
+//         console.error("Error fetching user data:", error.message);
+//       }
+//     }
+
+//     fetchUserData();
+//   }, []);
+
+//   console.log(userData);
+
+  
+//   if(userData){
+//     return (
+//       <View style={styles.profile}>
+//          {/* Display user data here */}
+//         <View style={styles.row}>
+//           <Image
+//             source={userData[0]['pfp_image']}
+//             style={{
+//               width: 100,
+//               height: 100,
+//               borderRadius: 100,
+//               overflow: "hidden",
+//             }}
+//           />
+//           <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
+//         </View>
+//         <Text style={{ color: "blue" }}> Edit Profile</Text>
+//         <View>
+//           <Text style={{ fontSize: 24 }}>My Courses</Text>
+//           <MyList />
+//         </View>
+//         <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
+//         <TextList textList={sampleScheduleData} />
+//         <Text style={{ fontSize: 24 }}>Tags</Text>
+//         <View style={styles.row}>
+//           <TouchableOpacity style={styles.button} disabled={true}>
+//             <Text>#LeetCode</Text>
+//           </TouchableOpacity>
+  
+//           <TouchableOpacity style={styles.button} disabled={true}>
+//             <Text>#Java</Text>
+//           </TouchableOpacity>
+  
+//           <TouchableOpacity style={styles.button} disabled={true}>
+//             <Text>#Python</Text>
+//           </TouchableOpacity>
+//         </View>
+//       </View>
+//     );
+//   }else{
+//     return (
+//       <View style={styles.profile}>
+//          {/* Display user data here */}
+//         <View style={styles.row}>
+//         </View>
+//       </View>
+//     );
+//   }
+  
+// }
 function ActivityScreen({ route }) {
   const [activityData, setActivityData] = useState([]);
 
@@ -170,41 +258,15 @@ function ActivityScreen({ route }) {
 }
 
 function SearchScreen({ route }) {
-  const [searchResults, setSearchResults] = useState([]);
-  const owner = route.params.owner; // Assuming you pass the owner as a parameter
-
-  useEffect(() => {
-    // Fetch search results from the "search_results" table using supabaseClient
-    async function fetchSearchResults() {
-      try {
-        const data = await supabaseClient.fetchDataFromTable("search_results"); // Specify your table name
-        // Filter the results by owner
-        const filteredResults = data.filter((result) => result.owner === owner);
-        setSearchResults(filteredResults);
-      } catch (error) {
-        console.error("Error fetching search results:", error.message);
-      }
-    }
-
-    fetchSearchResults();
-  }, [owner]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={{ flex: 1 }}>
-      <Text>
-        {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
-      </Text>
-
-      {/* Display search results here */}
-      {searchResults.map((resultItem, index) => (
-          <View key={index}>
-            <Text>{resultItem.name}</Text>
-            {/* Display other search result fields as needed */}
-          </View>
-        ))}
-    </ScrollView>
-
+        {Service()}
+        <Text>
+          {route?.params?.owner ? `${route.params.owner}'s Activity` : ""}
+        </Text>
+      </ScrollView>
     </SafeAreaView>
   );
 }

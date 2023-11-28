@@ -46,9 +46,9 @@ const Course = ({ CourseName, Tutors }) => {
         {Tutors.map((test, index) => (
           <Tutor
             key={index}
-            name={test.name}
+            name={test.names}
             course={test.id}
-            rating={test.rating}
+            rating={test.tutor_rating}
           />
         ))}
       </List.Accordion>
