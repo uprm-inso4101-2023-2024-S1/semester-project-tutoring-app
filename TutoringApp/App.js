@@ -94,17 +94,6 @@ function SignScreen() {
   return Sign();
 }
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-      <Button
-        title="Go to profile"
-        onPress={() => navigation.jumpTo("Profile", { owner: "Jose" })}
-      />
-    </View>
-  );
-}
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
