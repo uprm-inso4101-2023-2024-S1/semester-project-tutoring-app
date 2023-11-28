@@ -22,7 +22,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "./components/pages/HomeScreen";
 import UpcomingSession from "./components/pages/upcomingSession";
-import {supabaseClient} from "./config/supabaseClient";
+import {supabaseClient,supabase} from "./config/supabaseClient";
 import {useEffect, useState} from "react";
 
 
@@ -43,6 +43,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
+
   return (
     <Tab.Navigator>
         <Tab.Screen name="Home" component={StackNavigator} />
@@ -65,7 +66,6 @@ function StackNavigator() {
 
 export default function App() {
 
-
   return (
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on Tutoring App!</Text> */}
@@ -80,7 +80,7 @@ export default function App() {
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} initialParams={{userId:840201641}}/>
         </Tab.Navigator>
       </NavigationContainer>
     </View>
@@ -124,64 +124,81 @@ export const styles = StyleSheet.create({
   },
 });
 
-function ProfileScreen({ route }) {
+function ProfileScreen({route}) {
 
   const [userData, setUserData] = useState(null);
-  const userId = route.params.userId; // Assuming you pass the user ID as a parameter
+  const id = route.params.userId
+
+ 
 
   useEffect(() => {
     // Fetch user data from the "users" table using supabaseClient
     async function fetchUserData() {
       try {
-        const data = await supabaseClient.fetchDataFromTable();
-        setUserData(data);
+        const {data:user} = await supabase.from('users').select("user_id,names,last_name,pfp_image").eq('user_id',route.params.userId);
+        setUserData(user);
       } catch (error) {
         console.error("Error fetching user data:", error.message);
       }
     }
 
     fetchUserData();
-  }, [userId]);
+  }, []);
 
-  return (
-    <View style={styles.profile}>
-       {/* Display user data here */}
-     
-      <View style={styles.row}>
-        <Image
-          source={require("./assets/pfp.png")}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            overflow: "hidden",
-          }}
-        />
-        <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
-      </View>
-      <Text style={{ color: "blue" }}> Edit Profile</Text>
-      <View>
-        <Text style={{ fontSize: 24 }}>My Courses</Text>
-        <MyList />
-      </View>
-      <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
-      <TextList textList={sampleScheduleData} />
-      <Text style={{ fontSize: 24 }}>Tags</Text>
-      <View style={styles.row}>
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#LeetCode</Text>
-        </TouchableOpacity>
+  console.log(userData);
 
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Java</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} disabled={true}>
-          <Text>#Python</Text>
-        </TouchableOpacity>
+  
+  if(userData){
+    return (
+      <View style={styles.profile}>
+         {/* Display user data here */}
+       
+        <View style={styles.row}>
+          <Image
+            source={userData[0]['pfp_image']}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 100,
+              overflow: "hidden",
+            }}
+          />
+          <Text style={{ fontSize: 28 }}> Jose Morales Molina</Text>
+        </View>
+        <Text style={{ color: "blue" }}> Edit Profile</Text>
+        <View>
+          <Text style={{ fontSize: 24 }}>My Courses</Text>
+          <MyList />
+        </View>
+        <Text style={{ fontSize: 24 }}>Upcoming Meetings</Text>
+        <TextList textList={sampleScheduleData} />
+        <Text style={{ fontSize: 24 }}>Tags</Text>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.button} disabled={true}>
+            <Text>#LeetCode</Text>
+          </TouchableOpacity>
+  
+          <TouchableOpacity style={styles.button} disabled={true}>
+            <Text>#Java</Text>
+          </TouchableOpacity>
+  
+          <TouchableOpacity style={styles.button} disabled={true}>
+            <Text>#Python</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  );
+    );
+  }else{
+    return (
+      <View style={styles.profile}>
+         {/* Display user data here */}
+       
+        <View style={styles.row}>
+        </View>
+      </View>
+    );
+  }
+  
 }
 function ActivityScreen({ route }) {
   const [activityData, setActivityData] = useState([]);
