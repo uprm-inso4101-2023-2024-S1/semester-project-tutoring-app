@@ -1,9 +1,12 @@
-import { createClient } from "@supabase/supabase-js"
 import { useState, useEffect } from "react";
 
+// Import the Supabase client
+import { SupabaseClient, createClient } from '@supabase/supabase-js'
+
+// Initialize the Supabase client with your API URL and API Key
 const supabaseUrl = "https://qunwadbiwbycvmgscyyg.supabase.co"
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1bndhZGJpd2J5Y3ZtZ3NjeXlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUzNDAxNjcsImV4cCI6MjAxMDkxNjE2N30.nlr1UhwV5dmZKh2uoCWV0mTeKAdGAznspCqk5oBxQYs"
-
+console.log(supabaseUrl);
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // console.log(supabaseUrl);
@@ -48,6 +51,18 @@ const supabaseClient = {
       throw new Error(`Error fetching data: ${error.message}`);
     }
   },
+
+   async fetchRecommendedCourses(user_id) {
+    try {
+      const { data, error } = await supabase.rpc('getrecommendedcourses', {student: user_id});
+      if (error) {
+        throw new Error(error.message);
+      }
+      return data;
+    } catch (error) {
+      throw new Error(`Error fetching data: ${error.message}`);
+    }
+  },
 };
 
 export const fetchTutors = ( user_id ) => {
@@ -73,5 +88,117 @@ export const fetchTutors = ( user_id ) => {
   }, [])
   return tutors;
 }
+
+export const fetchCourses = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [courses, setCourses] = useState(null)
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const { data, error } =  await supabase.rpc('getrecommendedcourses', {student: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch courses')
+        setCourses(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setCourses(data)
+        setFetchError(null)
+      }
+    }
+    fetchCourses()
+  }, [])
+  return courses;
+}
+
+export const insertUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const insertUrl = async () => {
+      const { data, error } =  await supabase.rpc('setpfp', {id: user_id, Pfp: url})
+
+      if (error) {
+        setInsertError('Could not Insert Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    insertUrl()
+  }, [])
+  return null;
+}
+export const clearUrl = (user_id, url) =>{
+  const [insertError, setInsertError] = useState(null)
+
+  useEffect(() => {
+    const clearUrl = async () => {
+      const { data, error } =  await supabase.rpc('clearpfp', {id: user_id})
+
+      if (error) {
+        setInsertError('Could not clear Url')
+        console.log(error)
+      }
+
+      if (data) {
+        setInsertError(null)
+      }
+    }
+    clearUrl()
+  }, [])
+  return null;
+} 
+export const fetchUserFromId = ( user_id ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userId, setUserId] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromId = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_id', {id: user_id})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserId(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserId(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromId()
+  }, [])
+  return userId;
+}
+export const fetchUserFromEmail = ( email ) => {
+  const [fetchError, setFetchError] = useState(null)
+  const [userEmail, setUserEmail] = useState(null)
+
+  useEffect(() => {
+    const fetchUserFromEmail = async () => {
+      const { data, error } =  await supabase.rpc('get_user_from_email', {email: email})
+
+      if (error) {
+        setFetchError('Could not fetch user')
+        setUserEmail(null)
+        console.log(error)
+      }
+
+      if (data) {
+        setUserEmail(data)
+        setFetchError(null)
+      }
+    }
+    fetchUserFromEmail()
+  }, [])
+  return userEmail;
+}
+
 
 export { supabase, supabaseClient };

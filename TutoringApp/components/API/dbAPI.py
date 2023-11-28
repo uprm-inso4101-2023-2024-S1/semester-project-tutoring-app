@@ -131,6 +131,35 @@ async def delete_course():
         return jsonify({'message': 'Course deleted successfully'}), 204
     else:
         return jsonify({'message': 'Error deleting course'}), response.status_code
+@app.route('/activity/notifications', methods=['GET'])
+async def GetNotifications():
+    notifications = await DataBaseGet('notifications')
+    if notifications is not None:
+        return jsonify(notifications)
+    else:
+        return jsonify({'message': 'Error fetching users'}), 500
+
+@app.route('/activity/notifications/<int:notification_id>', methods=['DELETE'])
+async def DeleteNotification(notification_id):
+    data = request.get_json()
+    if 'activity_id' not in data:
+        return jsonify({'message': 'notification_id is required'}), 400
+    response = await DataBaseDelete(f'notifications/{notification_id}', data)
+    if response.status_code == 204:
+        return jsonify({'message': 'Notification deleted successfully'}), 204
+    else:
+        return jsonify({'message': 'Error deleting course'}), response.status_code
+
+@app.route('/activity/notifications/<int:notification_id>', methods=['PUT'])
+async def UpdateNotification(notification_id):
+    data = request.get_json()
+    if 'activity_id' not in data:
+        return jsonify({'message': 'notification_id'}), 400
+    success = await DataBasePut(f'notifications/{notification_id}', data)
+    if success:
+        return jsonify({'message': 'Notification updated successfully'}), 200
+    else:
+        return jsonify({'message': 'Error updating course schedule'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
