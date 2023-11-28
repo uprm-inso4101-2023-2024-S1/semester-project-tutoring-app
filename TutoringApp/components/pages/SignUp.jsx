@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, SIZES, SHADOWS } from "../../constants/theme";
+import {supabaseClient,supabase} from "../../config/supabaseClient";
 
 /**
  * Returns a list of string errors for each specified case
@@ -171,7 +172,9 @@ const SignUp = () => {
   const validMessage = "Valid Message";
 
   const headingText = "Sign Up";
-  const buttonMessage = "Sign up";
+  const signUpMessage = "Sign up";
+  const signInMessage = "Sign in";
+  const signOutMessage = "Sign out";
 
   const invalidStatus = -1;
   const defaultStatus = 0;
@@ -246,15 +249,55 @@ const SignUp = () => {
    * Manage the sending of registrations:
    * show a popup with errors or register the user account in the system database
    */
-  function handleSignUp() {
+  async function handleSignUp() {
     const validationErrors = getValidationErrors(form);
-
     if (validationErrors.length > 0) {
       setSnackbarMessage(validationErrors.join("\n"));
     } else {
-      /** TODO: Manage user register here */
-      setSnackbarMessage(validMessage);
+      try {
+        const { user, error } = await supabaseClient.auth.signUp({
+          email: form.email,
+          password: form.password,
+        });
+        if (error) {setSnackbarMessage(error.message);}
+        else {
+          setSnackbarMessage("Successfully signed up. Welcome!");
+          // TODO: Redirect user to home page???
+        }
+      } catch (error) { console.error("Error:", error.message); }
     }
+    setShowSnackbar(true);
+  }
+
+  async function handleSignIn() {
+    const validationErrors = getValidationErrors(form);
+    if (validationErrors.length > 0) {
+      setSnackbarMessage(validationErrors.join("\n"));
+    } else {
+      try {
+        const { user, error } = await supabaseClient.auth.signIn({
+          email: form.email,
+          password: form.password,
+        });
+        if (error) {setSnackbarMessage(error.message);}
+        else {
+          setSnackbarMessage("Successfully signed in. Welcome back!");
+          // TODO: Redirect user to home page???
+        }
+      } catch (error) { console.error("Error:", error.message); }
+    }
+    setShowSnackbar(true);
+  }
+
+  async function handleSignOut() {
+    try {
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) {setSnackbarMessage(error.message);}
+      else {
+        setSnackbarMessage("Successfully signed out. See you later!");
+        // TODO: Redirect user to home page???
+      }
+    } catch (error) { console.error("Error:", error.message); }
     setShowSnackbar(true);
   }
 
@@ -341,8 +384,20 @@ const SignUp = () => {
       </View>
 
       <TouchableOpacity onPress={handleSignUp}>
-        <View style={styles.signUpButton}>
-          <Text style={styles.buttonText}>{buttonMessage}</Text>
+        <View style={styles.signButton}>
+          <Text style={styles.buttonText}>{signUpMessage}</Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleSignIn}>
+        <View style={styles.signButton}>
+          <Text style={styles.buttonText}>{signInMessage}</Text>
+        </View>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleSignOut}>
+        <View style={styles.signButton}>
+          <Text style={styles.buttonText}>{signOutMessage}</Text>
         </View>
       </TouchableOpacity>
 
@@ -400,7 +455,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     height: SIZES.xLarge,
   },
-  signUpButton: {
+  signButton: {
     backgroundColor: COLORS.primary,
     padding: SIZES.small,
     ...SHADOWS.small,
