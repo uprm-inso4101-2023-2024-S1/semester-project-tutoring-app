@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import Service from "./components/pages/Service";
+import Sign from "./components/pages/Sign";
 
 import {
   Image,
@@ -80,6 +81,7 @@ export default function App() {
             headerShown: false,
           }}
         >
+          <Tab.Screen name="Sign" component={SignScreen} />
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Search" component={SearchScreen} />
           <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -90,6 +92,22 @@ export default function App() {
   );
 }
 
+
+function SignScreen() {
+  return Sign();
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Home!</Text>
+      <Button
+        title="Go to profile"
+        onPress={() => navigation.jumpTo("Profile", { owner: "Jose" })}
+      />
+    </View>
+  );
+}
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -126,6 +144,7 @@ export const styles = StyleSheet.create({
     margin: 3,
   },
 });
+
 
 function ProfileScreen({ route }) {
 
