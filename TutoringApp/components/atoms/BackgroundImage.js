@@ -1,9 +1,8 @@
-import React from 'react';
-import {Text} from 'react-native'
+import { Text } from "react-native"
 
 /**
- * Component that handles (display and edit) the user's background image.
- * 
+ * Component that handles (display and edit) the user"s background image.
+ *
  * @returns {JSX.Element} BackgroundImage Component
  */
 const BackgroundImage = () => {

@@ -1,9 +1,8 @@
-import React from 'react';
-import {Text} from 'react-native'
+import { Text } from "react-native"
 
 /**
- * Component that displays the user's contact information.
- * 
+ * Component that displays the user"s contact information.
+ *
  * @returns {JSX.Element} ContactInfo Component
  */
 const ContactInfo = () => {

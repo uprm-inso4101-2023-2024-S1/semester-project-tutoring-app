@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Searchbar } from "react-native-paper";
 import { COLORS } from "../../constants/theme";
 

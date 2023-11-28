@@ -1,11 +1,10 @@
-import React from 'react';
-import {View} from 'react-native'
+import { View } from "react-native"
 
-import TutoringSessionsList from '../molecules/TutoringSessionsList';
+import TutoringSessionsList from "../molecules/TutoringSessionsList";
 
 /**
- * Component that contains and displays multiple TutoringSessionsList in user's profile.
- * 
+ * Component that contains and displays multiple TutoringSessionsList in user"s profile.
+ *
  * @returns {JSX.Element} TutoringSessionsBoard Component
  */
 const TutoringSessionsBoard = () => {

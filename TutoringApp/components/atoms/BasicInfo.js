@@ -1,9 +1,8 @@
-import React from 'react';
-import {Text} from 'react-native'
+import { Text } from "react-native"
 
 /**
- * Component that displays the current user's basic information.
- * 
+ * Component that displays the current user"s basic information.
+ *
  * @returns {JSX.Element} BasicInfo Component
  */
 const BasicInfo = () => {
