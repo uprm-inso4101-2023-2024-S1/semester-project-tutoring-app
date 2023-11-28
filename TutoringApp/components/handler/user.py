@@ -71,6 +71,18 @@ class UserHandler:
                                             last_name, student_rating, tutor_rating, specialty,
                                             user_description, pfp_image)
         return jsonify(User=result), 201
+    
+    def get_user_by_email(self, email):
+        user_list = self.user_dao.get_user_by_email(email)
+        return jsonify(User=user_list)
+    
+    def get_user_by_email_and_password(self, email, password_hash):
+        user_list = self.user_dao.get_user_by_email_and_password(email, password_hash)
+        return jsonify(User=user_list)
+    
+    def get_user_page_by_id(self, user_id):
+        user_list = self.user_dao.get_user_page_by_id(user_id)
+        return jsonify(User=user_list)
 
     # Add methods for other functionalities like getting friends, premium status, etc.
     # ...

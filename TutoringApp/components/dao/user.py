@@ -49,3 +49,19 @@ class UserDAO:
 
     # Add methods for other functionalities like getting friends, premium status, etc.
     # ...
+
+    def get_user_by_email(self, email):
+        query = "SELECT * FROM public.users WHERE email = %s"
+        return self.execute_query(query, (email,))
+    
+    def get_user_by_email_and_password(self, email, password_hash):
+        query = "SELECT * FROM public.users WHERE email = %s AND password_hash = %s"
+        return self.execute_query(query, (email, password_hash))
+    
+    def get_user_by_email_and_password_hash(self, email, password_hash):
+        query = "SELECT * FROM public.users WHERE email = %s AND password_hash = %s"
+        return self.execute_query(query, (email, password_hash))
+    
+    def get_user_page_by_id(self, user_id):
+        query = "SELECT * FROM public.user_page WHERE user_id = %s"
+        return self.execute_query(query, (user_id,))
