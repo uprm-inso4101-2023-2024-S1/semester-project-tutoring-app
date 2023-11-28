@@ -1,7 +1,4 @@
 import { StatusBar } from "expo-status-bar";
-<<<<<<<<< Temporary merge branch 1
-=========
-import Service from "./components/pages/Service";
 import Sign from "./components/pages/Sign";
 
 import {
