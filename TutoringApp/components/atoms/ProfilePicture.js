@@ -20,10 +20,10 @@ const ProfilePicture = ({ imagePath }) => {
 
 const styles = StyleSheet.create({
   container: {
+    display: "none",
     width: 200, // Adjust the width and height as per your UI design
     height: 200,
     borderRadius: 100, // To make it a circular profile picture
-    overflow: "hidden", // Clip the image to the borderRadius
     borderWidth: 5,
     borderColor: "gray"
   },

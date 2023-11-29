@@ -164,24 +164,9 @@ function ActivityScreen({ route }) {
   
   return (
     <View style={{ flex: 1 }}>
-      <View
-        style={{
-          backgroundColor: '#00cc99',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: 30,
-        }}
-      >
-        <Image source={require('./assets/favicon.png')} style={{ width: 50, height: 50 }} />
-      </View>
+
       <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={{ flex: 0.2, backgroundColor: '#e0ebeb' }}>
-          <Text style={{ fontSize: 30, padding: 25, fontWeight: 'bold' }}>Activity</Text>
-          <Text style={{ fontSize: 28, padding: 30, paddingLeft: 40 }}>Notifications</Text>
-          <Text style={{ fontSize: 28, padding: 30, paddingLeft: 40 }}>Schedule</Text>
-        </View>
-        <View style={{ flex: 0.8, flexDirection: 'column' }}>
+        <View style={{ flex: 1, flexDirection: 'column' }}>
           <View style={{ flex: 0.10, backgroundColor: '#c3d5d5' }}>
             <Text style={{ fontSize: 22, paddingLeft: 50, paddingVertical: 10 }}>Notifications</Text>
           </View>

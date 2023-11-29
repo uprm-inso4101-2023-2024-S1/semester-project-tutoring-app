@@ -77,8 +77,5 @@ const styles = StyleSheet.create({
     profilePictureContainer: {
         width: "100%",
         marginTop: "10%",
-        borderRadius: 50,
-        alignItems: "center",
-        overflow: "hidden",
     }
 });
