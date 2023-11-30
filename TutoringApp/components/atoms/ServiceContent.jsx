@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
 import Department from "../atoms/Department";

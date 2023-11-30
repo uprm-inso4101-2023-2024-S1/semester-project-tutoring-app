@@ -1,4 +1,3 @@
-import React from "react";
 import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants/theme";
 import { Card, Title, Paragraph } from "react-native-paper";

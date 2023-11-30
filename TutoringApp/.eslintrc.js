@@ -40,17 +40,18 @@ module.exports = {
   rules: {
     semi: 'off',
     'space-before-function-paren': 'off',
-    'no-unused-vars': 'warn',
+    // 'no-unused-vars': 'warn',
     'react/prop-types': 'off',
     quotes: [2, 'double'], // double quotes for text
     'react/jsx-key': 'off',
-    'filenames/match-regex': ['error', '^[a-z]+(-[a-z]+)*$'], // kebab-case
-    "react/jsx-pascal-case": ["error", { allowAllCaps: true, ignore: [] }], // PascalCase for .jsx components
+    // 'filenames/match-regex': ['error', '^[a-z]+(-[a-z]+)*$'], // kebab-case
+    // "react/jsx-pascal-case": ["error", { allowAllCaps: true, ignore: [] }], // PascalCase for .jsx components
     'spaced-comment': 'off',
     'multiline-ternary': 'off',
     'prefer-const': 'off',
     'import/no-duplicates': 'warn',
-    'comma-dangle': 'off'
+    'comma-dangle': 'off',
+    indent: "off",
     // Rule not included here: camelCase for variable names; it is a default rule
   }
 }

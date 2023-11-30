@@ -1,4 +1,3 @@
-import React from "react";
 import { Pressable, Text, StyleSheet, View } from "react-native";
 
 export default function PastActiveCourseButton({ onPress, status }) {
@@ -14,18 +13,18 @@ export default function PastActiveCourseButton({ onPress, status }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    justifyContent: "center",
+    alignItems: "flex-end",
   },
   button: {
     width: 150,
     height: 40,
     borderRadius: 5,
-    backgroundColor: '#674886',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#674886",
+    justifyContent: "center",
+    alignItems: "center",
   },
   buttonText: {
-    color: 'white',
+    color: "white",
   },
 });
